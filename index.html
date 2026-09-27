@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ Aura Live Canvas Celebrations ✨</title>
+    <title>✨ Aura Luxury Celebrations ✨</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -20,336 +20,148 @@
             text-align: center;
             overflow-y: auto;
             position: relative;
+            transition: background 0.8s ease-in-out;
         }
 
         #liveBgCanvas, #effectsCanvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;
         }
         #liveBgCanvas { z-index: 0; }
         #effectsCanvas { z-index: 99999; }
 
-        .top-bar {
-            width: 100%;
-            max-width: 380px;
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
-            z-index: 10;
-        }
+        .top-bar { width: 100%; max-width: 380px; display: flex; justify-content: flex-end; margin-bottom: 10px; z-index: 10; }
         .lang-select {
-            background: rgba(255, 215, 0, 0.15);
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            color: #ffd700;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            outline: none;
-            backdrop-filter: blur(5px);
+            background: rgba(255, 215, 0, 0.15); border: 1px solid rgba(255, 215, 0, 0.4); color: #ffd700;
+            padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; outline: none; backdrop-filter: blur(5px);
         }
         .lang-select option { background: #1b1b2f; color: #fff; }
 
         .container {
-            width: 100%;
-            max-width: 380px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.25);
-            border-radius: 22px;
-            padding: 18px;
-            backdrop-filter: blur(14px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-            margin-bottom: 14px;
-            position: relative;
-            z-index: 2;
+            width: 100%; max-width: 380px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 22px; padding: 18px; backdrop-filter: blur(14px); box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            margin-bottom: 14px; position: relative; z-index: 2;
         }
 
-        .header-box-base {
-            border-radius: 20px;
-            padding: 18px 14px;
-            margin-bottom: 14px;
-            transition: all 0.5s ease-in-out;
-        }
-        .theme-Birthday {
-            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,0,127,0.2));
-            border: 2px solid #ffd700;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
-        }
-        .theme-Proposal {
-            background: linear-gradient(135deg, rgba(255,0,127,0.2), rgba(150,0,255,0.2));
-            border: 2px solid #ff3366;
-            box-shadow: 0 0 30px rgba(255, 51, 102, 0.6);
-        }
-        .theme-WeddingWish {
-            background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(255,215,0,0.15));
-            border: 2px solid #00f2fe;
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.6);
-        }
-        .theme-Wedding {
-            background: linear-gradient(135deg, rgba(255,215,0,0.25), rgba(255,50,150,0.2));
-            border: 2px solid #e5c158;
-            box-shadow: 0 0 35px rgba(229, 193, 88, 0.7);
-        }
-        .theme-Graduation {
-            background: linear-gradient(135deg, rgba(0,242,254,0.15), rgba(0,255,128,0.15));
-            border: 2px solid #00f2fe;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
-        }
-        .theme-NewBorn {
-            background: linear-gradient(135deg, rgba(255,182,193,0.25), rgba(173,216,230,0.25));
-            border: 2px solid #ffb6c1;
-            box-shadow: 0 0 30px rgba(255, 182, 193, 0.7);
-        }
+        .header-box-base { border-radius: 20px; padding: 18px 14px; margin-bottom: 14px; transition: all 0.5s ease-in-out; }
+        
+        body.theme-Birthday-bg { background: radial-gradient(circle at center, #2e1a30 0%, #080309 100%); }
+        .theme-Birthday { background: linear-gradient(135deg, rgba(255,215,0,0.25), rgba(255,0,127,0.25)); border: 2px solid #ffd700; }
 
-        .category-title-text {
-            font-size: 1.35rem;
-            font-weight: 800;
-            line-height: 1.4;
-            letter-spacing: 0.5px;
-        }
+        body.theme-Proposal-bg { background: radial-gradient(circle at center, #380d27 0%, #0d0208 100%); }
+        .theme-Proposal { background: linear-gradient(135deg, rgba(255,0,127,0.3), rgba(150,0,255,0.3)); border: 2px solid #ff3366; box-shadow: 0 0 35px rgba(255,51,102,0.7); }
+
+        body.theme-WeddingWish-bg, body.theme-Wedding-bg { background: radial-gradient(circle at center, #0b2938 0%, #02070a 100%); }
+        .theme-WeddingWish, .theme-Wedding { background: linear-gradient(135deg, rgba(0,242,254,0.25), rgba(255,215,0,0.2)); border: 2px solid #00f2fe; }
+
+        body.theme-Graduation-bg { background: radial-gradient(circle at center, #08332c 0%, #020a09 100%); }
+        .theme-Graduation { background: linear-gradient(135deg, rgba(0,255,150,0.2), rgba(0,242,254,0.25)); border: 2px solid #00ffaa; }
+
+        body.theme-NewBorn-bg { background: radial-gradient(circle at center, #301828 0%, #070306 100%); }
+        .theme-NewBorn { background: linear-gradient(135deg, rgba(255,182,193,0.3), rgba(173,216,230,0.3)); border: 2px solid #ffb6c1; }
+
+        .category-title-text { font-size: 1.35rem; font-weight: 800; line-height: 1.4; letter-spacing: 0.5px; }
 
         .details-box {
-            background: rgba(255, 215, 0, 0.06);
-            border: 1px dashed rgba(255, 215, 0, 0.35);
-            border-radius: 12px;
-            padding: 10px;
-            margin-bottom: 12px;
-            font-size: 0.85rem;
-            color: #f8fafc;
+            background: rgba(255, 215, 0, 0.06); border: 1px dashed rgba(255, 215, 0, 0.35); border-radius: 12px;
+            padding: 10px; margin-bottom: 12px; font-size: 0.85rem; color: #f8fafc;
         }
         .details-box span { color: #ffd700; font-weight: 600; }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 8px;
-        }
-        .stat-card {
-            background: rgba(255, 215, 0, 0.06);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 10px;
-            padding: 8px;
-            text-align: center;
-        }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+        .stat-card { background: rgba(255, 215, 0, 0.06); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 10px; padding: 8px; text-align: center; }
         .stat-card .num { font-size: 1rem; font-weight: bold; color: #ffd700; }
         .stat-card .label { font-size: 0.7rem; color: #cbd5e1; margin-top: 2px; }
 
-        .open-when-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 8px;
-        }
+        .open-when-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
         .envelope-btn {
-            background: rgba(255, 215, 0, 0.08);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 10px;
-            padding: 10px 8px;
-            color: #fff;
-            font-size: 0.78rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
+            background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 10px;
+            padding: 10px 8px; color: #fff; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; text-align: center;
         }
         .envelope-btn:active { transform: scale(0.96); background: rgba(255, 215, 0, 0.2); }
 
-        #giftSection {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 10px;
-            cursor: pointer;
-        }
-        .gift-box {
-            font-size: 5.5rem;
-            cursor: pointer;
-            animation: bounceGift 1.3s infinite ease-in-out;
-            transition: transform 0.3s;
-            user-select: none;
-        }
-        .gift-box:hover { transform: scale(1.15); }
-        @keyframes bounceGift {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
+        #giftSection { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 10px; cursor: pointer; }
+        .gift-box { font-size: 5.5rem; cursor: pointer; animation: bounceGift 1.3s infinite ease-in-out; transition: transform 0.3s; user-select: none; }
+        @keyframes bounceGift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
         .scratch-container {
-            position: relative;
-            width: 100%;
-            height: 240px;
-            border-radius: 14px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #2a2a40, #1a1a2e);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            color: #fff;
-            margin: 8px auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 12px;
+            position: relative; width: 100%; height: 240px; border-radius: 14px; overflow: hidden;
+            background: linear-gradient(135deg, #2a2a40, #1a1a2e); border: 2px solid rgba(255, 215, 0, 0.3); color: #fff; margin: 8px auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;
         }
         canvas#scratchCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; touch-action: none; z-index: 2; }
         
-        .hidden-content {
-            width: 100%;
-            height: 100%;
-            overflow-y: auto;
-            padding: 10px;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+        .hidden-content { width: 100%; height: 100%; overflow-y: auto; padding: 10px; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
         .hidden-content h3 { color: #ffd700; margin-bottom: 6px; font-size: 1rem; }
         .hidden-content p { color: #e2e8f0; font-size: 0.85rem; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; }
 
-        .single-photo-box {
-            width: 100%;
-            max-height: 240px;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 10px;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
+        .single-photo-box { width: 100%; max-height: 240px; border-radius: 12px; overflow: hidden; margin-bottom: 10px; background: #000; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 215, 0, 0.3); }
         .single-photo-box img { width: 100%; max-height: 230px; object-fit: contain; }
 
-        .media-box video {
-            width: 100%;
-            max-height: 280px;
-            border-radius: 10px;
-            background: #000;
-            margin-bottom: 6px;
-        }
+        .media-box video { width: 100%; max-height: 280px; border-radius: 10px; background: #000; margin-bottom: 6px; }
         .media-box audio { width: 100%; margin-top: 6px; border-radius: 8px; margin-bottom: 8px; height: 36px; }
 
-        .fs-btn {
-            background: rgba(255, 215, 0, 0.2);
-            border: 1px solid #ffd700;
-            color: #ffd700;
-            font-size: 0.75rem;
-            padding: 6px 14px;
-            border-radius: 15px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            font-weight: 600;
-        }
+        .fs-btn { background: rgba(255, 215, 0, 0.2); border: 1px solid #ffd700; color: #ffd700; font-size: 0.75rem; padding: 6px 14px; border-radius: 15px; margin-bottom: 8px; cursor: pointer; font-weight: 600; }
 
-        /* --- 🌟 LIVE INTERACTIVE STAGE & CANVAS ANIMATION --- */
+        /* --- 🎬 STORY STAGE --- */
         .story-stage {
-            width: 100%;
-            min-height: 290px;
-            background: radial-gradient(circle at bottom, rgba(255,215,0,0.2) 0%, rgba(8,6,15,0.98) 85%);
-            border-radius: 20px;
-            border: 2px solid rgba(255,215,0,0.6);
-            margin: 12px 0;
-            padding: 15px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.95), 0 0 30px rgba(255,215,0,0.3);
+            width: 100%; min-height: 310px;
+            background: radial-gradient(circle at bottom, rgba(255,0,127,0.25) 0%, rgba(8,6,15,0.98) 85%);
+            border-radius: 20px; border: 2px solid rgba(255,51,102,0.6);
+            margin: 12px 0; padding: 18px; position: relative;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.95), 0 0 30px rgba(255,51,102,0.4);
             overflow: hidden;
         }
 
-        /* ലൈവ് കാൻവാസ് ആനിമേഷൻ വിഷ്വൽ ബോക്സ് */
-        .live-canvas-container {
-            position: relative;
-            width: 240px;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 5px;
+        .cinematic-viewport {
+            position: relative; width: 100%; height: 170px; display: flex; align-items: flex-end; justify-content: center; gap: 50px; margin-bottom: 8px;
         }
+        .vector-character-boy {
+            font-size: 4.2rem; position: relative; transform: translateX(-140px); transition: transform 2.2s cubic-bezier(0.25, 1, 0.5, 1);
+            filter: drop-shadow(0 0 15px rgba(255,215,0,0.8));
+        }
+        .vector-character-boy.walk-forward { transform: translateX(0); }
+        .vector-character-boy.kneel-down { transform: translateX(0) translateY(15px) rotate(-12deg); }
+
+        .vector-character-girl {
+            font-size: 4.2rem; position: relative; animation: vectorGlow 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 15px rgba(255,0,127,0.8));
+        }
+        @keyframes vectorGlow { 0%, 100% { filter: drop-shadow(0 0 10px rgba(255,0,127,0.6)); } 50% { filter: drop-shadow(0 0 25px rgba(255,215,0,0.9)); } }
+        .vector-character-girl.say-yes { animation: girlCelebration 0.6s infinite alternate ease-in-out; }
+        @keyframes girlCelebration { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-15px) scale(1.12); } }
+
+        .luxury-ring-box {
+            position: absolute; bottom: 35px; left: 47%; transform: translateX(-50%) scale(0); font-size: 2.2rem;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 0 20px #ffd700); z-index: 10;
+        }
+        .luxury-ring-box.reveal-ring { transform: translateX(-50%) scale(1.4); animation: ringPulse 1.5s infinite alternate; }
+        @keyframes ringPulse { 0% { filter: drop-shadow(0 0 10px #ffd700); } 100% { filter: drop-shadow(0 0 30px #ffffff); } }
 
         .interactive-choice-box {
-            display: none;
-            gap: 12px;
-            margin-top: 10px;
-            animation: popIn 0.5s ease-out;
-            z-index: 99;
+            display: none; gap: 12px; margin-top: 14px; animation: popIn 0.5s ease-out; z-index: 99;
         }
-        @keyframes popIn {
-            0% { transform: scale(0.6); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+        @keyframes popIn { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
         .choice-btn-yes {
-            background: linear-gradient(45deg, #ff007f, #ff5e62);
-            color: #fff;
-            border: 2px solid #ffd700;
-            padding: 10px 22px;
-            border-radius: 25px;
-            font-weight: 800;
-            font-size: 0.95rem;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.8);
-            animation: pulseYes 1.4s infinite;
+            background: linear-gradient(45deg, #ff007f, #ff5e62); color: #fff; border: 2px solid #ffd700;
+            padding: 10px 22px; border-radius: 25px; font-weight: 800; font-size: 0.95rem; cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.8); animation: pulseYes 1.4s infinite;
         }
-        @keyframes pulseYes {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-        }
+        @keyframes pulseYes { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+        
         .choice-btn-think {
-            background: rgba(255, 255, 255, 0.15);
-            color: #eee;
-            border: 1px solid #aaa;
-            padding: 10px 16px;
-            border-radius: 25px;
-            font-size: 0.82rem;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.15); color: #ffd700; border: 1px solid rgba(255,215,0,0.5);
+            padding: 10px 18px; border-radius: 25px; font-size: 0.82rem; cursor: pointer; font-weight: 600;
+            transition: all 0.2s;
         }
+        .choice-btn-think:hover { background: rgba(255,215,0,0.25); }
 
-        .gender-switch-box {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-            z-index: 10;
-        }
-        .gender-btn {
-            background: rgba(255, 215, 0, 0.15);
-            border: 1px solid #ffd700;
-            color: #ffd700;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .gender-btn.active {
-            background: #ffd700;
-            color: #000;
-        }
-
-        .story-caption {
-            font-size: 0.9rem;
-            color: #ffd700;
-            margin-top: 8px;
-            font-weight: 600;
-            min-height: 26px;
-        }
+        .story-caption { font-size: 0.92rem; color: #ffd700; margin-top: 10px; font-weight: 600; min-height: 28px; }
 
         .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
         .btn {
-            background: linear-gradient(45deg, #ffd700, #ffaa00);
-            color: #1a1a2e;
-            border: none;
-            padding: 10px 16px;
-            font-size: 0.82rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 700;
-            box-shadow: 0 3px 12px rgba(255, 215, 0, 0.3);
-            transition: all 0.2s;
+            background: linear-gradient(45deg, #ffd700, #ffaa00); color: #1a1a2e; border: none; padding: 10px 16px; font-size: 0.82rem;
+            border-radius: 25px; cursor: pointer; font-weight: 700; box-shadow: 0 3px 12px rgba(255, 215, 0, 0.3); transition: all 0.2s;
         }
         .btn:active { transform: scale(0.95); }
         .btn-heart { background: linear-gradient(45deg, #ff3366, #ff6b81); color: #fff; }
@@ -358,55 +170,23 @@
         .timer-digits { font-size: 1.4rem; color: #ffd700; font-weight: bold; margin: 12px 0; }
 
         .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; padding: 20px;
         }
         .modal-box {
-            background: #1b1b2f;
-            border: 2px solid #ffd700;
-            border-radius: 18px;
-            padding: 20px;
-            width: 100%;
-            max-width: 320px;
-            text-align: center;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
-            animation: modalIn 0.3s ease-out;
+            background: #1b1b2f; border: 2px solid #ffd700; border-radius: 18px; padding: 20px;
+            width: 100%; max-width: 320px; text-align: center; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); animation: modalIn 0.3s ease-out;
         }
-        @keyframes modalIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+        @keyframes modalIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         .modal-box p { font-size: 0.95rem; line-height: 1.5; color: #f8fafc; margin-bottom: 16px; white-space: pre-wrap; }
 
         .video-fullscreen-overlay {
-            position: fixed !important;
-            top: 0 !important; left: 0 !important;
-            width: 100vw !important; height: 100vh !important;
-            max-height: 100vh !important;
-            z-index: 999999 !important;
-            background: #000 !important;
-            object-fit: contain !important;
-            border-radius: 0 !important;
-            margin: 0 !important;
+            position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; max-height: 100vh !important;
+            z-index: 999999 !important; background: #000 !important; object-fit: contain !important; border-radius: 0 !important; margin: 0 !important;
         }
         .close-fs-btn {
-            position: fixed;
-            top: 20px; right: 20px;
-            z-index: 1000000;
-            background: rgba(0, 0, 0, 0.7);
-            color: #ffd700;
-            border: 2px solid #ffd700;
-            border-radius: 50%;
-            width: 44px; height: 44px;
-            font-size: 1.3rem;
-            cursor: pointer;
-            display: none;
+            position: fixed; top: 20px; right: 20px; z-index: 1000000; background: rgba(0, 0, 0, 0.7); color: #ffd700; border: 2px solid #ffd700;
+            border-radius: 50%; width: 44px; height: 44px; font-size: 1.3rem; cursor: pointer; display: none;
         }
     </style>
 </head>
@@ -519,10 +299,10 @@
             <div class="btn-group" id="primaryActionButtons"></div>
             
             <div class="btn-group">
-                <button class="btn" onclick="fireExtremeDualPoppers()" id="btnPopper">🎊 3D Stage Popper</button>
-                <button class="btn btn-heart" onclick="send3DLoveHearts()" id="btnLove">❤️ Send Love</button>
+                <button class="btn" style="background: linear-gradient(45deg, #ff007f, #ffd700); font-size: 0.88rem;" onclick="fireExtremeDualPoppers()" id="btnPopper">🎊 3D Stage Popper</button>
             </div>
             <div class="btn-group">
+                <button class="btn btn-heart" onclick="send3DLoveHearts()" id="btnLove">❤️ Send Love</button>
                 <button class="btn" style="background: linear-gradient(45deg, #00ffcc, #00b894);" onclick="launchGrandFireworks()" id="btnFireworks">🎆 Grand Fireworks</button>
             </div>
         </div>
@@ -537,7 +317,6 @@
 
     <script>
         const BOT_API_URL = "https://birthday-bot-production-3f7a.up.railway.app";
-        let selectedGradGender = 'boy';
 
         const bgCanvas = document.getElementById('liveBgCanvas');
         const bgCtx = bgCanvas.getContext('2d');
@@ -649,16 +428,15 @@
                 lockTitle: "⏳ Portal Locked!", lockSubtitle: "This exclusive surprise opens on:",
                 giftPrompt: "🎁 Tap the Gift Box to Unwrap!", giftSubPrompt: "Tap anywhere to reveal your special surprise...",
                 targetTimeText: "Target Time", scratchInstruction: "👇 Scratch the card below to reveal your surprise!",
-                surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "🎉 Live Celebration Stage",
+                surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "🎉 Celebration Stage",
                 statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
                 openWhenTitle: "💌 Open When...", btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
-                btnPlayStory: "💍 Start Proposal Story", btnShowerRoses: "🌹 Shower Red Roses",
-                btnWeddingWaltz: "💒 Exchange Rings & Bless", btnAnniversaryToast: "🥂 Anniversary Waltz & Toast",
-                btnToss: "🎓 Receive Certificate & Toss Cap", btnClap: "👏 Standing Ovation",
-                btnBalloons: "🎈 Send Blessings & Release Balloons", btnBlowCake: "🎂 Blow Candles & Cut Cake", btnBabySmile: "👶 Baby Smiles & Lullaby",
+                btnProposalStory: "💍 Proposal Story", btnWeddingStory: "💒 Wedding Story",
+                btnAnniversaryStory: "💍 Wedding Anniversary Story", btnGraduationStory: "🎓 Graduation Story",
+                btnBabyStory: "👶 Baby Born Story", btnBirthdayStory: "🎂 Birthday Cake Story",
                 categories: {
                     "Birthday": "🎂 Happy Birthday",
-                    "Proposal": "💍 Will You Marry Me & Forever Love",
+                    "Proposal": "💍 Magical Proposal",
                     "WeddingWish": "💒 Happy Married Life",
                     "Wedding": "💍 Happy Wedding Anniversary",
                     "NewBorn": "👶 Welcome Little Angel",
@@ -670,17 +448,16 @@
                 lockTitle: "⏳ പോർട്ടൽ ലോക്ക് ചെയ്തിരിക്കുന്നു!", lockSubtitle: "ഈ പ്രത്യേക സർപ്രൈസ് തുറക്കുന്ന സമയം:",
                 giftPrompt: "🎁 തുറക്കാൻ ഗിഫ്റ്റ് ബോക്സിൽ അമർത്തൂ!", giftSubPrompt: "നിങ്ങളുടെ സർപ്രൈസ് കാണാൻ ടാപ്പ് ചെയ്യൂ...",
                 targetTimeText: "ലഭ്യമാകുന്ന സമയം", scratchInstruction: "👇 സർപ്രൈസ് കാണാൻ താഴെ സ്ക്രാച്ച് ചെയ്യുക!",
-                surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "🎉 ലൈവ് ആഘോഷ വേദി",
+                surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "🎉 ആഘോഷ വേദി",
                 statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
                 openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
-                btnPlayStory: "💍 പ്രൊപ്പോസൽ സ്റ്റോറി ആരംഭിക്കൂ", btnShowerRoses: "🌹 റോസാപ്പൂക്കൾ ചൊരിയുക",
-                btnWeddingWaltz: "💒 മോതിരം മാറ്റുക & ആശംസ", btnAnniversaryToast: "🥂 വാർഷിക നൃത്തവും ടോസ്റ്റും",
-                btnToss: "🎓 സർട്ടിഫിക്കറ്റ് വാങ്ങി തൊപ്പി വാനിലേക്ക് എറിയൂ", btnClap: "👏 ആർപ്പുവിളി & കൈയടി",
-                btnBalloons: "🎈 അനുഗ്രഹങ്ങളും ബലൂണുകളും അയക്കൂ", btnBlowCake: "🎂 മെഴുകുതിരി അണച്ച് കേക്ക് മുറിക്കൂ", btnBabySmile: "👶 കുഞ്ഞുചിരികളും മാലാഖയും",
+                btnProposalStory: "💍 Proposal Story", btnWeddingStory: "💒 Wedding Story",
+                btnAnniversaryStory: "💍 Wedding Anniversary Story", btnGraduationStory: "🎓 Graduation Story",
+                btnBabyStory: "👶 Baby Born Story", btnBirthdayStory: "🎂 Birthday Cake Story",
                 categories: {
                     "Birthday": "🎂 ജന്മദിനാശംസകൾ",
-                    "Proposal": "💍 എന്നെ വിവാഹം കഴിക്കാമോ?",
-                    "WeddingWish": "💒 മംഗളകരമായ ദാമ്പത്യജീവിതം ആശംസിക്കുന്നു",
+                    "Proposal": "💍 മാന്ത്രിക പ്രൊപ്പോസൽ",
+                    "WeddingWish": "💒 മംഗളകരമായ ദാമ്പത്യജീവിതം",
                     "Wedding": "💍 വിവാഹ വാർഷികാശംസകൾ",
                     "NewBorn": "👶 കുഞ്ഞുമാലാഖയ്ക്ക് സ്വാഗതം",
                     "Graduation": "🎓 ബിരുദ ആശംസകൾ",
@@ -733,293 +510,182 @@
             if (headerBox) {
                 headerBox.className = 'header-box-base theme-' + currentCategory;
             }
+            document.body.className = `theme-${currentCategory}-bg`;
         }
 
-        // --- 🌟 LIVE CANVAS ANIMATION ENGINE ---
-        let stageCanvas = null, stageCtx = null, stageAnimId = null;
-        let animFrameCounter = 0;
-
-        function initStageCanvas(type) {
-            let container = document.getElementById('stageCanvasContainer');
-            if (!container) return;
-            container.innerHTML = `<canvas id="activeStageCanvas" width="240" height="150" style="width:100%; height:100%; border-radius:12px; background:rgba(0,0,0,0.4);"></canvas>`;
-            stageCanvas = document.getElementById('activeStageCanvas');
-            stageCtx = stageCanvas.getContext('2d');
-            animFrameCounter = 0;
-            if (stageAnimId) cancelAnimationFrame(stageAnimId);
-            runStageAnimationLoop(type);
-        }
-
-        function runStageAnimationLoop(type) {
-            if (!stageCtx) return;
-            stageCtx.clearRect(0, 0, stageCanvas.width, stageCanvas.height);
-            animFrameCounter += 0.05;
-
-            let cx = stageCanvas.width / 2;
-            let cy = stageCanvas.height / 2;
-
-            if (type === 'cake') {
-                // ലൈവ് കേക്ക് കട്ടിംഗ് & കാൻഡിൽ ഗ്ലോ ആനിമേഷൻ
-                stageCtx.save();
-                stageCtx.translate(cx, cy + 20);
-                // കേക്ക് ബേസ്
-                stageCtx.fillStyle = '#ff3366';
-                stageCtx.fillRect(-50, -10, 100, 35);
-                stageCtx.fillStyle = '#ffd700';
-                stageCtx.fillRect(-55, -25, 110, 18);
-                // മെഴുകുതിരികളും ലൈവ് ജ്വാലയും
-                for(let i = -30; i <= 30; i += 30) {
-                    stageCtx.fillStyle = '#ffffff';
-                    stageCtx.fillRect(i - 3, -45, 6, 22);
-                    // ലൈവ് ഫ്ലേം ഫ്ലിക്കറിങ്
-                    let flicker = Math.sin(animFrameCounter * 5 + i) * 3;
-                    stageCtx.fillStyle = '#ffaa00';
-                    stageCtx.beginPath();
-                    stageCtx.arc(i, -50 + flicker/2, 6, 0, Math.PI * 2);
-                    stageCtx.fill();
-                }
-                stageCtx.restore();
-            } else if (type === 'proposal') {
-                // ലൈവ് പ്രൊപ്പോസൽ മോതിരവും ഹൃദയവും
-                stageCtx.save();
-                stageCtx.translate(cx, cy);
-                let floatY = Math.sin(animFrameCounter * 3) * 6;
-                // ഹൃദയം പൾസ് ചെയ്യൽ
-                stageCtx.font = '50px serif';
-                stageCtx.textAlign = 'center';
-                stageCtx.textBaseline = 'middle';
-                stageCtx.fillText('💖', 0, floatY);
-                // തിളങ്ങുന്ന മോതിരം
-                stageCtx.font = '30px serif';
-                stageCtx.fillText('💍✨', Math.cos(animFrameCounter)*40, 40 + floatY);
-                stageCtx.restore();
-            } else if (type === 'wedding' || type === 'anniversary') {
-                // ലൈവ് റിംഗ്സ് & വാൾട്സ്
-                stageCtx.save();
-                stageCtx.translate(cx, cy);
-                let rot = Math.sin(animFrameCounter * 2) * 0.15;
-                stageCtx.rotate(rot);
-                stageCtx.font = '55px serif';
-                stageCtx.textAlign = 'center';
-                stageCtx.textBaseline = 'middle';
-                stageCtx.fillText(type === 'wedding' ? '💒✨' : '🥂💖', 0, 0);
-                stageCtx.restore();
-            } else if (type === 'baby') {
-                // ക്യൂട്ട് ബേബി & ബലൂൺ ഫ്ലോട്ടിങ്
-                stageCtx.save();
-                stageCtx.translate(cx, cy);
-                let bY = Math.sin(animFrameCounter * 2.5) * 8;
-                stageCtx.font = '55px serif';
-                stageCtx.textAlign = 'center';
-                stageCtx.textBaseline = 'middle';
-                stageCtx.fillText('👶🍼', 0, bY);
-                stageCtx.restore();
-            } else if (type === 'graduation') {
-                // ഗ്രാജുവേഷൻ തൊപ്പി പറക്കൽ
-                stageCtx.save();
-                stageCtx.translate(cx, cy);
-                let capY = Math.sin(animFrameCounter * 3) * 10;
-                stageCtx.font = '55px serif';
-                stageCtx.textAlign = 'center';
-                stageCtx.textBaseline = 'middle';
-                stageCtx.fillText(selectedGradGender === 'boy' ? '👨‍🎓🎓' : '👩‍🎓🎓', 0, capY);
-                stageCtx.restore();
-            }
-
-            stageAnimId = requestAnimationFrame(() => runStageAnimationLoop(type));
-        }
-
-        // --- STORYLINE ACTIONS ---
+        // --- 💍 PROPOSAL STORYLINE (YES / THINK ME LATER) ---
         let isStoryActive = false;
 
-        function playBirthdayBestStory() {
-            initStageCanvas('cake');
-            const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🌟 Making a heartfelt wish as magical candles glow brightly... 🕯️";
-            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-            
-            setTimeout(() => {
-                caption.innerText = "🍰 Cutting the royal birthday cake filled with immense sweetness & joy! 🎉";
-                fireExtremeDualPoppers();
-            }, 1600);
-
-            setTimeout(() => {
-                caption.innerText = "🍾 Popping champagne and celebrating your remarkable day to the fullest! 🎈✨";
-                launchGrandFireworks();
-            }, 3200);
-        }
-
-        function playLiveProposalStory() {
+        function playProposalStory() {
             if (isStoryActive) return;
             isStoryActive = true;
 
-            initStageCanvas('proposal');
+            const boy = document.getElementById('storyBoy');
+            const ringBox = document.getElementById('storyRingBox');
             const caption = document.getElementById('storyCaptionText');
             const choiceBox = document.getElementById('proposalChoiceBox');
 
-            caption.innerText = "🧎‍♂️ He gracefully kneels down with a velvet box... 'Will you marry me?'";
-            confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
-            choiceBox.style.display = 'flex';
+            if (boy) boy.classList.add('walk-forward');
+
+            setTimeout(() => {
+                if (boy) boy.classList.add('kneel-down');
+                if (ringBox) ringBox.classList.add('reveal-ring');
+                caption.innerText = "🧎‍♂️ He gracefully kneels down and opens the velvet box... 'Will you marry me?' 💍✨";
+                confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+                if (choiceBox) choiceBox.style.display = 'flex';
+            }, 2200);
         }
 
         function acceptProposalYes() {
+            const girl = document.getElementById('storyGirl');
             const caption = document.getElementById('storyCaptionText');
             const choiceBox = document.getElementById('proposalChoiceBox');
 
-            choiceBox.style.display = 'none';
-            caption.innerText = "💖 Blushing with pure joy... She happily extends her hand and says YES! ✨";
+            if (choiceBox) choiceBox.style.display = 'none';
+            if (girl) girl.classList.add('say-yes');
+            caption.innerText = "💖 Absolute perfection! She said YES! Celebrations unlocked with pure joy! ✨🎉";
             
             shower3DRedRoses();
             fireExtremeDualPoppers();
             launchGrandFireworks();
 
             setTimeout(() => {
-                caption.innerText = "✨ Their magnificent forever officially begins! 💍✨";
+                caption.innerText = "✨ Their magnificent forever officially begins! 💍🥂💫";
                 isStoryActive = false;
-            }, 3000);
+            }, 3500);
         }
 
-        function thinkProposalJoke() {
+        function thinkMeLaterJoke() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "😜 She smiles teasingly... But her heart already knows it's YES! 💖";
-            setTimeout(acceptProposalYes, 1200);
+            const choiceBox = document.getElementById('proposalChoiceBox');
+
+            if (choiceBox) choiceBox.style.display = 'none';
+            caption.innerText = "⏳ Thinking time granted! But your heart already knows it's a definite YES! 😉💖";
+            confetti({ particleCount: 40, spread: 50, origin: { y: 0.6 } });
+
+            setTimeout(() => {
+                acceptProposalYes();
+            }, 2200);
         }
 
-        function playWeddingWishCeremony() {
-            initStageCanvas('wedding');
+        // --- 🎂 മറ്റ് കാറ്റഗറികൾക്കായുള്ള സ്റ്റോറികൾ ---
+        function playWeddingStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "💒 Showering divine blessings on the newly wed couple for a wonderful life! ✨";
+            caption.innerText = "💒 Exchanging sacred vows and rings for a blessed lifetime together! ✨";
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
-                caption.innerText = "💍 Wishing you a lifetime of shared laughter, trust, and endless love! 🎉";
+                caption.innerText = "🔔 Wishing you eternal love, laughter, and happiness! 💍";
                 launchGrandFireworks();
-            }, 2000);
+            }, 2500);
         }
 
-        function playAnniversaryWaltzCeremony() {
-            initStageCanvas('anniversary');
+        function playAnniversaryStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🥂 Celebrating beautiful years of togetherness, waltzing through timeless memories... 💖";
+            caption.innerText = "🥂 Celebrating wonderful years of togetherness and romantic waltz... 💖";
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
-                caption.innerText = "✨ Happy Anniversary! True love stories never have endings! 🍾🥂";
+                caption.innerText = "✨ Happy Wedding Anniversary! True love never ends! 🥂💫";
                 launchGrandFireworks();
-            }, 2000);
+            }, 2500);
         }
 
-        function playNewBornBabyStory() {
-            initStageCanvas('baby');
+        function playGraduationStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🍼 Welcoming the little bundle of joy with cute smiles and gentle lullabies! ✨";
+            caption.innerText = "🎓 Receiving the honor certificate and tossing caps into the sky! 🌟";
+            fireExtremeDualPoppers();
+            setTimeout(() => {
+                caption.innerText = "🏆 Congratulations on Graduation! The world awaits you! ✨";
+                launchGrandFireworks();
+            }, 2500);
+        }
+
+        function playBabyStory() {
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "👶 Welcoming the little bundle of joy with pastel balloons & smiles! 🎈";
             release3DPastelBalloons();
-            
             setTimeout(() => {
-                caption.innerText = "🌟 A tiny angel has arrived to fill your home with endless sunshine & blessings! 🎈";
+                caption.innerText = "✨ A tiny angel has brought infinite sunshine to your home! 🌟";
                 launchGrandFireworks();
-            }, 1800);
+            }, 2500);
         }
 
-        function tossGraduationCapStory() {
-            initStageCanvas('graduation');
+        function playBirthdayStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "📜 Receiving certificate with honor and tossing the cap into the skies! 🎓";
+            caption.innerText = "🎂 Glowing candles, making a grand wish, and cutting the delicious cake! 🎉";
             fireExtremeDualPoppers();
             setTimeout(() => {
+                caption.innerText = "🎈 Happy Birthday! May all your dreams come true today! ✨";
                 launchGrandFireworks();
-                caption.innerText = "🏆 Congratulations Graduates! The world is yours! ✨";
-            }, 1200);
+            }, 2500);
         }
 
-        function switchGradGender(gender) {
-            selectedGradGender = gender;
-            const btnBoy = document.getElementById('btnGradBoy');
-            const btnGirl = document.getElementById('btnGradGirl');
-
-            if (gender === 'boy') {
-                btnBoy.classList.add('active');
-                btnGirl.classList.remove('active');
-            } else {
-                btnGirl.classList.add('active');
-                btnBoy.classList.remove('active');
-            }
-            initStageCanvas('graduation');
-        }
-
+        // --- കാറ്റഗറി അനുസരിച്ച് സ്റ്റേജ് റെൻഡർ ചെയ്യൽ ---
         function renderCategoryActions() {
             let container = document.getElementById('primaryActionButtons');
             let stage = document.getElementById('storyStageContainer');
 
             if (currentCategory === 'Proposal') {
                 stage.innerHTML = `
-                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
-                    <div class="interactive-choice-box" id="proposalChoiceBox">
-                        <button class="choice-btn-yes" onclick="acceptProposalYes()">💍 YES! 💖</button>
-                        <button class="choice-btn-think" onclick="thinkProposalJoke()">Let me think 😜</button>
+                    <div class="cinematic-viewport">
+                        <div id="storyBoy" class="vector-character-boy">🤵</div>
+                        <div id="storyRingBox" class="luxury-ring-box">💍</div>
+                        <div id="storyGirl" class="vector-character-girl">👰</div>
                     </div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Start Proposal Story' to begin!</div>
+                    <div class="interactive-choice-box" id="proposalChoiceBox">
+                        <button class="choice-btn-yes" onclick="acceptProposalYes()">YES! 💖</button>
+                        <button class="choice-btn-think" onclick="thinkMeLaterJoke()">Think me later 😉</button>
+                    </div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Proposal Story' to begin! ✨</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700);" onclick="playLiveProposalStory()">${getTranslation(currentLang, 'btnPlayStory') || '💍 Start Proposal Story'}</button>
-                    <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
+                    <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700); font-size:0.9rem;" onclick="playProposalStory()">${getTranslation(currentLang, 'btnProposalStory')}</button>
+                    <button class="btn" onclick="shower3DRedRoses()">🌹 Shower Red Roses</button>
                 `;
-                initStageCanvas('proposal');
             } else if (currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
-                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
-                    <div class="story-caption" id="storyCaptionText">🔔 Blessing the New Journey of Marriage</div>
+                    <div style="font-size: 5rem; margin-bottom: 5px;">💒🕊️</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Wedding Story' to begin the celebration!</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="playWeddingWishCeremony()">${getTranslation(currentLang, 'btnWeddingWaltz') || '💒 Exchange Rings & Bless'}</button>
-                    <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
+                    <button class="btn" style="background:linear-gradient(45deg,#00f2fe,#4facfe); font-size:0.9rem; color:#000;" onclick="playWeddingStory()">${getTranslation(currentLang, 'btnWeddingStory')}</button>
+                    <button class="btn" onclick="shower3DRedRoses()">🌹 Shower Red Roses</button>
                 `;
-                initStageCanvas('wedding');
             } else if (currentCategory === 'Wedding') {
                 stage.innerHTML = `
-                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
-                    <div class="story-caption" id="storyCaptionText">💖 Celebrating Years of True Love & Togetherness</div>
+                    <div style="font-size: 5rem; margin-bottom: 5px;">🥂💖</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Wedding Anniversary Story' to begin!</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="playAnniversaryWaltzCeremony()">${getTranslation(currentLang, 'btnAnniversaryToast') || '🥂 Anniversary Waltz & Toast'}</button>
-                    <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
+                    <button class="btn" style="background:linear-gradient(45deg,#ffd700,#ffaa00); font-size:0.9rem; color:#000;" onclick="playAnniversaryStory()">${getTranslation(currentLang, 'btnAnniversaryStory')}</button>
+                    <button class="btn" onclick="shower3DRedRoses()">🌹 Shower Red Roses</button>
                 `;
-                initStageCanvas('anniversary');
             } else if (currentCategory === 'Graduation') {
                 stage.innerHTML = `
-                    <div class="gender-switch-box">
-                        <button id="btnGradBoy" class="gender-btn ${selectedGradGender === 'boy' ? 'active' : ''}" onclick="switchGradGender('boy')">👨‍🎓 Boy</button>
-                        <button id="btnGradGirl" class="gender-btn ${selectedGradGender === 'girl' ? 'active' : ''}" onclick="switchGradGender('girl')">👩‍🎓 Girl</button>
-                    </div>
-                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
-                    <div class="story-caption" id="storyCaptionText">🎓 The Grand Auditorium Standing Ovation</div>
+                    <div style="font-size: 5rem; margin-bottom: 5px;">🎓🏆</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Graduation Story' to begin!</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="tossGraduationCapStory()">${getTranslation(currentLang, 'btnToss') || '🎓 Receive Certificate & Toss Cap'}</button>
-                    <button class="btn" onclick="grandApplause()">${getTranslation(currentLang, 'btnClap') || '👏 Standing Ovation'}</button>
+                    <button class="btn" style="background:linear-gradient(45deg,#00ffaa,#00f2fe); font-size:0.9rem; color:#000;" onclick="playGraduationStory()">${getTranslation(currentLang, 'btnGraduationStory')}</button>
                 `;
-                initStageCanvas('graduation');
             } else if (currentCategory === 'NewBorn') {
                 stage.innerHTML = `
-                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
-                    <div class="story-caption" id="storyCaptionText">✨ A Little Angel has Arrived into Our World</div>
+                    <div style="font-size: 5rem; margin-bottom: 5px;">👶🍼</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Baby Born Story' to begin!</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" style="background:linear-gradient(45deg,#ff9ff3,#feca57);" onclick="playNewBornBabyStory()">${getTranslation(currentLang, 'btnBabySmile') || '👶 Baby Smiles & Lullaby'}</button>
-                    <button class="btn" onclick="release3DPastelBalloons()">${getTranslation(currentLang, 'btnBalloons') || '🎈 Release Balloons'}</button>
+                    <button class="btn" style="background:linear-gradient(45deg,#ff9ff3,#feca57); font-size:0.9rem; color:#000;" onclick="playBabyStory()">${getTranslation(currentLang, 'btnBabyStory')}</button>
                 `;
-                initStageCanvas('baby');
             } else {
-                // Birthday (Always Best & Rich Experience)
+                // Birthday
                 stage.innerHTML = `
-                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap below to blow candles, cut cake & celebrate! 🎈</div>
+                    <div style="font-size: 5rem; margin-bottom: 5px;">🎂🎉</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Birthday Cake Story' to begin!</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" style="background: linear-gradient(45deg, #ff007f, #ffd700); font-size: 0.9rem;" onclick="playBirthdayBestStory()">${getTranslation(currentLang, 'btnBlowCake') || '🎂 Blow Candles & Cut Cake'}</button>
-                    <button class="btn" onclick="fireExtremeDualPoppers()">${getTranslation(currentLang, 'btnPopper') || '🎊 Celebration Popper'}</button>
+                    <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700); font-size:0.9rem;" onclick="playBirthdayStory()">${getTranslation(currentLang, 'btnBirthdayStory')}</button>
                 `;
-                initStageCanvas('cake');
             }
         }
 
@@ -1049,7 +715,7 @@
         }
 
         async function loadSurpriseData() {
-            let name = 'Friend', msg = 'Wishing you joy and happiness!', photoUrl = '', video = '', song = '', voice = '', extraAudio = '', dobOrAge = '';
+            let name = 'Friend', msg = 'Wishing you an extraordinary day filled with joy and success!', photoUrl = '', video = '', song = '', voice = '', extraAudio = '', dobOrAge = '';
 
             if (surpriseId) {
                 try {
@@ -1230,37 +896,12 @@
         }
 
         function fireExtremeDualPoppers() {
-            confetti({
-                particleCount: 80, angle: 60, spread: 80,
-                origin: { x: 0, y: 0.95 },
-                colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff']
-            });
-            confetti({
-                particleCount: 80, angle: 120, spread: 80,
-                origin: { x: 1, y: 0.95 },
-                colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff']
-            });
-
+            confetti({ particleCount: 90, angle: 60, spread: 80, origin: { x: 0, y: 0.95 }, colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff'] });
+            confetti({ particleCount: 90, angle: 120, spread: 80, origin: { x: 1, y: 0.95 }, colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff'] });
             setTimeout(() => {
-                confetti({
-                    particleCount: 60, angle: 70, spread: 60,
-                    origin: { x: 0.05, y: 0.9 },
-                    colors: ['#ffaa00', '#ff6b81', '#ffffff']
-                });
-                confetti({
-                    particleCount: 60, angle: 110, spread: 60,
-                    origin: { x: 0.95, y: 0.9 },
-                    colors: ['#ffaa00', '#ff6b81', '#ffffff']
-                });
-            }, 150);
-
-            setTimeout(() => {
-                confetti({
-                    particleCount: 90, spread: 100,
-                    origin: { x: 0.5, y: 0.75 },
-                    colors: ['#ffd700', '#ff007f', '#ffffff']
-                });
-            }, 300);
+                confetti({ particleCount: 70, angle: 70, spread: 70, origin: { x: 0.05, y: 0.9 }, colors: ['#ffaa00', '#ff6b81', '#ffffff'] });
+                confetti({ particleCount: 70, angle: 110, spread: 70, origin: { x: 0.95, y: 0.9 }, colors: ['#ffaa00', '#ff6b81', '#ffffff'] });
+            }, 180);
         }
 
         function shower3DRedRoses() {
@@ -1305,18 +946,10 @@
             }
         }
 
-        function grandApplause() {
-            fireExtremeDualPoppers();
-        }
-
         function launchGrandFireworks() {
             let count = 0;
             let fireInterval = setInterval(() => {
-                confetti({
-                    particleCount: 120, spread: 100,
-                    origin: { x: 0.2 + Math.random() * 0.6, y: 0.2 + Math.random() * 0.4 },
-                    colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff', '#ffaa00']
-                });
+                confetti({ particleCount: 120, spread: 100, origin: { x: 0.2 + Math.random() * 0.6, y: 0.2 + Math.random() * 0.4 }, colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff', '#ffaa00'] });
                 count++;
                 if (count >= 4) clearInterval(fireInterval);
             }, 300);
