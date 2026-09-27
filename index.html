@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ Aura Ultimate Luxury Celebrations ✨</title>
+    <title>✨ Aura Live Canvas Celebrations ✨</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -244,38 +243,39 @@
             font-weight: 600;
         }
 
-        /* --- STAGE & VISUAL EFFECTS --- */
+        /* --- 🌟 LIVE INTERACTIVE STAGE & CANVAS ANIMATION --- */
         .story-stage {
             width: 100%;
-            min-height: 280px;
-            background: radial-gradient(circle at bottom, rgba(255,215,0,0.18) 0%, rgba(10,8,18,0.96) 80%);
+            min-height: 290px;
+            background: radial-gradient(circle at bottom, rgba(255,215,0,0.2) 0%, rgba(8,6,15,0.98) 85%);
             border-radius: 20px;
-            border: 2px solid rgba(255,215,0,0.5);
+            border: 2px solid rgba(255,215,0,0.6);
             margin: 12px 0;
-            padding: 18px;
+            padding: 15px;
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.9), 0 0 25px rgba(255,215,0,0.25);
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.95), 0 0 30px rgba(255,215,0,0.3);
+            overflow: hidden;
         }
 
-        .stage-visual-box {
-            font-size: 5rem;
-            animation: bounceIcon 2s infinite ease-in-out;
-            margin-bottom: 6px;
-            filter: drop-shadow(0 0 20px rgba(255,215,0,0.8));
-        }
-        @keyframes bounceIcon {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-12px) scale(1.1); }
+        /* ലൈവ് കാൻവാസ് ആനിമേഷൻ വിഷ്വൽ ബോക്സ് */
+        .live-canvas-container {
+            position: relative;
+            width: 240px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
         }
 
         .interactive-choice-box {
             display: none;
             gap: 12px;
-            margin-top: 14px;
+            margin-top: 10px;
             animation: popIn 0.5s ease-out;
             z-index: 99;
         }
@@ -312,7 +312,7 @@
         .gender-switch-box {
             display: flex;
             gap: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             z-index: 10;
         }
         .gender-btn {
@@ -333,7 +333,7 @@
         .story-caption {
             font-size: 0.9rem;
             color: #ffd700;
-            margin-top: 12px;
+            margin-top: 8px;
             font-weight: 600;
             min-height: 26px;
         }
@@ -649,7 +649,7 @@
                 lockTitle: "⏳ Portal Locked!", lockSubtitle: "This exclusive surprise opens on:",
                 giftPrompt: "🎁 Tap the Gift Box to Unwrap!", giftSubPrompt: "Tap anywhere to reveal your special surprise...",
                 targetTimeText: "Target Time", scratchInstruction: "👇 Scratch the card below to reveal your surprise!",
-                surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "🎉 Celebration Stage",
+                surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "🎉 Live Celebration Stage",
                 statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
                 openWhenTitle: "💌 Open When...", btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
                 btnPlayStory: "💍 Start Proposal Story", btnShowerRoses: "🌹 Shower Red Roses",
@@ -670,7 +670,7 @@
                 lockTitle: "⏳ പോർട്ടൽ ലോക്ക് ചെയ്തിരിക്കുന്നു!", lockSubtitle: "ഈ പ്രത്യേക സർപ്രൈസ് തുറക്കുന്ന സമയം:",
                 giftPrompt: "🎁 തുറക്കാൻ ഗിഫ്റ്റ് ബോക്സിൽ അമർത്തൂ!", giftSubPrompt: "നിങ്ങളുടെ സർപ്രൈസ് കാണാൻ ടാപ്പ് ചെയ്യൂ...",
                 targetTimeText: "ലഭ്യമാകുന്ന സമയം", scratchInstruction: "👇 സർപ്രൈസ് കാണാൻ താഴെ സ്ക്രാച്ച് ചെയ്യുക!",
-                surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "🎉 ആഘോഷ വേദി",
+                surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "🎉 ലൈവ് ആഘോഷ വേദി",
                 statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
                 openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
                 btnPlayStory: "💍 പ്രൊപ്പോസൽ സ്റ്റോറി ആരംഭിക്കൂ", btnShowerRoses: "🌹 റോസാപ്പൂക്കൾ ചൊരിയുക",
@@ -735,24 +735,115 @@
             }
         }
 
-        // --- ULTRA LUXURY STORYLINE ACTIONS ---
+        // --- 🌟 LIVE CANVAS ANIMATION ENGINE ---
+        let stageCanvas = null, stageCtx = null, stageAnimId = null;
+        let animFrameCounter = 0;
+
+        function initStageCanvas(type) {
+            let container = document.getElementById('stageCanvasContainer');
+            if (!container) return;
+            container.innerHTML = `<canvas id="activeStageCanvas" width="240" height="150" style="width:100%; height:100%; border-radius:12px; background:rgba(0,0,0,0.4);"></canvas>`;
+            stageCanvas = document.getElementById('activeStageCanvas');
+            stageCtx = stageCanvas.getContext('2d');
+            animFrameCounter = 0;
+            if (stageAnimId) cancelAnimationFrame(stageAnimId);
+            runStageAnimationLoop(type);
+        }
+
+        function runStageAnimationLoop(type) {
+            if (!stageCtx) return;
+            stageCtx.clearRect(0, 0, stageCanvas.width, stageCanvas.height);
+            animFrameCounter += 0.05;
+
+            let cx = stageCanvas.width / 2;
+            let cy = stageCanvas.height / 2;
+
+            if (type === 'cake') {
+                // ലൈവ് കേക്ക് കട്ടിംഗ് & കാൻഡിൽ ഗ്ലോ ആനിമേഷൻ
+                stageCtx.save();
+                stageCtx.translate(cx, cy + 20);
+                // കേക്ക് ബേസ്
+                stageCtx.fillStyle = '#ff3366';
+                stageCtx.fillRect(-50, -10, 100, 35);
+                stageCtx.fillStyle = '#ffd700';
+                stageCtx.fillRect(-55, -25, 110, 18);
+                // മെഴുകുതിരികളും ലൈവ് ജ്വാലയും
+                for(let i = -30; i <= 30; i += 30) {
+                    stageCtx.fillStyle = '#ffffff';
+                    stageCtx.fillRect(i - 3, -45, 6, 22);
+                    // ലൈവ് ഫ്ലേം ഫ്ലിക്കറിങ്
+                    let flicker = Math.sin(animFrameCounter * 5 + i) * 3;
+                    stageCtx.fillStyle = '#ffaa00';
+                    stageCtx.beginPath();
+                    stageCtx.arc(i, -50 + flicker/2, 6, 0, Math.PI * 2);
+                    stageCtx.fill();
+                }
+                stageCtx.restore();
+            } else if (type === 'proposal') {
+                // ലൈവ് പ്രൊപ്പോസൽ മോതിരവും ഹൃദയവും
+                stageCtx.save();
+                stageCtx.translate(cx, cy);
+                let floatY = Math.sin(animFrameCounter * 3) * 6;
+                // ഹൃദയം പൾസ് ചെയ്യൽ
+                stageCtx.font = '50px serif';
+                stageCtx.textAlign = 'center';
+                stageCtx.textBaseline = 'middle';
+                stageCtx.fillText('💖', 0, floatY);
+                // തിളങ്ങുന്ന മോതിരം
+                stageCtx.font = '30px serif';
+                stageCtx.fillText('💍✨', Math.cos(animFrameCounter)*40, 40 + floatY);
+                stageCtx.restore();
+            } else if (type === 'wedding' || type === 'anniversary') {
+                // ലൈവ് റിംഗ്സ് & വാൾട്സ്
+                stageCtx.save();
+                stageCtx.translate(cx, cy);
+                let rot = Math.sin(animFrameCounter * 2) * 0.15;
+                stageCtx.rotate(rot);
+                stageCtx.font = '55px serif';
+                stageCtx.textAlign = 'center';
+                stageCtx.textBaseline = 'middle';
+                stageCtx.fillText(type === 'wedding' ? '💒✨' : '🥂💖', 0, 0);
+                stageCtx.restore();
+            } else if (type === 'baby') {
+                // ക്യൂട്ട് ബേബി & ബലൂൺ ഫ്ലോട്ടിങ്
+                stageCtx.save();
+                stageCtx.translate(cx, cy);
+                let bY = Math.sin(animFrameCounter * 2.5) * 8;
+                stageCtx.font = '55px serif';
+                stageCtx.textAlign = 'center';
+                stageCtx.textBaseline = 'middle';
+                stageCtx.fillText('👶🍼', 0, bY);
+                stageCtx.restore();
+            } else if (type === 'graduation') {
+                // ഗ്രാജുവേഷൻ തൊപ്പി പറക്കൽ
+                stageCtx.save();
+                stageCtx.translate(cx, cy);
+                let capY = Math.sin(animFrameCounter * 3) * 10;
+                stageCtx.font = '55px serif';
+                stageCtx.textAlign = 'center';
+                stageCtx.textBaseline = 'middle';
+                stageCtx.fillText(selectedGradGender === 'boy' ? '👨‍🎓🎓' : '👩‍🎓🎓', 0, capY);
+                stageCtx.restore();
+            }
+
+            stageAnimId = requestAnimationFrame(() => runStageAnimationLoop(type));
+        }
+
+        // --- STORYLINE ACTIONS ---
         let isStoryActive = false;
 
         function playBirthdayBestStory() {
+            initStageCanvas('cake');
             const caption = document.getElementById('storyCaptionText');
-            const icon = document.getElementById('stageVisualIcon');
-            icon.innerText = "🎂✨";
             caption.innerText = "🌟 Making a heartfelt wish as magical candles glow brightly... 🕯️";
             confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
             
             setTimeout(() => {
-                icon.innerText = "🍰🔪";
                 caption.innerText = "🍰 Cutting the royal birthday cake filled with immense sweetness & joy! 🎉";
                 fireExtremeDualPoppers();
             }, 1600);
 
             setTimeout(() => {
-                icon.innerText = "🥳🍾";
                 caption.innerText = "🍾 Popping champagne and celebrating your remarkable day to the fullest! 🎈✨";
                 launchGrandFireworks();
             }, 3200);
@@ -762,11 +853,10 @@
             if (isStoryActive) return;
             isStoryActive = true;
 
+            initStageCanvas('proposal');
             const caption = document.getElementById('storyCaptionText');
             const choiceBox = document.getElementById('proposalChoiceBox');
-            const icon = document.getElementById('stageVisualIcon');
 
-            icon.innerText = "🧎‍♂️💍";
             caption.innerText = "🧎‍♂️ He gracefully kneels down with a velvet box... 'Will you marry me?'";
             confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
             choiceBox.style.display = 'flex';
@@ -775,10 +865,8 @@
         function acceptProposalYes() {
             const caption = document.getElementById('storyCaptionText');
             const choiceBox = document.getElementById('proposalChoiceBox');
-            const icon = document.getElementById('stageVisualIcon');
 
             choiceBox.style.display = 'none';
-            icon.innerText = "💖👩‍❤️‍👨";
             caption.innerText = "💖 Blushing with pure joy... She happily extends her hand and says YES! ✨";
             
             shower3DRedRoses();
@@ -798,48 +886,43 @@
         }
 
         function playWeddingWishCeremony() {
+            initStageCanvas('wedding');
             const caption = document.getElementById('storyCaptionText');
-            const icon = document.getElementById('stageVisualIcon');
-            icon.innerText = "💒🕊️";
             caption.innerText = "💒 Showering divine blessings on the newly wed couple for a wonderful life! ✨";
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
-                icon.innerText = "💍❤️";
                 caption.innerText = "💍 Wishing you a lifetime of shared laughter, trust, and endless love! 🎉";
                 launchGrandFireworks();
             }, 2000);
         }
 
         function playAnniversaryWaltzCeremony() {
+            initStageCanvas('anniversary');
             const caption = document.getElementById('storyCaptionText');
-            const icon = document.getElementById('stageVisualIcon');
-            icon.innerText = "💃🕺";
             caption.innerText = "🥂 Celebrating beautiful years of togetherness, waltzing through timeless memories... 💖";
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
-                icon.innerText = "🥂✨";
                 caption.innerText = "✨ Happy Anniversary! True love stories never have endings! 🍾🥂";
                 launchGrandFireworks();
             }, 2000);
         }
 
         function playNewBornBabyStory() {
+            initStageCanvas('baby');
             const caption = document.getElementById('storyCaptionText');
-            const icon = document.getElementById('stageVisualIcon');
-            icon.innerText = "👶🍼";
             caption.innerText = "🍼 Welcoming the little bundle of joy with cute smiles and gentle lullabies! ✨";
             release3DPastelBalloons();
             
             setTimeout(() => {
-                icon.innerText = "🌟👼";
                 caption.innerText = "🌟 A tiny angel has arrived to fill your home with endless sunshine & blessings! 🎈";
                 launchGrandFireworks();
             }, 1800);
         }
 
         function tossGraduationCapStory() {
+            initStageCanvas('graduation');
             const caption = document.getElementById('storyCaptionText');
             caption.innerText = "📜 Receiving certificate with honor and tossing the cap into the skies! 🎓";
             fireExtremeDualPoppers();
@@ -851,19 +934,17 @@
 
         function switchGradGender(gender) {
             selectedGradGender = gender;
-            const visual = document.getElementById('stageVisualIcon');
             const btnBoy = document.getElementById('btnGradBoy');
             const btnGirl = document.getElementById('btnGradGirl');
 
             if (gender === 'boy') {
-                visual.innerText = "👨‍🎓";
                 btnBoy.classList.add('active');
                 btnGirl.classList.remove('active');
             } else {
-                visual.innerText = "👩‍🎓";
                 btnGirl.classList.add('active');
                 btnBoy.classList.remove('active');
             }
+            initStageCanvas('graduation');
         }
 
         function renderCategoryActions() {
@@ -872,7 +953,7 @@
 
             if (currentCategory === 'Proposal') {
                 stage.innerHTML = `
-                    <div class="stage-visual-box" id="stageVisualIcon">💍</div>
+                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
                     <div class="interactive-choice-box" id="proposalChoiceBox">
                         <button class="choice-btn-yes" onclick="acceptProposalYes()">💍 YES! 💖</button>
                         <button class="choice-btn-think" onclick="thinkProposalJoke()">Let me think 😜</button>
@@ -883,56 +964,62 @@
                     <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700);" onclick="playLiveProposalStory()">${getTranslation(currentLang, 'btnPlayStory') || '💍 Start Proposal Story'}</button>
                     <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
                 `;
+                initStageCanvas('proposal');
             } else if (currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
-                    <div class="stage-visual-box" id="stageVisualIcon">💒</div>
+                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
                     <div class="story-caption" id="storyCaptionText">🔔 Blessing the New Journey of Marriage</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" onclick="playWeddingWishCeremony()">${getTranslation(currentLang, 'btnWeddingWaltz') || '💒 Exchange Rings & Bless'}</button>
                     <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
                 `;
+                initStageCanvas('wedding');
             } else if (currentCategory === 'Wedding') {
                 stage.innerHTML = `
-                    <div class="stage-visual-box" id="stageVisualIcon">🥂</div>
+                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
                     <div class="story-caption" id="storyCaptionText">💖 Celebrating Years of True Love & Togetherness</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" onclick="playAnniversaryWaltzCeremony()">${getTranslation(currentLang, 'btnAnniversaryToast') || '🥂 Anniversary Waltz & Toast'}</button>
                     <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
                 `;
+                initStageCanvas('anniversary');
             } else if (currentCategory === 'Graduation') {
                 stage.innerHTML = `
                     <div class="gender-switch-box">
                         <button id="btnGradBoy" class="gender-btn ${selectedGradGender === 'boy' ? 'active' : ''}" onclick="switchGradGender('boy')">👨‍🎓 Boy</button>
                         <button id="btnGradGirl" class="gender-btn ${selectedGradGender === 'girl' ? 'active' : ''}" onclick="switchGradGender('girl')">👩‍🎓 Girl</button>
                     </div>
-                    <div class="stage-visual-box" id="stageVisualIcon">${selectedGradGender === 'boy' ? '👨‍🎓' : '👩‍🎓'}</div>
+                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
                     <div class="story-caption" id="storyCaptionText">🎓 The Grand Auditorium Standing Ovation</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" onclick="tossGraduationCapStory()">${getTranslation(currentLang, 'btnToss') || '🎓 Receive Certificate & Toss Cap'}</button>
                     <button class="btn" onclick="grandApplause()">${getTranslation(currentLang, 'btnClap') || '👏 Standing Ovation'}</button>
                 `;
+                initStageCanvas('graduation');
             } else if (currentCategory === 'NewBorn') {
                 stage.innerHTML = `
-                    <div class="stage-visual-box" id="stageVisualIcon">👶</div>
+                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
                     <div class="story-caption" id="storyCaptionText">✨ A Little Angel has Arrived into Our World</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" style="background:linear-gradient(45deg,#ff9ff3,#feca57);" onclick="playNewBornBabyStory()">${getTranslation(currentLang, 'btnBabySmile') || '👶 Baby Smiles & Lullaby'}</button>
                     <button class="btn" onclick="release3DPastelBalloons()">${getTranslation(currentLang, 'btnBalloons') || '🎈 Release Balloons'}</button>
                 `;
+                initStageCanvas('baby');
             } else {
                 // Birthday (Always Best & Rich Experience)
                 stage.innerHTML = `
-                    <div class="stage-visual-box" id="stageVisualIcon">🎂</div>
+                    <div class="live-canvas-container" id="stageCanvasContainer"></div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap below to blow candles, cut cake & celebrate! 🎈</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" style="background: linear-gradient(45deg, #ff007f, #ffd700); font-size: 0.9rem;" onclick="playBirthdayBestStory()">${getTranslation(currentLang, 'btnBlowCake') || '🎂 Blow Candles & Cut Cake'}</button>
                     <button class="btn" onclick="fireExtremeDualPoppers()">${getTranslation(currentLang, 'btnPopper') || '🎊 Celebration Popper'}</button>
                 `;
+                initStageCanvas('cake');
             }
         }
 
