@@ -82,8 +82,13 @@
             border: 2px solid #ff3366;
             box-shadow: 0 0 30px rgba(255, 51, 102, 0.6);
         }
-        .theme-Wedding, .theme-WeddingWish {
-            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(0,242,254,0.1));
+        .theme-WeddingWish {
+            background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(255,215,0,0.1));
+            border: 2px solid #00f2fe;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.6);
+        }
+        .theme-Wedding {
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,0,127,0.2));
             border: 2px solid #e5c158;
             box-shadow: 0 0 30px rgba(229, 193, 88, 0.6);
         }
@@ -241,7 +246,7 @@
         /* --- STAGE & VISUAL EFFECTS --- */
         .story-stage {
             width: 100%;
-            min-height: 260px;
+            min-height: 270px;
             background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(10,8,18,0.95) 80%);
             border-radius: 20px;
             border: 2px solid rgba(255,215,0,0.45);
@@ -256,10 +261,10 @@
         }
 
         .stage-visual-box {
-            font-size: 4.5rem;
+            font-size: 4.8rem;
             animation: bounceIcon 2s infinite ease-in-out;
-            margin-bottom: 5px;
-            filter: drop-shadow(0 0 15px rgba(255,215,0,0.6));
+            margin-bottom: 6px;
+            filter: drop-shadow(0 0 18px rgba(255,215,0,0.7));
         }
         @keyframes bounceIcon {
             0%, 100% { transform: translateY(0) scale(1); }
@@ -647,9 +652,9 @@
                 statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
                 openWhenTitle: "💌 Open When...", btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
                 btnPlayStory: "💍 Start Proposal Story", btnShowerRoses: "🌹 Shower Red Roses",
-                btnWeddingWaltz: "💒 Exchange Rings & Waltz",
+                btnWeddingWaltz: "💒 Exchange Rings & Waltz", btnAnniversaryToast: "🥂 Cheers & Romantic Toast",
                 btnToss: "🎓 Receive Certificate & Toss Cap", btnClap: "👏 Standing Ovation",
-                btnBalloons: "🎈 Send Blessings & Release Balloons",
+                btnBalloons: "🎈 Send Blessings & Release Balloons", btnBlowCake: "🎂 Blow Candles & Cut Cake",
                 categories: {
                     "Birthday": "🎂 Happy Birthday",
                     "Proposal": "💍 Will You Marry Me & Forever Love",
@@ -668,9 +673,9 @@
                 statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
                 openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
                 btnPlayStory: "💍 പ്രൊപ്പോസൽ സ്റ്റോറി ആരംഭിക്കൂ", btnShowerRoses: "🌹 റോസാപ്പൂക്കൾ ചൊരിയുക",
-                btnWeddingWaltz: "💒 മോതിരം മാറ്റുക & വാൾട്സ്",
+                btnWeddingWaltz: "💒 മോതിരം മാറ്റുക & വാൾട്സ്", btnAnniversaryToast: "🥂 പ്രണയ രാവ് & ടോസ്റ്റ്",
                 btnToss: "🎓 സർട്ടിഫിക്കറ്റ് വാങ്ങി തൊപ്പി വാനിലേക്ക് എറിയൂ", btnClap: "👏 ആർപ്പുവിളി & കൈയടി",
-                btnBalloons: "🎈 അനുഗ്രഹങ്ങളും ബലൂണുകളും അയക്കൂ",
+                btnBalloons: "🎈 അനുഗ്രഹങ്ങളും ബലൂണുകളും അയക്കൂ", btnBlowCake: "🎂 മെഴുകുതിരി അണച്ച് കേക്ക് മുറിക്കൂ",
                 categories: {
                     "Birthday": "🎂 ജന്മദിനാശംസകൾ",
                     "Proposal": "💍 എന്നെ വിവാഹം കഴിക്കാമോ?",
@@ -715,7 +720,7 @@
             renderCategoryActions();
         }
 
-        function applyTranslations(lang) {
+        applyTranslations = function(lang) {
             ['lockTitle', 'lockSubtitle', 'giftPrompt', 'giftSubPrompt', 'targetTimeText', 'scratchInstruction', 'surpriseHeader', 'celebrationHeader', 'statsTitle', 'labelDays', 'labelHours', 'openWhenTitle', 'btnPopper', 'btnLove', 'btnFireworks'].forEach(id => {
                 let el = document.getElementById(id);
                 if (el) el.innerText = getTranslation(lang, id);
@@ -731,6 +736,21 @@
 
         // --- STORYLINE ACTIONS ---
         let isStoryActive = false;
+
+        function playBirthdayWishStory() {
+            const caption = document.getElementById('storyCaptionText');
+            const icon = document.getElementById('stageVisualIcon');
+            icon.innerText = "🎂✨";
+            caption.innerText = "🎉 Blowing out the magical candles and making a grand wish! 🌟";
+            confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+            fireExtremeDualPoppers();
+            setTimeout(() => {
+                icon.innerText = "🍰";
+                caption.innerText = "🍰 Cutting the delicious birthday cake with joy and sweetness! 🎉";
+                launchGrandFireworks();
+            }, 1800);
+        }
+
         function playLiveProposalStory() {
             if (isStoryActive) return;
             isStoryActive = true;
@@ -766,13 +786,24 @@
             setTimeout(acceptProposalYes, 1200);
         }
 
-        function playWeddingWaltzCeremony() {
+        function playWeddingWishCeremony() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🎻 Exchanging rings and stepping into the eternal waltz together...";
+            caption.innerText = "💒 Blessing the newly wed couple with eternal happiness and prosperity! ✨";
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
-                caption.innerText = "💍 Two souls united as one in eternal bliss! ✨";
+                caption.innerText = "💍 Wishing you a lifetime of shared laughter and love! 🎉";
+                launchGrandFireworks();
+            }, 2000);
+        }
+
+        function playAnniversaryWaltzCeremony() {
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "🥂 Celebrating years of togetherness, dancing the romantic anniversary waltz... 💃🕺";
+            shower3DRedRoses();
+            fireExtremeDualPoppers();
+            setTimeout(() => {
+                caption.innerText = "💖 Happy Anniversary! True love stories never have endings! ✨";
                 launchGrandFireworks();
             }, 2000);
         }
@@ -828,13 +859,22 @@
                     <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700);" onclick="playLiveProposalStory()">${getTranslation(currentLang, 'btnPlayStory') || '💍 Start Proposal Story'}</button>
                     <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
                 `;
-            } else if (currentCategory === 'Wedding' || currentCategory === 'WeddingWish') {
+            } else if (currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
                     <div class="stage-visual-box">💒</div>
-                    <div class="story-caption" id="storyCaptionText">🔔 Royal Celebration of Eternal Love</div>
+                    <div class="story-caption" id="storyCaptionText">🔔 Blessing the New Journey of Marriage</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="playWeddingWaltzCeremony()">${getTranslation(currentLang, 'btnWeddingWaltz') || '💒 Exchange Rings & Waltz'}</button>
+                    <button class="btn" onclick="playWeddingWishCeremony()">${getTranslation(currentLang, 'btnWeddingWaltz') || '💒 Exchange Rings & Bless'}</button>
+                    <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
+                `;
+            } else if (currentCategory === 'Wedding') {
+                stage.innerHTML = `
+                    <div class="stage-visual-box">🥂</div>
+                    <div class="story-caption" id="storyCaptionText">💖 Celebrating Years of True Love & Togetherness</div>
+                `;
+                container.innerHTML = `
+                    <button class="btn" onclick="playAnniversaryWaltzCeremony()">${getTranslation(currentLang, 'btnAnniversaryToast') || '🥂 Anniversary Waltz & Toast'}</button>
                     <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
                 `;
             } else if (currentCategory === 'Graduation') {
@@ -859,12 +899,13 @@
                     <button class="btn" onclick="sendBabyBlessings()">${getTranslation(currentLang, 'btnBalloons') || '🎈 Send Blessings & Release Balloons'}</button>
                 `;
             } else {
-                // Birthday
+                // Birthday (Always Best & Special)
                 stage.innerHTML = `
-                    <div class="stage-visual-box">🎂</div>
-                    <div class="story-caption" id="storyCaptionText">✨ Make a Wish & Celebrate!</div>
+                    <div class="stage-visual-box" id="stageVisualIcon">🎂</div>
+                    <div class="story-caption" id="storyCaptionText">✨ The Grand Birthday Celebration & Cake Cutting! 🎈</div>
                 `;
                 container.innerHTML = `
+                    <button class="btn" style="background: linear-gradient(45deg, #ff007f, #ffd700); font-size: 0.9rem;" onclick="playBirthdayWishStory()">${getTranslation(currentLang, 'btnBlowCake') || '🎂 Blow Candles & Cut Cake'}</button>
                     <button class="btn" onclick="fireExtremeDualPoppers()">${getTranslation(currentLang, 'btnPopper') || '🎊 Celebration Popper'}</button>
                 `;
             }
@@ -1155,6 +1196,7 @@
         function grandApplause() {
             fireExtremeDualPoppers();
         }
+
         function launchGrandFireworks() {
             let count = 0;
             let fireInterval = setInterval(() => {
