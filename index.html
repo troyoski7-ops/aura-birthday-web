@@ -239,11 +239,11 @@
             font-weight: 600;
         }
 
-        /* --- വെക്റ്റർ ആനിമേഷൻ സ്റ്റേജ് --- */
+        /* --- റിയൽ 3D ആനിമേഷൻ കാരക്ടർ സ്റ്റേജ് --- */
         .story-stage {
             width: 100%;
-            min-height: 200px;
-            background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(0,0,0,0.75) 80%);
+            min-height: 240px;
+            background: radial-gradient(circle at bottom, rgba(255,215,0,0.12) 0%, rgba(0,0,0,0.85) 80%);
             border-radius: 20px;
             border: 2px solid rgba(255,215,0,0.4);
             margin: 12px 0;
@@ -254,162 +254,48 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: inset 0 0 25px rgba(0,0,0,0.8);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
         }
 
-        .vector-scene-box {
+        /* 3D ആനിമേഷൻ ഇമേജ് ക്യാരക്ടറുകൾ */
+        .char-img-container {
             position: relative;
-            width: 320px;
-            height: 120px;
-            margin: 0 auto;
-            overflow: hidden;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-        }
-
-        /* 💍 Proposal വെക്റ്റർ സ്റ്റൈൽസ് */
-        .vector-boy-rig {
-            position: absolute;
-            bottom: 0px;
-            left: -80px;
-            width: 60px;
-            height: 100px;
-            transition: all 0.5s;
-        }
-        .vector-boy-rig.walking {
-            animation: boyWalkAcross 2.5s forwards linear;
-        }
-        @keyframes boyWalkAcross {
-            0% { left: -70px; }
-            100% { left: 90px; }
-        }
-        .vector-boy-rig.kneel {
-            left: 90px !important;
-            animation: boyKneelDown 0.8s forwards ease-in-out;
-        }
-        @keyframes boyKneelDown {
-            0% { transform: translateY(0) scaleY(1); }
-            100% { transform: translateY(22px) scaleY(0.78); }
-        }
-        .vector-ring-box {
-            position: absolute;
-            width: 26px; height: 26px;
-            background: #800020;
-            border-radius: 6px;
-            border: 2px solid #ffd700;
-            top: 35px; right: -14px;
-            opacity: 0;
-            transform: scale(0.2);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .vector-ring-box.open {
-            opacity: 1;
-            transform: scale(1.1) translateY(-10px);
-            box-shadow: 0 0 20px #ffd700;
-        }
-        .diamond-gem {
-            width: 10px; height: 10px;
-            background: #fff;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            margin: 2px auto;
-            box-shadow: 0 0 10px #00f2fe;
-            animation: sparkleDiamond 0.8s infinite alternate;
-        }
-        @keyframes sparkleDiamond {
-            0% { filter: drop-shadow(0 0 2px #fff); }
-            100% { filter: drop-shadow(0 0 12px #00f2fe); }
-        }
-        .vector-girl-rig {
-            position: absolute;
-            bottom: 0px;
-            right: 60px;
-            width: 60px;
-            height: 100px;
-        }
-        .girl-hand {
-            transform-origin: top left;
-            transition: transform 0.8s ease-in-out;
-        }
-        .girl-hand.accept {
-            transform: rotate(-35deg) scaleX(1.2);
-        }
-        .speech-bubble-vector {
-            position: absolute;
-            top: -20px;
-            right: 20px;
-            background: #ff007f;
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 0.8rem;
-            font-weight: 800;
-            opacity: 0;
-            transform: scale(0.5);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.8);
-        }
-        .speech-bubble-vector.show {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* 💒 Wedding & Anniversary വാൾട്സ് വെക്റ്റർ */
-        .wedding-couple-rig {
+            width: 100%;
+            height: 160px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            animation: coupleWaltzRig 3s infinite ease-in-out;
         }
-        @keyframes coupleWaltzRig {
-            0%, 100% { transform: rotate(-5deg) translateY(0); }
-            50% { transform: rotate(5deg) translateY(-8px); }
+        .char-img {
+            max-height: 150px;
+            max-width: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.6));
+            animation: charFloat 3s infinite ease-in-out;
         }
-        .violin-bow-arm {
-            transform-origin: top left;
-            animation: bowMove 1s infinite alternate ease-in-out;
-        }
-        @keyframes bowMove {
-            0% { transform: rotate(-10deg); }
-            100% { transform: rotate(15deg); }
+        @keyframes charFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
-        /* 🎓 Graduation വെക്റ്റർ */
-        .grad-cap-svg {
-            transform-origin: bottom center;
-            transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* ബബിൾ */
+        .speech-bubble-vector {
+            position: absolute;
+            top: 5px;
+            right: 25px;
+            background: #ff007f;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 18px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            display: none;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.8);
+            animation: popBubble 0.4s ease-out forwards;
         }
-        .grad-cap-svg.fly {
-            transform: translateY(-80px) rotate(360deg) scale(1.2);
-        }
-
-        /* 👶 New Born വെക്റ്റർ */
-        .cradle-swing-rig {
-            transform-origin: top center;
-            animation: cradleRigSwing 2.5s infinite ease-in-out;
-        }
-        @keyframes cradleRigSwing {
-            0%, 100% { transform: rotate(-8deg); }
-            50% { transform: rotate(8deg); }
-        }
-
-        /* 🎂 Birthday വെക്റ്റർ കേക്ക് */
-        .cake-flame {
-            animation: flameFlicker 0.4s infinite alternate;
-        }
-        @keyframes flameFlicker {
-            0% { transform: scale(0.85); opacity: 0.8; }
-            100% { transform: scale(1.15); opacity: 1; }
-        }
-        .cake-knife-svg {
-            transform-origin: top right;
-            transition: all 0.8s ease-in-out;
-            opacity: 0;
-        }
-        .cake-knife-svg.cut {
-            opacity: 1;
-            transform: translateY(35px) rotate(-20deg);
+        @keyframes popBubble {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
         }
 
         .story-caption {
@@ -596,7 +482,7 @@
             
             <div id="mediaContainer" class="media-box"></div>
             
-            <!-- സിനിമാറ്റിക് ലൈവ് വെക്റ്റർ സ്റ്റേജ് -->
+            <!-- സിനിമാറ്റിക് 3D ആനിമേഷൻ കാരക്ടർ സ്റ്റേജ് -->
             <div class="story-stage" id="storyStageContainer"></div>
             
             <div class="btn-group" id="primaryActionButtons"></div>
@@ -822,127 +708,81 @@
             }
         }
 
-        // --- 1. 💍 ലൈവ് പ്രൊപ്പോസൽ വെക്റ്റർ സ്റ്റോറി ---
+        // --- 1. 💍 ലൈവ് പ്രൊപ്പോസൽ സ്റ്റോറി ---
         let isStoryActive = false;
         function playLiveProposalStory() {
             if (isStoryActive) return;
             isStoryActive = true;
 
-            const boy = document.getElementById('boyRig');
-            const ringBox = document.getElementById('vectorRingBox');
-            const girlArm = document.getElementById('girlHandArm');
-            const girlBubble = document.getElementById('girlBubble');
+            const bubble = document.getElementById('girlBubble');
             const caption = document.getElementById('storyCaptionText');
+            const charImg = document.getElementById('mainCharImg');
 
-            boy.className = 'vector-boy-rig walking';
-            caption.innerText = "🚶‍♂️ He steps closer with a nervous, beating heart...";
+            caption.innerText = "💍 'Will you hold my hand forever and make my world complete?'";
+            confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
 
             setTimeout(() => {
-                boy.className = 'vector-boy-rig kneel';
-                caption.innerText = "🧎‍♂️ Gently kneeling down before his one and only...";
+                if (bubble) bubble.style.display = 'block';
+                caption.innerText = "💖 She blushes with joy... 'YES, FOREVER!'";
+                shower3DRedRoses();
 
                 setTimeout(() => {
-                    ringBox.className = 'vector-ring-box open';
-                    caption.innerText = "💍 'Will you make my world complete forever?'";
-                    confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 } });
+                    fireExtremeDualPoppers();
+                    launchGrandFireworks();
+                    caption.innerText = "✨ The beginning of their beautiful forever! ✨";
+                    isStoryActive = false;
+                }, 2200);
 
-                    setTimeout(() => {
-                        girlArm.classList.add('accept');
-                        girlBubble.classList.add('show');
-                        caption.innerText = "💖 Blushing with pure happiness... She says YES!";
-                        shower3DRedRoses();
-
-                        setTimeout(() => {
-                            caption.innerText = "✨ The ring finds its home... And their forever begins! ✨";
-                            fireExtremeDualPoppers();
-                            launchGrandFireworks();
-                            isStoryActive = false;
-                        }, 2500);
-
-                    }, 2000);
-
-                }, 1600);
-
-            }, 2500);
+            }, 1800);
         }
 
-        // --- 2. 💒 വെഡ്ഡിംഗ് വാൾട്സ് സ്റ്റോറി ---
+        // --- 2. 💒 റോയൽ വെഡ്ഡിംഗ് വാൾട്സ് സ്റ്റോറി ---
         function playWeddingWaltzCeremony() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🎻 Melodic waltz under the golden chandeliers...";
+            caption.innerText = "🎻 Melodic vows and eternal love exchanged...";
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
-                caption.innerText = "💍 Two souls united in eternal harmony and love... ✨";
+                caption.innerText = "💍 Two souls united as one in eternal bliss! ✨";
                 launchGrandFireworks();
-            }, 2200);
+            }, 2000);
         }
 
         // --- 3. 🎓 ഗ്രാജ്വേഷൻ ക്യാപ് ടോസ് സ്റ്റോറി ---
         function tossGraduationCapStory() {
-            const cap = document.getElementById('gradCap');
             const caption = document.getElementById('storyCaptionText');
-            if (cap) cap.classList.add('fly');
-            caption.innerText = "🎓 Up into the sky goes the cap, along with soaring dreams!";
+            caption.innerText = "🎓 Caps soaring high towards infinite dreams!";
             fireExtremeDualPoppers();
             setTimeout(() => {
                 launchGrandFireworks();
-                caption.innerText = "🏆 Congratulations Graduate! The world is yours! ✨";
-                setTimeout(() => { if (cap) cap.classList.remove('fly'); }, 3000);
+                caption.innerText = "🏆 Congratulations Graduates! The world is yours! ✨";
             }, 1200);
         }
 
         // --- 4. 🎂 ബർത്ത്ഡേ കേക്ക് കട്ടിംഗ് സ്റ്റോറി ---
         function blowCandlesStory() {
-            const flame = document.getElementById('candleFlame');
             const caption = document.getElementById('storyCaptionText');
-            if (flame) flame.style.display = 'none';
-            caption.innerText = "💨 The wish is whispered to the stars... ✨";
+            caption.innerText = "💨 Make a wish and whisper it to the stars... ✨";
             confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
         }
 
         function cutCakeStory() {
-            const knife = document.getElementById('cakeKnife');
             const caption = document.getElementById('storyCaptionText');
-            if (knife) knife.classList.add('cut');
-            caption.innerText = "🍰 Sweet celebrations and happiness shared!";
+            caption.innerText = "🍰 Celebrating another year of sweet memories and joy!";
             fireExtremeDualPoppers();
             launchGrandFireworks();
-            setTimeout(() => { if (knife) knife.classList.remove('cut'); }, 2500);
         }
 
-        // കാറ്റഗറി അനുസരിച്ചുള്ള വെക്റ്റർ സ്റ്റേജ് നിർമ്മാണം
+        // ഓരോ കാറ്റഗറിക്കും കൃത്യമായ 3D ആനിമേഷൻ ഇമേജ് സ്റ്റേജ് നൽകുന്നു
         function renderCategoryActions() {
             let container = document.getElementById('primaryActionButtons');
             let stage = document.getElementById('storyStageContainer');
 
             if (currentCategory === 'Proposal') {
                 stage.innerHTML = `
-                    <div class="vector-scene-box">
-                        <div class="vector-boy-rig" id="boyRig">
-                            <svg viewBox="0 0 60 100" width="60" height="100">
-                                <circle cx="30" cy="20" r="14" fill="#ffdbac"/>
-                                <path d="M 16 16 Q 30 5 44 16 Q 35 10 20 18" fill="#4a2e18"/>
-                                <path d="M 18 35 L 42 35 L 38 70 L 22 70 Z" fill="#1b1b2f"/>
-                                <polygon points="26,35 34,35 30,48" fill="#fff"/>
-                                <polygon points="29,38 31,38 30,42" fill="#e74c3c"/>
-                                <path d="M 38 40 L 50 55" stroke="#1b1b2f" stroke-width="6" stroke-linecap="round"/>
-                                <rect x="22" y="70" width="6" height="28" fill="#111" rx="3"/>
-                                <rect x="32" y="70" width="6" height="28" fill="#111" rx="3"/>
-                            </svg>
-                            <div class="vector-ring-box" id="vectorRingBox"><div class="diamond-gem"></div></div>
-                        </div>
-                        <div class="vector-girl-rig" id="girlRig">
-                            <div class="speech-bubble-vector" id="girlBubble">YES! 💖</div>
-                            <svg viewBox="0 0 60 100" width="60" height="100">
-                                <circle cx="30" cy="20" r="14" fill="#ffdbac"/>
-                                <path d="M 14 18 Q 30 2 46 18 Q 48 35 44 45 Q 30 35 16 45 Z" fill="#d35400"/>
-                                <path d="M 22 35 L 38 35 L 48 85 L 12 85 Z" fill="#ff3366"/>
-                                <path class="girl-hand" id="girlHandArm" d="M 22 42 L 6 50" stroke="#ffdbac" stroke-width="5" stroke-linecap="round"/>
-                                <circle cx="22" cy="90" r="4" fill="#fff"/>
-                                <circle cx="38" cy="90" r="4" fill="#fff"/>
-                            </svg>
-                        </div>
+                    <div class="char-img-container">
+                        <div class="speech-bubble-vector" id="girlBubble">YES! 💖</div>
+                        <img id="mainCharImg" class="char-img" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=400&q=80" alt="Proposal Animation" onerror="this.src='https://cdn-icons-png.flaticon.com/512/8643/8643906.png'">
                     </div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'Play Proposal Story' to witness the magic!</div>
                 `;
@@ -952,25 +792,8 @@
                 `;
             } else if (currentCategory === 'Wedding' || currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
-                    <div class="vector-scene-box">
-                        <!-- Violinist -->
-                        <svg viewBox="0 0 50 100" width="50" height="100" style="margin-right:15px;">
-                            <circle cx="25" cy="20" r="12" fill="#ffdbac"/>
-                            <rect x="15" y="34" width="20" height="40" fill="#2c3e50" rx="4"/>
-                            <path d="M 25 45 L 42 35" stroke="#d35400" stroke-width="5"/> <!-- Violin -->
-                            <line class="violin-bow-arm" x1="42" y1="28" x2="30" y2="48" stroke="#f1c40f" stroke-width="3"/>
-                        </svg>
-                        <!-- Couple Waltz Rig -->
-                        <div class="wedding-couple-rig">
-                            <svg viewBox="0 0 90 100" width="90" height="100">
-                                <!-- Groom -->
-                                <circle cx="30" cy="20" r="12" fill="#ffdbac"/>
-                                <path d="M 18 34 L 42 34 L 38 75 L 22 75 Z" fill="#000"/>
-                                <!-- Bride -->
-                                <circle cx="60" cy="22" r="11" fill="#ffdbac"/>
-                                <path d="M 50 35 L 70 35 L 82 85 L 38 85 Z" fill="#ffffff" filter="drop-shadow(0 0 6px rgba(255,255,255,0.7))"/>
-                            </svg>
-                        </div>
+                    <div class="char-img-container">
+                        <img class="char-img" src="https://cdn-icons-png.flaticon.com/512/3656/3656878.png" alt="Wedding Couple">
                     </div>
                     <div class="story-caption" id="storyCaptionText">🎻 Melodic Waltz of Eternal Vows</div>
                 `;
@@ -980,16 +803,8 @@
                 `;
             } else if (currentCategory === 'Graduation') {
                 stage.innerHTML = `
-                    <div class="vector-scene-box">
-                        <svg viewBox="0 0 80 120" width="80" height="120">
-                            <!-- Cap that flies -->
-                            <polygon id="gradCap" class="grad-cap-svg" points="40,15 65,25 40,35 15,25" fill="#111" stroke="#ffd700" stroke-width="1.5"/>
-                            <!-- Head & Robe -->
-                            <circle cx="40" cy="45" r="13" fill="#ffdbac"/>
-                            <path d="M 20 60 L 60 60 L 68 110 L 12 110 Z" fill="#1e3799"/>
-                            <!-- Scroll -->
-                            <rect x="42" y="75" width="16" height="8" rx="3" fill="#ffd700"/>
-                        </svg>
+                    <div class="char-img-container">
+                        <img class="char-img" src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Graduation Couple">
                     </div>
                     <div class="story-caption" id="storyCaptionText">🎓 The Grand Auditorium Standing Ovation</div>
                 `;
@@ -999,16 +814,8 @@
                 `;
             } else if (currentCategory === 'NewBorn') {
                 stage.innerHTML = `
-                    <div class="vector-scene-box">
-                        <div class="cradle-swing-rig">
-                            <svg viewBox="0 0 100 100" width="100" height="100">
-                                <!-- Cradle Basket -->
-                                <path d="M 15 50 Q 50 95 85 50 Z" fill="#d29b62" stroke="#8d5b28" stroke-width="3"/>
-                                <!-- Baby Inside -->
-                                <circle cx="50" cy="55" r="11" fill="#ffdbac"/>
-                                <path d="M 45 66 Q 50 72 55 66 Z" fill="#ff9ff3"/>
-                            </svg>
-                        </div>
+                    <div class="char-img-container">
+                        <img class="char-img" src="https://cdn-icons-png.flaticon.com/512/2821/2821739.png" alt="Baby In Cradle">
                     </div>
                     <div class="story-caption" id="storyCaptionText">✨ A Little Angel has Arrived into Our World</div>
                 `;
@@ -1017,19 +824,10 @@
                     <button class="btn" onclick="babySmiles()">${getTranslation(currentLang, 'btnBabyLove') || '🍼 Baby Smiles'}</button>
                 `;
             } else {
-                // Birthday
+                // Birthday 3D Cake
                 stage.innerHTML = `
-                    <div class="vector-scene-box" style="align-items:center;">
-                        <svg viewBox="0 0 120 120" width="120" height="120">
-                            <!-- Cake Base -->
-                            <rect x="25" y="70" width="70" height="35" rx="6" fill="#f8a5c2" stroke="#e77f9e" stroke-width="2"/>
-                            <rect x="35" y="45" width="50" height="25" rx="5" fill="#f5cd79" stroke="#e5b352" stroke-width="2"/>
-                            <!-- Candle & Flame -->
-                            <rect x="58" y="30" width="4" height="15" fill="#fff"/>
-                            <ellipse id="candleFlame" class="cake-flame" cx="60" cy="25" rx="4" ry="7" fill="#f39c12"/>
-                            <!-- Knife -->
-                            <path id="cakeKnife" class="cake-knife-svg" d="M 85 15 L 115 15 L 95 40 Z" fill="#bdc3c7" stroke="#7f8c8d"/>
-                        </svg>
+                    <div class="char-img-container">
+                        <img class="char-img" src="https://cdn-icons-png.flaticon.com/512/2682/2682446.png" alt="Birthday Cake 3D">
                     </div>
                     <div class="story-caption" id="storyCaptionText">✨ Make a Wish & Blow the Candles!</div>
                 `;
