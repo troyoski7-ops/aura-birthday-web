@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ Aura Ultra Cinematic Surprise ✨</title>
+    <title>✨ Aura Ultra Luxury Celebrations ✨</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background: radial-gradient(circle at center, #161324 0%, #05040a 100%);
+            background: radial-gradient(circle at center, #1b162b 0%, #05040a 100%);
             color: #fff;
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
@@ -22,74 +22,21 @@
             position: relative;
         }
 
-        /* 1. ലൈവ് ആനിമേറ്റഡ് ബാക്ക്ഗ്രൗണ്ട് */
-        #liveBgCanvas {
+        #liveBgCanvas, #effectsCanvas {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
             pointer-events: none;
-            z-index: 0;
         }
-
-        /* 2. സിനിമാറ്റിക് ട്രെയിലർ ഓവർലേ */
-        #cinematicIntro {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #000;
-            z-index: 9999999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            transition: opacity 1s ease-out;
-        }
-        .intro-spotlight {
-            width: 250px; height: 250px;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.25) 0%, transparent 70%);
-            position: absolute;
-            animation: pulseGlow 2.5s infinite alternate;
-        }
-        @keyframes pulseGlow {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            100% { transform: scale(1.3); opacity: 1; }
-        }
-        .intro-text-1 {
-            font-size: 0.9rem;
-            color: #cbd5e1;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            animation: fadeInLetter 1.5s forwards;
-        }
-        .intro-text-2 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(90deg, #ffd700, #ff007f, #00f2fe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-            margin-bottom: 25px;
-        }
-        .intro-btn {
-            background: linear-gradient(45deg, #ffd700, #ffaa00);
-            color: #000;
-            border: none;
-            padding: 12px 28px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            animation: bounceGift 1.5s infinite;
-        }
+        #liveBgCanvas { z-index: 0; }
+        #effectsCanvas { z-index: 99999; }
 
         .top-bar {
             width: 100%;
             max-width: 380px;
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             z-index: 10;
         }
         .lang-select {
@@ -105,33 +52,12 @@
         }
         .lang-select option { background: #1b1b2f; color: #fff; }
 
-        .floating-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-        .float-item {
-            position: absolute;
-            bottom: -50px;
-            font-size: 1.6rem;
-            animation: floatUp 8s infinite linear;
-            cursor: pointer;
-            pointer-events: auto;
-            user-select: none;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
-            100% { transform: translateY(-115vh) rotate(360deg); opacity: 0.1; }
-        }
-
         .container {
             width: 100%;
             max-width: 380px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 215, 0, 0.25);
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 18px;
             backdrop-filter: blur(14px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.7);
@@ -140,35 +66,44 @@
             z-index: 2;
         }
 
-        .holo-box {
-            background: rgba(0, 0, 0, 0.45);
-            border: 2px solid;
-            border-image: linear-gradient(45deg, #ff007f, #ffd700, #00f2fe, #7000ff) 1;
-            border-radius: 18px;
-            padding: 16px;
-            margin-bottom: 12px;
-            animation: borderPulse 4s infinite linear;
+        /* ഹെഡിംഗ് തീമുകൾ */
+        .header-box-base {
+            border-radius: 20px;
+            padding: 18px 14px;
+            margin-bottom: 14px;
+            transition: all 0.5s ease-in-out;
         }
-        @keyframes borderPulse {
-            0% { filter: drop-shadow(0 0 8px rgba(255, 0, 127, 0.6)); }
-            50% { filter: drop-shadow(0 0 16px rgba(0, 242, 254, 0.8)); }
-            100% { filter: drop-shadow(0 0 8px rgba(255, 0, 127, 0.6)); }
+        .theme-Birthday {
+            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,0,127,0.15));
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+        }
+        .theme-Proposal {
+            background: linear-gradient(135deg, rgba(255,0,127,0.2), rgba(150,0,255,0.2));
+            border: 2px solid #ff3366;
+            box-shadow: 0 0 30px rgba(255, 51, 102, 0.6);
+        }
+        .theme-Wedding, .theme-WeddingWish {
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(0,242,254,0.1));
+            border: 2px solid #e5c158;
+            box-shadow: 0 0 30px rgba(229, 193, 88, 0.6);
+        }
+        .theme-Graduation {
+            background: linear-gradient(135deg, rgba(0,242,254,0.15), rgba(0,255,128,0.15));
+            border: 2px solid #00f2fe;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+        }
+        .theme-NewBorn {
+            background: linear-gradient(135deg, rgba(255,182,193,0.2), rgba(173,216,230,0.2));
+            border: 2px solid #ffb6c1;
+            box-shadow: 0 0 25px rgba(255, 182, 193, 0.6);
         }
 
-        .shifting-title {
-            font-size: 1.4rem;
+        .category-title-text {
+            font-size: 1.35rem;
             font-weight: 800;
-            background: linear-gradient(90deg, #ff007f, #ffd700, #00f2fe, #ff6b81, #a8ff78);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: rainbowFlow 5s infinite alternate ease-in-out;
-            margin-bottom: 4px;
-        }
-        @keyframes rainbowFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            line-height: 1.4;
+            letter-spacing: 0.5px;
         }
 
         .details-box {
@@ -254,7 +189,7 @@
             justify-content: center;
             padding: 12px;
         }
-        canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; touch-action: none; z-index: 2; }
+        canvas#scratchCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; touch-action: none; z-index: 2; }
         
         .hidden-content {
             width: 100%;
@@ -269,29 +204,19 @@
         .hidden-content h3 { color: #ffd700; margin-bottom: 6px; font-size: 1rem; }
         .hidden-content p { color: #e2e8f0; font-size: 0.85rem; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; }
 
-        /* ഫിലിം സ്ട്രിപ്പ് മെമ്മറീസ് */
-        .filmstrip-box {
-            width: 100%;
-            border-radius: 12px;
-            padding: 8px;
-            background: #000;
-            border: 2px dashed #444;
-            margin-bottom: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .filmstrip-frame {
+        .single-photo-box {
             width: 100%;
             max-height: 240px;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            background: #111;
+            margin-bottom: 10px;
+            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
-        .filmstrip-frame img { width: 100%; max-height: 230px; object-fit: contain; }
+        .single-photo-box img { width: 100%; max-height: 230px; object-fit: contain; }
 
         .media-box video {
             width: 100%;
@@ -300,45 +225,7 @@
             background: #000;
             margin-bottom: 6px;
         }
-
-        /* ഹോളോഗ്രാഫിക് വോയ്‌സ് വേവ് ആനിമേഷൻ */
-        .voice-wave-container {
-            width: 100%;
-            background: rgba(0, 242, 254, 0.05);
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            border-radius: 14px;
-            padding: 10px;
-            margin: 10px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .visualizer-bars {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            height: 35px;
-            margin-bottom: 8px;
-        }
-        .v-bar {
-            width: 4px;
-            background: linear-gradient(to top, #ff007f, #00f2fe);
-            border-radius: 2px;
-            height: 10px;
-        }
-        .playing-wave .v-bar {
-            animation: jumpBar 0.8s infinite alternate ease-in-out;
-        }
-        .playing-wave .v-bar:nth-child(2) { animation-delay: 0.1s; }
-        .playing-wave .v-bar:nth-child(3) { animation-delay: 0.2s; }
-        .playing-wave .v-bar:nth-child(4) { animation-delay: 0.3s; }
-        .playing-wave .v-bar:nth-child(5) { animation-delay: 0.4s; }
-        .playing-wave .v-bar:nth-child(6) { animation-delay: 0.5s; }
-        @keyframes jumpBar {
-            0% { height: 6px; }
-            100% { height: 32px; filter: drop-shadow(0 0 6px #00f2fe); }
-        }
+        .media-box audio { width: 100%; margin-top: 6px; border-radius: 8px; margin-bottom: 8px; height: 36px; }
 
         .fs-btn {
             background: rgba(255, 215, 0, 0.2);
@@ -352,54 +239,185 @@
             font-weight: 600;
         }
 
-        .cinematic-stage {
+        /* --- വെക്റ്റർ ആനിമേഷൻ സ്റ്റേജ് --- */
+        .story-stage {
             width: 100%;
-            min-height: 160px;
-            background: radial-gradient(circle at bottom, rgba(255,215,0,0.12) 0%, rgba(0,0,0,0.6) 80%);
-            border-radius: 16px;
-            border: 1px solid rgba(255,215,0,0.3);
+            min-height: 200px;
+            background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(0,0,0,0.75) 80%);
+            border-radius: 20px;
+            border: 2px solid rgba(255,215,0,0.4);
             margin: 12px 0;
-            padding: 12px;
+            padding: 16px;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            box-shadow: inset 0 0 25px rgba(0,0,0,0.8);
         }
 
-        .proposing-boy-right {
-            font-size: 3.8rem;
-            display: inline-block;
-            transform: scaleX(-1);
-            animation: kneelHeartbeat 2.2s infinite ease-in-out;
-        }
-        @keyframes kneelHeartbeat {
-            0%, 100% { transform: scaleX(-1) translateY(0); }
-            50% { transform: scaleX(-1) translateY(-6px) scale(1.06); filter: drop-shadow(0 0 15px #ff007f); }
-        }
-
-        .ring-beam {
-            font-size: 2.2rem;
-            animation: ringRay 1.5s infinite alternate ease-in-out;
-        }
-        @keyframes ringRay {
-            0% { transform: scale(0.9); opacity: 0.7; }
-            100% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 12px #ffd700); }
+        .vector-scene-box {
+            position: relative;
+            width: 320px;
+            height: 120px;
+            margin: 0 auto;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
         }
 
-        .classic-cake-display {
-            font-size: 3.5rem;
-            margin: 10px 0;
+        /* 💍 Proposal വെക്റ്റർ സ്റ്റൈൽസ് */
+        .vector-boy-rig {
+            position: absolute;
+            bottom: 0px;
+            left: -80px;
+            width: 60px;
+            height: 100px;
+            transition: all 0.5s;
+        }
+        .vector-boy-rig.walking {
+            animation: boyWalkAcross 2.5s forwards linear;
+        }
+        @keyframes boyWalkAcross {
+            0% { left: -70px; }
+            100% { left: 90px; }
+        }
+        .vector-boy-rig.kneel {
+            left: 90px !important;
+            animation: boyKneelDown 0.8s forwards ease-in-out;
+        }
+        @keyframes boyKneelDown {
+            0% { transform: translateY(0) scaleY(1); }
+            100% { transform: translateY(22px) scaleY(0.78); }
+        }
+        .vector-ring-box {
+            position: absolute;
+            width: 26px; height: 26px;
+            background: #800020;
+            border-radius: 6px;
+            border: 2px solid #ffd700;
+            top: 35px; right: -14px;
+            opacity: 0;
+            transform: scale(0.2);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .vector-ring-box.open {
+            opacity: 1;
+            transform: scale(1.1) translateY(-10px);
+            box-shadow: 0 0 20px #ffd700;
+        }
+        .diamond-gem {
+            width: 10px; height: 10px;
+            background: #fff;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            margin: 2px auto;
+            box-shadow: 0 0 10px #00f2fe;
+            animation: sparkleDiamond 0.8s infinite alternate;
+        }
+        @keyframes sparkleDiamond {
+            0% { filter: drop-shadow(0 0 2px #fff); }
+            100% { filter: drop-shadow(0 0 12px #00f2fe); }
+        }
+        .vector-girl-rig {
+            position: absolute;
+            bottom: 0px;
+            right: 60px;
+            width: 60px;
+            height: 100px;
+        }
+        .girl-hand {
+            transform-origin: top left;
+            transition: transform 0.8s ease-in-out;
+        }
+        .girl-hand.accept {
+            transform: rotate(-35deg) scaleX(1.2);
+        }
+        .speech-bubble-vector {
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            background: #ff007f;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.8);
+        }
+        .speech-bubble-vector.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* 💒 Wedding & Anniversary വാൾട്സ് വെക്റ്റർ */
+        .wedding-couple-rig {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            animation: cakeFloat 2.5s infinite ease-in-out;
+            gap: 10px;
+            animation: coupleWaltzRig 3s infinite ease-in-out;
         }
-        @keyframes cakeFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+        @keyframes coupleWaltzRig {
+            0%, 100% { transform: rotate(-5deg) translateY(0); }
+            50% { transform: rotate(5deg) translateY(-8px); }
+        }
+        .violin-bow-arm {
+            transform-origin: top left;
+            animation: bowMove 1s infinite alternate ease-in-out;
+        }
+        @keyframes bowMove {
+            0% { transform: rotate(-10deg); }
+            100% { transform: rotate(15deg); }
+        }
+
+        /* 🎓 Graduation വെക്റ്റർ */
+        .grad-cap-svg {
+            transform-origin: bottom center;
+            transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .grad-cap-svg.fly {
+            transform: translateY(-80px) rotate(360deg) scale(1.2);
+        }
+
+        /* 👶 New Born വെക്റ്റർ */
+        .cradle-swing-rig {
+            transform-origin: top center;
+            animation: cradleRigSwing 2.5s infinite ease-in-out;
+        }
+        @keyframes cradleRigSwing {
+            0%, 100% { transform: rotate(-8deg); }
+            50% { transform: rotate(8deg); }
+        }
+
+        /* 🎂 Birthday വെക്റ്റർ കേക്ക് */
+        .cake-flame {
+            animation: flameFlicker 0.4s infinite alternate;
+        }
+        @keyframes flameFlicker {
+            0% { transform: scale(0.85); opacity: 0.8; }
+            100% { transform: scale(1.15); opacity: 1; }
+        }
+        .cake-knife-svg {
+            transform-origin: top right;
+            transition: all 0.8s ease-in-out;
+            opacity: 0;
+        }
+        .cake-knife-svg.cut {
+            opacity: 1;
+            transform: translateY(35px) rotate(-20deg);
+        }
+
+        .story-caption {
+            font-size: 0.84rem;
+            color: #ffd700;
+            margin-top: 10px;
+            font-weight: 600;
+            min-height: 24px;
         }
 
         .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
@@ -407,8 +425,8 @@
             background: linear-gradient(45deg, #ffd700, #ffaa00);
             color: #1a1a2e;
             border: none;
-            padding: 8px 14px;
-            font-size: 0.8rem;
+            padding: 10px 16px;
+            font-size: 0.82rem;
             border-radius: 25px;
             cursor: pointer;
             font-weight: 700;
@@ -476,15 +494,9 @@
 </head>
 <body>
 
-    <!-- 1. സിനിമ പോലെ വിരിയുന്ന ഇൻട്രോ സ്ക്രീൻ -->
-    <div id="cinematicIntro">
-        <div class="intro-spotlight"></div>
-        <p class="intro-text-1">A Special Story Unfolding For</p>
-        <h1 class="intro-text-2" id="introRecipientName">Someone Special ✨</h1>
-        <button class="intro-btn" onclick="startCinematicExperience()">🎬 Watch Story</button>
-    </div>
-
     <canvas id="liveBgCanvas"></canvas>
+    <canvas id="effectsCanvas"></canvas>
+
     <button id="closeFsBtn" class="close-fs-btn" onclick="exitCustomFullscreen()">✕</button>
 
     <div class="top-bar">
@@ -514,14 +526,11 @@
         </select>
     </div>
 
-    <div class="floating-bg" id="floatingBg"></div>
-
     <div id="lockSection" class="container locked-screen">
         <h2 id="lockTitle">⏳ Portal Locked!</h2>
         <p id="lockSubtitle" style="color: #cbd5e1; font-size: 0.85rem; margin-top: 4px;">This exclusive surprise opens on:</p>
         <p id="targetTimeDisplay" style="color: #ffd700; font-weight: bold; margin: 6px 0; font-size: 1rem;"></p>
         <div class="timer-digits" id="countdownTimer">Loading countdown...</div>
-        <p style="font-size: 0.75rem; color: #f1c40f; margin-top: 10px;">🎈 Tip: Tap floating icons to POP them while waiting!</p>
     </div>
 
     <div id="giftSection" class="container" onclick="openGift()">
@@ -532,8 +541,10 @@
 
     <div id="mainContent" style="display: none; width: 100%; max-width: 380px;">
 
-        <div class="holo-box">
-            <h1 class="shifting-title"><span id="mainTitle">Happy Celebration</span>, <span id="recipientName">Friend</span>! ✨</h1>
+        <div class="header-box-base" id="royalHeaderContainer">
+            <h1 class="category-title-text" id="royalTitleBox">
+                <span id="mainTitle">Celebration</span>, <span id="recipientName">Friend</span>! ✨
+            </h1>
         </div>
         
         <div class="details-box" id="infoBox">
@@ -579,24 +590,20 @@
         <div class="container" id="mediaSection" style="margin-top: 10px;">
             <h3 id="celebrationHeader" style="font-size: 1.1rem; margin-bottom: 8px;">🎉 Celebration Stage</h3>
             
-            <!-- ഫിലിം സ്ട്രിപ്പ് മെമ്മറീസ് -->
-            <div id="singlePhotoWrapper" class="filmstrip-box" style="display:none;">
-                <p style="font-size:0.75rem; color:#ffd700; margin-bottom:4px; letter-spacing:1px;">🎞️ PRECIOUS MOMENT</p>
-                <div class="filmstrip-frame">
-                    <img id="singlePhotoImg" src="" alt="Surprise Photo">
-                </div>
+            <div id="singlePhotoWrapper" class="single-photo-box" style="display:none;">
+                <img id="singlePhotoImg" src="" alt="Surprise Photo">
             </div>
             
             <div id="mediaContainer" class="media-box"></div>
             
-            <!-- സിനിമാറ്റിക് വിഷ്വൽ സ്റ്റേജ് -->
-            <div class="cinematic-stage" id="cinematicStage"></div>
+            <!-- സിനിമാറ്റിക് ലൈവ് വെക്റ്റർ സ്റ്റേജ് -->
+            <div class="story-stage" id="storyStageContainer"></div>
             
             <div class="btn-group" id="primaryActionButtons"></div>
             
             <div class="btn-group">
-                <button class="btn" onclick="firePartyPopper()" id="btnPopper">🎊 Party Popper</button>
-                <button class="btn btn-heart" onclick="sendLoveHearts()" id="btnLove">❤️ Send Love</button>
+                <button class="btn" onclick="fireExtremeDualPoppers()" id="btnPopper">🎊 3D Stage Popper</button>
+                <button class="btn btn-heart" onclick="send3DLoveHearts()" id="btnLove">❤️ Send Love</button>
             </div>
             <div class="btn-group">
                 <button class="btn" style="background: linear-gradient(45deg, #00ffcc, #00b894);" onclick="launchGrandFireworks()" id="btnFireworks">🎆 Grand Fireworks</button>
@@ -604,7 +611,6 @@
         </div>
     </div>
 
-    <!-- Custom Modal Window -->
     <div class="modal-overlay" id="customModal">
         <div class="modal-box">
             <p id="modalMsgText"></p>
@@ -615,30 +621,31 @@
     <script>
         const BOT_API_URL = "https://birthday-bot-production-3f7a.up.railway.app";
 
-        // ലൈവ് ബാക്ക്ഗ്രൗണ്ട് പാർട്ടിക്കിൾസ്
         const bgCanvas = document.getElementById('liveBgCanvas');
         const bgCtx = bgCanvas.getContext('2d');
-        let particles = [];
+        const fxCanvas = document.getElementById('effectsCanvas');
+        const fxCtx = fxCanvas.getContext('2d');
+        let particles = [], customPetals = [], customBalloons = [], customHearts = [];
 
-        function resizeBgCanvas() {
-            bgCanvas.width = window.innerWidth;
-            bgCanvas.height = window.innerHeight;
+        function resizeCanvases() {
+            bgCanvas.width = fxCanvas.width = window.innerWidth;
+            bgCanvas.height = fxCanvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resizeBgCanvas);
-        resizeBgCanvas();
+        window.addEventListener('resize', resizeCanvases);
+        resizeCanvases();
 
-        for (let i = 0; i < 45; i++) {
+        for (let i = 0; i < 40; i++) {
             particles.push({
                 x: Math.random() * bgCanvas.width,
                 y: Math.random() * bgCanvas.height,
                 radius: Math.random() * 2 + 0.5,
                 alpha: Math.random() * 0.7 + 0.2,
-                speedY: Math.random() * 0.5 + 0.2,
+                speedY: Math.random() * 0.4 + 0.1,
                 color: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff'][Math.floor(Math.random() * 4)]
             });
         }
 
-        function animateBgParticles() {
+        function animateCanvas() {
             bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
             particles.forEach(p => {
                 p.y -= p.speedY;
@@ -649,16 +656,78 @@
                 bgCtx.globalAlpha = p.alpha;
                 bgCtx.fill();
             });
-            requestAnimationFrame(animateBgParticles);
-        }
-        animateBgParticles();
 
-        function startCinematicExperience() {
-            let intro = document.getElementById('cinematicIntro');
-            intro.style.opacity = '0';
-            setTimeout(() => intro.style.display = 'none', 1000);
-            confetti({ particleCount: 100, spread: 80, origin: { y: 0.5 } });
+            fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+
+            // 3D റോസാപ്പൂവിതളുകൾ
+            for (let i = customPetals.length - 1; i >= 0; i--) {
+                let pt = customPetals[i];
+                pt.y += pt.speedY;
+                pt.x += Math.sin(pt.wobble) * 1.6;
+                pt.wobble += 0.04;
+                pt.rotation += pt.rotSpeed;
+
+                fxCtx.save();
+                fxCtx.translate(pt.x, pt.y);
+                fxCtx.rotate(pt.rotation);
+                fxCtx.beginPath();
+                fxCtx.ellipse(0, 0, pt.size, pt.size * 0.65, 0, 0, Math.PI * 2);
+                fxCtx.fillStyle = pt.color;
+                fxCtx.shadowColor = "#800020";
+                fxCtx.shadowBlur = 6;
+                fxCtx.fill();
+                fxCtx.restore();
+
+                if (pt.y > fxCanvas.height + 50) customPetals.splice(i, 1);
+            }
+
+            // പാസ്റ്റൽ ബലൂണുകൾ
+            for (let i = customBalloons.length - 1; i >= 0; i--) {
+                let bl = customBalloons[i];
+                bl.y -= bl.speedY;
+                bl.x += Math.sin(bl.wobble) * 1.2;
+                bl.wobble += 0.03;
+
+                fxCtx.save();
+                fxCtx.beginPath();
+                fxCtx.ellipse(bl.x, bl.y, bl.radius * 0.85, bl.radius, 0, 0, Math.PI * 2);
+                fxCtx.fillStyle = bl.color;
+                fxCtx.shadowColor = bl.color;
+                fxCtx.shadowBlur = 10;
+                fxCtx.fill();
+
+                fxCtx.beginPath();
+                fxCtx.moveTo(bl.x, bl.y + bl.radius);
+                fxCtx.lineTo(bl.x + Math.sin(bl.wobble) * 4, bl.y + bl.radius + 20);
+                fxCtx.strokeStyle = "rgba(255,255,255,0.4)";
+                fxCtx.lineWidth = 1;
+                fxCtx.stroke();
+                fxCtx.restore();
+
+                if (bl.y < -60) customBalloons.splice(i, 1);
+            }
+
+            // ഹാർട്ട്സ്
+            for (let i = customHearts.length - 1; i >= 0; i--) {
+                let h = customHearts[i];
+                h.y += h.speedY;
+                h.x += Math.sin(h.wobble) * 1.5;
+                h.wobble += 0.05;
+
+                fxCtx.save();
+                fxCtx.translate(h.x, h.y);
+                fxCtx.font = `${h.size}px serif`;
+                fxCtx.shadowColor = "#ff007f";
+                fxCtx.shadowBlur = 8;
+                fxCtx.fillText("❤️", 0, 0);
+                fxCtx.restore();
+
+                if (h.y > fxCanvas.height + 40) customHearts.splice(i, 1);
+            }
+
+            requestAnimationFrame(animateCanvas);
         }
+        animateCanvas();
 
         const translations = {
             'en': {
@@ -667,10 +736,10 @@
                 targetTimeText: "Target Time", scratchInstruction: "👇 Scratch the card below to reveal your surprise!",
                 surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "🎉 Celebration Stage",
                 statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
-                openWhenTitle: "💌 Open When...", btnPopper: "🎊 Party Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
+                openWhenTitle: "💌 Open When...", btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
                 btnBlow: "💨 Blow Candles", btnCut: "🕯️ Cut Cake",
-                btnProposal: "💍 Say Yes Forever!", btnShowerRoses: "🌹 Shower Red Roses",
-                btnRings: "💍 Exchange Rings", btnWaltz: "💃 Romantic Waltz",
+                btnPlayStory: "💍 Play Proposal Story", btnShowerRoses: "🌹 Shower Red Roses",
+                btnWeddingWaltz: "💒 Royal Wedding Waltz",
                 btnToss: "🎓 Toss Graduation Cap", btnClap: "👏 Standing Ovation",
                 btnBalloons: "🎈 Release Pastel Balloons", btnBabyLove: "🍼 Baby Smiles",
                 categories: {
@@ -689,10 +758,10 @@
                 targetTimeText: "ലഭ്യമാകുന്ന സമയം", scratchInstruction: "👇 സർപ്രൈസ് കാണാൻ താഴെ സ്ക്രാച്ച് ചെയ്യുക!",
                 surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "🎉 ആഘോഷ വേദി",
                 statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
-                openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 പാർട്ടി പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
+                openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
                 btnBlow: "💨 മെഴുകുതിരി അണയ്ക്കുക", btnCut: "🕯️ കേക്ക് മുറിക്കുക",
-                btnProposal: "💍 സമ്മതം പറയൂ!", btnShowerRoses: "🌹 റോസാപ്പൂക്കൾ ചൊരിയുക",
-                btnRings: "💍 മോതിരം മാറ്റുക", btnWaltz: "💃 റൊമാന്റിക് നൃത്തം",
+                btnPlayStory: "💍 പ്രൊപ്പോസൽ സ്റ്റോറി പ്ലേ ചെയ്യൂ", btnShowerRoses: "🌹 റോസാപ്പൂക്കൾ ചൊരിയുക",
+                btnWeddingWaltz: "💒 റോയൽ വെഡ്ഡിംഗ് വാൾട്സ്",
                 btnToss: "🎓 തൊപ്പി വാനിലേക്ക് എറിയുക", btnClap: "👏 ആർപ്പുവിളി & കൈയടി",
                 btnBalloons: "🎈 ബലൂൺ പറത്തുക", btnBabyLove: "🍼 കുഞ്ഞുചിരികൾ",
                 categories: {
@@ -718,7 +787,7 @@
 
         const openWhenMessages = {
             'sad': "💙 Cheer up! Remember that storms don't last forever. You are stronger, brighter, and more loved than you can ever imagine. Smile! 😊",
-            'laugh': "😂 Just a reminder: You are completely weird, delightfully funny, and 100% irreplaceable! Keep smiling!",
+            'laugh': "😂 Just a reminder: You are delightfully funny, wonderfully unique, and completely irreplaceable! Keep smiling!",
             'miss': "🥰 Distance means so little when love and friendship mean so much. I'm always right here with you in spirit! ❤️",
             'vibe': "✨ Turn up the music, close your eyes, and soak in this beautiful day. This celebration is all about you! 🎉"
         };
@@ -746,114 +815,229 @@
             });
             let catMap = (translations[lang] && translations[lang].categories) ? translations[lang].categories : translations['en'].categories;
             document.getElementById('mainTitle').innerText = catMap[currentCategory] || catMap["Birthday"];
-        }
 
-        function setupFloatingEmojis() {
-            let floatBg = document.getElementById('floatingBg');
-            floatBg.innerHTML = '';
-            
-            let icons = ['🎈', '✨', '🎂', '🎉', '🎁'];
-            if (currentCategory === 'Wedding' || currentCategory === 'WeddingWish') {
-                icons = ['🌹', '💍', '💐', '✨', '💖'];
-            } else if (currentCategory === 'Proposal') {
-                icons = ['💍', '💖', '🌹', '✨', '💎'];
-            } else if (currentCategory === 'Graduation') {
-                icons = ['🎓', '📜', '🏆', '⭐', '✨'];
-            } else if (currentCategory === 'NewBorn') {
-                icons = ['🍼', '👶', '🧸', '🎈', '⭐'];
-            }
-
-            for (let i = 0; i < 16; i++) {
-                let div = document.createElement('div');
-                div.className = 'float-item';
-                div.innerText = icons[Math.floor(Math.random() * icons.length)];
-                div.style.left = `${Math.random() * 90}%`;
-                div.style.animationDuration = `${6 + Math.random() * 6}s`;
-                div.style.animationDelay = `${Math.random() * 5}s`;
-                
-                div.addEventListener('click', function(e) {
-                    confetti({
-                        particleCount: 25,
-                        spread: 50,
-                        origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight }
-                    });
-                    div.style.transform = 'scale(2)';
-                    div.style.opacity = '0';
-                    setTimeout(() => div.remove(), 200);
-                });
-                floatBg.appendChild(div);
+            let headerBox = document.getElementById('royalHeaderContainer');
+            if (headerBox) {
+                headerBox.className = 'header-box-base theme-' + currentCategory;
             }
         }
 
+        // --- 1. 💍 ലൈവ് പ്രൊപ്പോസൽ വെക്റ്റർ സ്റ്റോറി ---
+        let isStoryActive = false;
+        function playLiveProposalStory() {
+            if (isStoryActive) return;
+            isStoryActive = true;
+
+            const boy = document.getElementById('boyRig');
+            const ringBox = document.getElementById('vectorRingBox');
+            const girlArm = document.getElementById('girlHandArm');
+            const girlBubble = document.getElementById('girlBubble');
+            const caption = document.getElementById('storyCaptionText');
+
+            boy.className = 'vector-boy-rig walking';
+            caption.innerText = "🚶‍♂️ He steps closer with a nervous, beating heart...";
+
+            setTimeout(() => {
+                boy.className = 'vector-boy-rig kneel';
+                caption.innerText = "🧎‍♂️ Gently kneeling down before his one and only...";
+
+                setTimeout(() => {
+                    ringBox.className = 'vector-ring-box open';
+                    caption.innerText = "💍 'Will you make my world complete forever?'";
+                    confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 } });
+
+                    setTimeout(() => {
+                        girlArm.classList.add('accept');
+                        girlBubble.classList.add('show');
+                        caption.innerText = "💖 Blushing with pure happiness... She says YES!";
+                        shower3DRedRoses();
+
+                        setTimeout(() => {
+                            caption.innerText = "✨ The ring finds its home... And their forever begins! ✨";
+                            fireExtremeDualPoppers();
+                            launchGrandFireworks();
+                            isStoryActive = false;
+                        }, 2500);
+
+                    }, 2000);
+
+                }, 1600);
+
+            }, 2500);
+        }
+
+        // --- 2. 💒 വെഡ്ഡിംഗ് വാൾട്സ് സ്റ്റോറി ---
+        function playWeddingWaltzCeremony() {
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "🎻 Melodic waltz under the golden chandeliers...";
+            shower3DRedRoses();
+            fireExtremeDualPoppers();
+            setTimeout(() => {
+                caption.innerText = "💍 Two souls united in eternal harmony and love... ✨";
+                launchGrandFireworks();
+            }, 2200);
+        }
+
+        // --- 3. 🎓 ഗ്രാജ്വേഷൻ ക്യാപ് ടോസ് സ്റ്റോറി ---
+        function tossGraduationCapStory() {
+            const cap = document.getElementById('gradCap');
+            const caption = document.getElementById('storyCaptionText');
+            if (cap) cap.classList.add('fly');
+            caption.innerText = "🎓 Up into the sky goes the cap, along with soaring dreams!";
+            fireExtremeDualPoppers();
+            setTimeout(() => {
+                launchGrandFireworks();
+                caption.innerText = "🏆 Congratulations Graduate! The world is yours! ✨";
+                setTimeout(() => { if (cap) cap.classList.remove('fly'); }, 3000);
+            }, 1200);
+        }
+
+        // --- 4. 🎂 ബർത്ത്ഡേ കേക്ക് കട്ടിംഗ് സ്റ്റോറി ---
+        function blowCandlesStory() {
+            const flame = document.getElementById('candleFlame');
+            const caption = document.getElementById('storyCaptionText');
+            if (flame) flame.style.display = 'none';
+            caption.innerText = "💨 The wish is whispered to the stars... ✨";
+            confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+        }
+
+        function cutCakeStory() {
+            const knife = document.getElementById('cakeKnife');
+            const caption = document.getElementById('storyCaptionText');
+            if (knife) knife.classList.add('cut');
+            caption.innerText = "🍰 Sweet celebrations and happiness shared!";
+            fireExtremeDualPoppers();
+            launchGrandFireworks();
+            setTimeout(() => { if (knife) knife.classList.remove('cut'); }, 2500);
+        }
+
+        // കാറ്റഗറി അനുസരിച്ചുള്ള വെക്റ്റർ സ്റ്റേജ് നിർമ്മാണം
         function renderCategoryActions() {
             let container = document.getElementById('primaryActionButtons');
-            let stage = document.getElementById('cinematicStage');
+            let stage = document.getElementById('storyStageContainer');
 
             if (currentCategory === 'Proposal') {
                 stage.innerHTML = `
-                    <div style="display:flex; align-items:center; justify-content:center; gap:18px;">
-                        <div class="proposing-boy-right">🧎‍♂️</div>
-                        <div class="ring-beam">💍✨</div>
-                        <div style="font-size:3.5rem; animation:cakeFloat 2.5s infinite;">👸💖</div>
+                    <div class="vector-scene-box">
+                        <div class="vector-boy-rig" id="boyRig">
+                            <svg viewBox="0 0 60 100" width="60" height="100">
+                                <circle cx="30" cy="20" r="14" fill="#ffdbac"/>
+                                <path d="M 16 16 Q 30 5 44 16 Q 35 10 20 18" fill="#4a2e18"/>
+                                <path d="M 18 35 L 42 35 L 38 70 L 22 70 Z" fill="#1b1b2f"/>
+                                <polygon points="26,35 34,35 30,48" fill="#fff"/>
+                                <polygon points="29,38 31,38 30,42" fill="#e74c3c"/>
+                                <path d="M 38 40 L 50 55" stroke="#1b1b2f" stroke-width="6" stroke-linecap="round"/>
+                                <rect x="22" y="70" width="6" height="28" fill="#111" rx="3"/>
+                                <rect x="32" y="70" width="6" height="28" fill="#111" rx="3"/>
+                            </svg>
+                            <div class="vector-ring-box" id="vectorRingBox"><div class="diamond-gem"></div></div>
+                        </div>
+                        <div class="vector-girl-rig" id="girlRig">
+                            <div class="speech-bubble-vector" id="girlBubble">YES! 💖</div>
+                            <svg viewBox="0 0 60 100" width="60" height="100">
+                                <circle cx="30" cy="20" r="14" fill="#ffdbac"/>
+                                <path d="M 14 18 Q 30 2 46 18 Q 48 35 44 45 Q 30 35 16 45 Z" fill="#d35400"/>
+                                <path d="M 22 35 L 38 35 L 48 85 L 12 85 Z" fill="#ff3366"/>
+                                <path class="girl-hand" id="girlHandArm" d="M 22 42 L 6 50" stroke="#ffdbac" stroke-width="5" stroke-linecap="round"/>
+                                <circle cx="22" cy="90" r="4" fill="#fff"/>
+                                <circle cx="38" cy="90" r="4" fill="#fff"/>
+                            </svg>
+                        </div>
                     </div>
-                    <p style="font-size:0.85rem; color:#ff007f; margin-top:8px; font-weight:bold;">✨ "Will You Marry Me & Be My Forever?"</p>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Play Proposal Story' to witness the magic!</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700);" onclick="proposeLove()">${getTranslation(currentLang, 'btnProposal') || '💍 Say Yes Forever!'}</button>
-                    <button class="btn" onclick="showerRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
+                    <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700);" onclick="playLiveProposalStory()">${getTranslation(currentLang, 'btnPlayStory') || '💍 Play Proposal Story'}</button>
+                    <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
                 `;
             } else if (currentCategory === 'Wedding' || currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
-                    <div style="display:flex; align-items:center; justify-content:space-around; width:100%;">
-                        <div style="font-size:2.8rem; animation:cakeFloat 2s infinite;">🎻<span style="font-size:1.2rem; color:#ffd700;">𝄞</span></div>
-                        <div style="font-size:3.8rem; animation:cakeFloat 2.5s infinite;">🤵👰</div>
-                        <div style="font-size:2.8rem;">🕯️✨</div>
+                    <div class="vector-scene-box">
+                        <!-- Violinist -->
+                        <svg viewBox="0 0 50 100" width="50" height="100" style="margin-right:15px;">
+                            <circle cx="25" cy="20" r="12" fill="#ffdbac"/>
+                            <rect x="15" y="34" width="20" height="40" fill="#2c3e50" rx="4"/>
+                            <path d="M 25 45 L 42 35" stroke="#d35400" stroke-width="5"/> <!-- Violin -->
+                            <line class="violin-bow-arm" x1="42" y1="28" x2="30" y2="48" stroke="#f1c40f" stroke-width="3"/>
+                        </svg>
+                        <!-- Couple Waltz Rig -->
+                        <div class="wedding-couple-rig">
+                            <svg viewBox="0 0 90 100" width="90" height="100">
+                                <!-- Groom -->
+                                <circle cx="30" cy="20" r="12" fill="#ffdbac"/>
+                                <path d="M 18 34 L 42 34 L 38 75 L 22 75 Z" fill="#000"/>
+                                <!-- Bride -->
+                                <circle cx="60" cy="22" r="11" fill="#ffdbac"/>
+                                <path d="M 50 35 L 70 35 L 82 85 L 38 85 Z" fill="#ffffff" filter="drop-shadow(0 0 6px rgba(255,255,255,0.7))"/>
+                            </svg>
+                        </div>
                     </div>
-                    <p style="font-size:0.8rem; color:#ffd700; margin-top:8px;">🎻 Eternal Waltz of Endless Love</p>
+                    <div class="story-caption" id="storyCaptionText">🎻 Melodic Waltz of Eternal Vows</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="exchangeRings()">${getTranslation(currentLang, 'btnRings') || '💍 Exchange Rings'}</button>
-                    <button class="btn" onclick="romanticWaltz()">${getTranslation(currentLang, 'btnWaltz') || '💃 Romantic Waltz'}</button>
-                    <button class="btn" onclick="showerRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
+                    <button class="btn" onclick="playWeddingWaltzCeremony()">${getTranslation(currentLang, 'btnWeddingWaltz') || '💒 Royal Wedding Waltz'}</button>
+                    <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
                 `;
             } else if (currentCategory === 'Graduation') {
                 stage.innerHTML = `
-                    <div style="display:flex; align-items:center; justify-content:center; gap:25px;">
-                        <div style="font-size:3.5rem; animation:cakeFloat 2s infinite;">🎓</div>
-                        <div style="font-size:3.5rem;">👨‍🎓📜</div>
-                        <div style="font-size:3rem;">🏆✨</div>
+                    <div class="vector-scene-box">
+                        <svg viewBox="0 0 80 120" width="80" height="120">
+                            <!-- Cap that flies -->
+                            <polygon id="gradCap" class="grad-cap-svg" points="40,15 65,25 40,35 15,25" fill="#111" stroke="#ffd700" stroke-width="1.5"/>
+                            <!-- Head & Robe -->
+                            <circle cx="40" cy="45" r="13" fill="#ffdbac"/>
+                            <path d="M 20 60 L 60 60 L 68 110 L 12 110 Z" fill="#1e3799"/>
+                            <!-- Scroll -->
+                            <rect x="42" y="75" width="16" height="8" rx="3" fill="#ffd700"/>
+                        </svg>
                     </div>
-                    <p style="font-size:0.8rem; color:#00ffcc; margin-top:8px;">🎓 The Grand Auditorium Ovation</p>
+                    <div class="story-caption" id="storyCaptionText">🎓 The Grand Auditorium Standing Ovation</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="tossCap()">${getTranslation(currentLang, 'btnToss') || '🎓 Toss Graduation Cap'}</button>
+                    <button class="btn" onclick="tossGraduationCapStory()">${getTranslation(currentLang, 'btnToss') || '🎓 Toss Graduation Cap'}</button>
                     <button class="btn" onclick="grandApplause()">${getTranslation(currentLang, 'btnClap') || '👏 Standing Ovation'}</button>
                 `;
             } else if (currentCategory === 'NewBorn') {
                 stage.innerHTML = `
-                    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
-                        <div style="font-size:3.8rem; animation:cakeFloat 2.5s infinite;">👼🧺</div>
-                        <div style="font-size:3rem;">🍼🧸</div>
+                    <div class="vector-scene-box">
+                        <div class="cradle-swing-rig">
+                            <svg viewBox="0 0 100 100" width="100" height="100">
+                                <!-- Cradle Basket -->
+                                <path d="M 15 50 Q 50 95 85 50 Z" fill="#d29b62" stroke="#8d5b28" stroke-width="3"/>
+                                <!-- Baby Inside -->
+                                <circle cx="50" cy="55" r="11" fill="#ffdbac"/>
+                                <path d="M 45 66 Q 50 72 55 66 Z" fill="#ff9ff3"/>
+                            </svg>
+                        </div>
                     </div>
-                    <p style="font-size:0.8rem; color:#ff9ff3; margin-top:8px;">✨ A Little Angel has Arrived</p>
+                    <div class="story-caption" id="storyCaptionText">✨ A Little Angel has Arrived into Our World</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="releaseBalloons()">${getTranslation(currentLang, 'btnBalloons') || '🎈 Release Pastel Balloons'}</button>
+                    <button class="btn" onclick="release3DPastelBalloons()">${getTranslation(currentLang, 'btnBalloons') || '🎈 Release Pastel Balloons'}</button>
                     <button class="btn" onclick="babySmiles()">${getTranslation(currentLang, 'btnBabyLove') || '🍼 Baby Smiles'}</button>
                 `;
             } else {
+                // Birthday
                 stage.innerHTML = `
-                    <div class="classic-cake-display" id="classicCakeBox">
-                        <span>🎂</span><span>🔥</span><span>✨</span>
+                    <div class="vector-scene-box" style="align-items:center;">
+                        <svg viewBox="0 0 120 120" width="120" height="120">
+                            <!-- Cake Base -->
+                            <rect x="25" y="70" width="70" height="35" rx="6" fill="#f8a5c2" stroke="#e77f9e" stroke-width="2"/>
+                            <rect x="35" y="45" width="50" height="25" rx="5" fill="#f5cd79" stroke="#e5b352" stroke-width="2"/>
+                            <!-- Candle & Flame -->
+                            <rect x="58" y="30" width="4" height="15" fill="#fff"/>
+                            <ellipse id="candleFlame" class="cake-flame" cx="60" cy="25" rx="4" ry="7" fill="#f39c12"/>
+                            <!-- Knife -->
+                            <path id="cakeKnife" class="cake-knife-svg" d="M 85 15 L 115 15 L 95 40 Z" fill="#bdc3c7" stroke="#7f8c8d"/>
+                        </svg>
                     </div>
-                    <p style="font-size:0.8rem; color:#ffd700; margin-top:6px;">✨ Make a Wish & Blow the Candles!</p>
+                    <div class="story-caption" id="storyCaptionText">✨ Make a Wish & Blow the Candles!</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="blowCandles()">${getTranslation(currentLang, 'btnBlow') || '💨 Blow Candles'}</button>
-                    <button class="btn" onclick="cutCake()">${getTranslation(currentLang, 'btnCut') || '🕯️ Cut Cake'}</button>
+                    <button class="btn" onclick="blowCandlesStory()">${getTranslation(currentLang, 'btnBlow') || '💨 Blow Candles'}</button>
+                    <button class="btn" onclick="cutCakeStory()">${getTranslation(currentLang, 'btnCut') || '🕯️ Cut Cake'}</button>
                 `;
             }
-            setupFloatingEmojis();
         }
 
         let urlParams = new URLSearchParams(window.location.search);
@@ -906,7 +1090,6 @@
                 }
             }
 
-            document.getElementById('introRecipientName').innerText = name;
             document.getElementById('langSwitcher').value = currentLang;
             applyTranslations(currentLang);
             renderCategoryActions();
@@ -946,31 +1129,10 @@
                 }, 500);
             }
             if (song) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎶 Song / Music</p><audio controls src="${song}"></audio></div>`;
-            
-            // ഹോളോഗ്രാഫിക് വോയ്‌സ് നോട്ട് പ്ലെയർ
-            if (voice) {
-                mediaContainer.innerHTML += `
-                    <div class="voice-wave-container" id="voiceWaveBox">
-                        <p style="font-size:0.8rem; color:#00f2fe; margin-bottom:4px;">🎙️ Holographic Voice Note</p>
-                        <div class="visualizer-bars">
-                            <div class="v-bar"></div><div class="v-bar"></div><div class="v-bar"></div>
-                            <div class="v-bar"></div><div class="v-bar"></div><div class="v-bar"></div>
-                        </div>
-                        <audio id="hologramAudio" controls src="${voice}" onplay="startVoiceWave()" onpause="stopVoiceWave()"></audio>
-                    </div>`;
-            }
+            if (voice) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎙️ Voice Greeting</p><audio controls src="${voice}"></audio></div>`;
             if (extraAudio) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎵 Extra Audio</p><audio controls src="${extraAudio}"></audio></div>`;
 
             checkTimeLock();
-        }
-
-        function startVoiceWave() {
-            let el = document.getElementById('voiceWaveBox');
-            if (el) el.classList.add('playing-wave');
-        }
-        function stopVoiceWave() {
-            let el = document.getElementById('voiceWaveBox');
-            if (el) el.classList.remove('playing-wave');
         }
 
         function openFullscreenVideo() {
@@ -1084,72 +1246,102 @@
             canvas.addEventListener('touchend', () => isDrawing = false);
         }
 
-        function blowCandles() {
-            let cake = document.getElementById('classicCakeBox');
-            if (cake) cake.innerHTML = '<span>🎂</span><span>💨</span><span>✨</span>';
-            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-        }
-        function cutCake() {
-            let cake = document.getElementById('classicCakeBox');
-            if (cake) cake.innerHTML = '<span>🍰</span><span>🔪</span><span>✨</span>';
-            confetti({ particleCount: 180, spread: 100, origin: { y: 0.6 }, colors: ['#ffd700', '#ff007f', '#00f2fe', '#fff'] });
-        }
-        
-        function romanticWaltz() {
-            confetti({ particleCount: 100, spread: 100, origin: { y: 0.5 }, colors: ['#ff007f', '#ffd700', '#fff'] });
-            showerRoses();
+        // --- 💥 3-വേവ് 3D സ്റ്റേജ് പോപ്പർ ---
+        function fireExtremeDualPoppers() {
+            confetti({
+                particleCount: 80, angle: 60, spread: 80,
+                origin: { x: 0, y: 0.95 },
+                colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff']
+            });
+            confetti({
+                particleCount: 80, angle: 120, spread: 80,
+                origin: { x: 1, y: 0.95 },
+                colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff']
+            });
+
+            setTimeout(() => {
+                confetti({
+                    particleCount: 60, angle: 70, spread: 60,
+                    origin: { x: 0.05, y: 0.9 },
+                    colors: ['#ffaa00', '#ff6b81', '#ffffff']
+                });
+                confetti({
+                    particleCount: 60, angle: 110, spread: 60,
+                    origin: { x: 0.95, y: 0.9 },
+                    colors: ['#ffaa00', '#ff6b81', '#ffffff']
+                });
+            }, 150);
+
+            setTimeout(() => {
+                confetti({
+                    particleCount: 90, spread: 100,
+                    origin: { x: 0.5, y: 0.75 },
+                    colors: ['#ffd700', '#ff007f', '#ffffff']
+                });
+            }, 300);
         }
 
-        function proposeLove() {
-            confetti({ particleCount: 220, spread: 110, origin: { y: 0.5 }, colors: ['#ff007f', '#ffd700', '#ffffff', '#ff6b81'] });
-            showerRoses();
-        }
-        function exchangeRings() {
-            confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 }, colors: ['#ffd700', '#ffffff', '#ff3366'] });
-        }
-
-        function showerRoses() {
-            for(let i=0; i<18; i++){
-                let div = document.createElement('div');
-                div.className = 'float-item'; div.innerText = '🌹';
-                div.style.left = `${10 + Math.random() * 80}%`;
-                div.style.animationDuration = `${5 + Math.random() * 4}s`;
-                document.body.appendChild(div);
-                setTimeout(() => div.remove(), 2500);
+        function shower3DRedRoses() {
+            let shades = ['#b3002d', '#cc0033', '#800020', '#e6004c'];
+            for (let i = 0; i < 45; i++) {
+                customPetals.push({
+                    x: Math.random() * fxCanvas.width,
+                    y: -20 - Math.random() * 80,
+                    size: Math.random() * 10 + 9,
+                    color: shades[Math.floor(Math.random() * shades.length)],
+                    speedY: Math.random() * 2.5 + 2,
+                    wobble: Math.random() * 5,
+                    rotation: Math.random() * Math.PI,
+                    rotSpeed: (Math.random() - 0.5) * 0.08
+                });
             }
         }
-        function tossCap() {
-            confetti({ particleCount: 180, spread: 120, origin: { y: 0.5 }, colors: ['#00ffcc', '#ffd700', '#ff3366'] });
+
+        function release3DPastelBalloons() {
+            let colors = ['rgba(255, 159, 243, 0.85)', 'rgba(254, 202, 87, 0.85)', 'rgba(72, 219, 251, 0.85)', 'rgba(255, 107, 129, 0.85)'];
+            for (let i = 0; i < 22; i++) {
+                customBalloons.push({
+                    x: Math.random() * fxCanvas.width,
+                    y: fxCanvas.height + 20 + Math.random() * 100,
+                    radius: Math.random() * 16 + 18,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speedY: Math.random() * 2 + 1.8,
+                    wobble: Math.random() * 5
+                });
+            }
         }
+
+        function send3DLoveHearts() {
+            for (let i = 0; i < 30; i++) {
+                customHearts.push({
+                    x: Math.random() * fxCanvas.width,
+                    y: -20 - Math.random() * 60,
+                    size: Math.random() * 14 + 18,
+                    speedY: Math.random() * 3 + 2,
+                    wobble: Math.random() * 5
+                });
+            }
+        }
+
         function grandApplause() {
-            confetti({ particleCount: 120, spread: 80, origin: { y: 0.7 } });
-        }
-
-        function releaseBalloons() {
-            let pastelBalloons = ['🎈', '🧸', '🍼', '⭐'];
-            for(let i=0; i<14; i++){
-                let div = document.createElement('div');
-                div.className = 'float-item'; div.innerText = pastelBalloons[Math.floor(Math.random() * pastelBalloons.length)];
-                div.style.left = `${10 + Math.random() * 80}%`;
-                div.style.animationDuration = `${5 + Math.random() * 5}s`;
-                document.body.appendChild(div);
-                setTimeout(() => div.remove(), 2500);
-            }
+            fireExtremeDualPoppers();
         }
         function babySmiles() {
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#ff9ff3', '#feca57', '#00f2fe'] });
+            release3DPastelBalloons();
         }
-        function firePartyPopper() { confetti({ particleCount: 120, spread: 80, origin: { y: 0.7 } }); }
-        function sendLoveHearts() {
-            ['❤️', '💖', '💝', '✨'].forEach(h => {
-                let div = document.createElement('div');
-                div.className = 'float-item'; div.innerText = h;
-                div.style.left = `${30 + Math.random() * 40}%`;
-                document.body.appendChild(div);
-                setTimeout(() => div.remove(), 2500);
-            });
+
+        function launchGrandFireworks() {
+            let count = 0;
+            let fireInterval = setInterval(() => {
+                confetti({
+                    particleCount: 120, spread: 100,
+                    origin: { x: 0.2 + Math.random() * 0.6, y: 0.2 + Math.random() * 0.4 },
+                    colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff', '#ffaa00']
+                });
+                count++;
+                if (count >= 4) clearInterval(fireInterval);
+            }, 300);
         }
-        function launchGrandFireworks() { confetti({ particleCount: 250, spread: 100, origin: { y: 0.6 } }); }
 
         if (window.Telegram && window.Telegram.WebApp) {
             window.Telegram.WebApp.ready();
