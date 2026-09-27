@@ -265,6 +265,10 @@
             <option value="en">English</option>
             <option value="ml">മലയാളം</option>
             <option value="hi">हिन्दी</option>
+            <option value="ta">தமிழ்</option>
+            <option value="te">తెలుగు</option>
+            <option value="kn">ಕನ್ನಡ</option>
+            <option value="bn">বাংলা</option>
             <option value="ar">العربية</option>
             <option value="ru">Русский</option>
             <option value="es">Español</option>
@@ -371,7 +375,8 @@
     </div>
 
     <script>
-        const BOT_API_URL = "https://aura-birthday-web.vercel.app"; // അല്ലെങ്കിൽ നിങ്ങളുടെ റെയിൽവേ ബാക്ക്എൻഡ് URL നൽകുക
+        // നിങ്ങളുടെ ശരിയായ റെയിൽവേ ബാക്ക്എൻഡ് ഡൊമെയ്ൻ
+        const BOT_API_URL = "https://birthday-bot-production-3f7a.up.railway.app";
 
         const translations = {
             'en': {
@@ -463,7 +468,7 @@
 
             if (surpriseId) {
                 try {
-                    let response = await fetch(`https://birthday-bot-hmkb.onrender.com/api/surprise?id=${surpriseId}`);
+                    let response = await fetch(`${BOT_API_URL}/api/surprise?id=${surpriseId}`);
                     if (response.ok) {
                         let data = await response.json();
                         name = data.name || name;
@@ -500,6 +505,9 @@
 
             document.getElementById('recipientName').innerText = name;
             document.getElementById('wishMessage').innerText = msg;
+            if (targetTimeStr) {
+                document.getElementById('displayDate').innerText = targetTimeStr.replace('T', ' ');
+            }
 
             calculateLifeStats(dobOrAge);
 
@@ -515,9 +523,9 @@
             let mediaContainer = document.getElementById('mediaContainer');
             mediaContainer.innerHTML = '';
             if (video) mediaContainer.innerHTML += `<div style="margin-top:8px;"><video controls playsinline preload="metadata" src="${video}"></video></div>`;
-            if (song) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700; margin-bottom:2px;">🎶 Song / Audio</p><audio controls src="${song}"></audio></div>`;
-            if (voice) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700; margin-bottom:2px;">🎙️ Neural Voice Greeting</p><audio controls src="${voice}"></audio></div>`;
-            if (extraAudio) mediaContainer.innerHTML += `<div style="margin-top:8px;<p style='font-size:0.8rem; color:#ffd700; margin-bottom:2px;'>🎵 Additional Audio File</p><audio controls src="${extraAudio}"></audio></div>`;
+            if (song) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700; margin-bottom:2px;">🎶 Song / Music</p><audio controls src="${song}"></audio></div>`;
+            if (voice) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700; margin-bottom:2px;">🎙️ Voice Greeting</p><audio controls src="${voice}"></audio></div>`;
+            if (extraAudio) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700; margin-bottom:2px;">🎵 Extra Audio File</p><audio controls src="${extraAudio}"></audio></div>`;
 
             checkTimeLock();
         }
