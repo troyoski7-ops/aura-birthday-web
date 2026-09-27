@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ Aura Luxury Celebrations ✨</title>
+    <title>✨ Aura Realistic Luxury Celebrations ✨</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background: radial-gradient(circle at center, #1b162b 0%, #05040a 100%);
+            background: radial-gradient(circle at center, #130f23 0%, #030207 100%);
             color: #fff;
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
@@ -31,61 +31,61 @@
 
         .top-bar { width: 100%; max-width: 380px; display: flex; justify-content: flex-end; margin-bottom: 10px; z-index: 10; }
         .lang-select {
-            background: rgba(255, 215, 0, 0.15); border: 1px solid rgba(255, 215, 0, 0.4); color: #ffd700;
-            padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; outline: none; backdrop-filter: blur(5px);
+            background: rgba(255, 215, 0, 0.12); border: 1px solid rgba(255, 215, 0, 0.35); color: #ffd700;
+            padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; outline: none; backdrop-filter: blur(8px);
         }
-        .lang-select option { background: #1b1b2f; color: #fff; }
+        .lang-select option { background: #130f23; color: #fff; }
 
         .container {
-            width: 100%; max-width: 380px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.25);
-            border-radius: 22px; padding: 18px; backdrop-filter: blur(14px); box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            width: 100%; max-width: 380px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 24px; padding: 18px; backdrop-filter: blur(16px); box-shadow: 0 15px 35px rgba(0,0,0,0.8);
             margin-bottom: 14px; position: relative; z-index: 2;
         }
 
         .header-box-base { border-radius: 20px; padding: 18px 14px; margin-bottom: 14px; transition: all 0.5s ease-in-out; }
         
-        body.theme-Birthday-bg { background: radial-gradient(circle at center, #2e1a30 0%, #080309 100%); }
-        .theme-Birthday { background: linear-gradient(135deg, rgba(255,215,0,0.25), rgba(255,0,127,0.25)); border: 2px solid #ffd700; }
+        body.theme-Birthday-bg { background: radial-gradient(circle at center, #2b1235 0%, #040106 100%); }
+        .theme-Birthday { background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,0,127,0.2)); border: 1px solid #ffd700; box-shadow: 0 0 25px rgba(255,215,0,0.3); }
 
-        body.theme-Proposal-bg { background: radial-gradient(circle at center, #380d27 0%, #0d0208 100%); }
-        .theme-Proposal { background: linear-gradient(135deg, rgba(255,0,127,0.3), rgba(150,0,255,0.3)); border: 2px solid #ff3366; box-shadow: 0 0 35px rgba(255,51,102,0.7); }
+        body.theme-Proposal-bg { background: radial-gradient(circle at center, #3a0a24 0%, #050104 100%); }
+        .theme-Proposal { background: linear-gradient(135deg, rgba(255,0,127,0.25), rgba(130,0,255,0.25)); border: 1px solid #ff3366; box-shadow: 0 0 30px rgba(255,51,102,0.5); }
 
-        body.theme-WeddingWish-bg, body.theme-Wedding-bg { background: radial-gradient(circle at center, #0b2938 0%, #02070a 100%); }
-        .theme-WeddingWish, .theme-Wedding { background: linear-gradient(135deg, rgba(0,242,254,0.25), rgba(255,215,0,0.2)); border: 2px solid #00f2fe; }
+        body.theme-WeddingWish-bg, body.theme-Wedding-bg { background: radial-gradient(circle at center, #092032 0%, #010407 100%); }
+        .theme-WeddingWish, .theme-Wedding { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(255,215,0,0.15)); border: 1px solid #00f2fe; box-shadow: 0 0 30px rgba(0,242,254,0.4); }
 
-        body.theme-Graduation-bg { background: radial-gradient(circle at center, #08332c 0%, #020a09 100%); }
-        .theme-Graduation { background: linear-gradient(135deg, rgba(0,255,150,0.2), rgba(0,242,254,0.25)); border: 2px solid #00ffaa; }
+        body.theme-Graduation-bg { background: radial-gradient(circle at center, #062b25 0%, #010504 100%); }
+        .theme-Graduation { background: linear-gradient(135deg, rgba(0,255,150,0.15), rgba(0,242,254,0.2)); border: 1px solid #00ffaa; box-shadow: 0 0 30px rgba(0,255,150,0.4); }
 
-        body.theme-NewBorn-bg { background: radial-gradient(circle at center, #301828 0%, #070306 100%); }
-        .theme-NewBorn { background: linear-gradient(135deg, rgba(255,182,193,0.3), rgba(173,216,230,0.3)); border: 2px solid #ffb6c1; }
+        body.theme-NewBorn-bg { background: radial-gradient(circle at center, #2d1326 0%, #050104 100%); }
+        .theme-NewBorn { background: linear-gradient(135deg, rgba(255,182,193,0.25), rgba(173,216,230,0.25)); border: 1px solid #ffb6c1; box-shadow: 0 0 30px rgba(255,182,193,0.5); }
 
         .category-title-text { font-size: 1.35rem; font-weight: 800; line-height: 1.4; letter-spacing: 0.5px; }
 
         .details-box {
-            background: rgba(255, 215, 0, 0.06); border: 1px dashed rgba(255, 215, 0, 0.35); border-radius: 12px;
+            background: rgba(255, 215, 0, 0.04); border: 1px dashed rgba(255, 215, 0, 0.3); border-radius: 14px;
             padding: 10px; margin-bottom: 12px; font-size: 0.85rem; color: #f8fafc;
         }
         .details-box span { color: #ffd700; font-weight: 600; }
 
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
-        .stat-card { background: rgba(255, 215, 0, 0.06); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 10px; padding: 8px; text-align: center; }
+        .stat-card { background: rgba(255, 215, 0, 0.04); border: 1px solid rgba(255, 215, 0, 0.15); border-radius: 12px; padding: 8px; text-align: center; }
         .stat-card .num { font-size: 1rem; font-weight: bold; color: #ffd700; }
         .stat-card .label { font-size: 0.7rem; color: #cbd5e1; margin-top: 2px; }
 
         .open-when-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
         .envelope-btn {
-            background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 10px;
+            background: rgba(255, 215, 0, 0.06); border: 1px solid rgba(255, 215, 0, 0.25); border-radius: 12px;
             padding: 10px 8px; color: #fff; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; text-align: center;
         }
-        .envelope-btn:active { transform: scale(0.96); background: rgba(255, 215, 0, 0.2); }
+        .envelope-btn:active { transform: scale(0.96); background: rgba(255, 215, 0, 0.15); }
 
         #giftSection { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 10px; cursor: pointer; }
         .gift-box { font-size: 5.5rem; cursor: pointer; animation: bounceGift 1.3s infinite ease-in-out; transition: transform 0.3s; user-select: none; }
         @keyframes bounceGift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
         .scratch-container {
-            position: relative; width: 100%; height: 240px; border-radius: 14px; overflow: hidden;
-            background: linear-gradient(135deg, #2a2a40, #1a1a2e); border: 2px solid rgba(255, 215, 0, 0.3); color: #fff; margin: 8px auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;
+            position: relative; width: 100%; height: 240px; border-radius: 16px; overflow: hidden;
+            background: linear-gradient(135deg, #22223b, #111122); border: 1px solid rgba(255, 215, 0, 0.3); color: #fff; margin: 8px auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;
         }
         canvas#scratchCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; touch-action: none; z-index: 2; }
         
@@ -93,75 +93,93 @@
         .hidden-content h3 { color: #ffd700; margin-bottom: 6px; font-size: 1rem; }
         .hidden-content p { color: #e2e8f0; font-size: 0.85rem; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; }
 
-        .single-photo-box { width: 100%; max-height: 240px; border-radius: 12px; overflow: hidden; margin-bottom: 10px; background: #000; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 215, 0, 0.3); }
+        .single-photo-box { width: 100%; max-height: 240px; border-radius: 14px; overflow: hidden; margin-bottom: 10px; background: #000; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 215, 0, 0.3); }
         .single-photo-box img { width: 100%; max-height: 230px; object-fit: contain; }
 
-        .media-box video { width: 100%; max-height: 280px; border-radius: 10px; background: #000; margin-bottom: 6px; }
-        .media-box audio { width: 100%; margin-top: 6px; border-radius: 8px; margin-bottom: 8px; height: 36px; }
+        .media-box video { width: 100%; max-height: 280px; border-radius: 12px; background: #000; margin-bottom: 6px; }
+        .media-box audio { width: 100%; margin-top: 6px; border-radius: 10px; margin-bottom: 8px; height: 36px; }
 
-        .fs-btn { background: rgba(255, 215, 0, 0.2); border: 1px solid #ffd700; color: #ffd700; font-size: 0.75rem; padding: 6px 14px; border-radius: 15px; margin-bottom: 8px; cursor: pointer; font-weight: 600; }
+        .fs-btn { background: rgba(255, 215, 0, 0.15); border: 1px solid #ffd700; color: #ffd700; font-size: 0.75rem; padding: 6px 14px; border-radius: 15px; margin-bottom: 8px; cursor: pointer; font-weight: 600; }
 
-        /* --- 🎬 STORY STAGE --- */
+        /* --- 🌟 റിയലിസ്റ്റിക് ക്യാരക്ടർ സ്റ്റേജ് --- */
         .story-stage {
-            width: 100%; min-height: 310px;
-            background: radial-gradient(circle at bottom, rgba(255,0,127,0.25) 0%, rgba(8,6,15,0.98) 85%);
-            border-radius: 20px; border: 2px solid rgba(255,51,102,0.6);
+            width: 100%; min-height: 290px;
+            background: radial-gradient(circle at bottom, rgba(255,0,127,0.2) 0%, rgba(6,4,12,0.98) 85%);
+            border-radius: 20px; border: 1px solid rgba(255,51,102,0.4);
             margin: 12px 0; padding: 18px; position: relative;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.95), 0 0 30px rgba(255,51,102,0.4);
+            box-shadow: inset 0 0 35px rgba(0,0,0,0.95), 0 0 25px rgba(255,51,102,0.25);
             overflow: hidden;
         }
 
         .cinematic-viewport {
-            position: relative; width: 100%; height: 170px; display: flex; align-items: flex-end; justify-content: center; gap: 50px; margin-bottom: 8px;
+            position: relative; width: 100%; height: 150px; display: flex; align-items: flex-end; justify-content: center; gap: 40px; margin-bottom: 6px;
         }
-        .vector-character-boy {
-            font-size: 4.2rem; position: relative; transform: translateX(-140px); transition: transform 2.2s cubic-bezier(0.25, 1, 0.5, 1);
-            filter: drop-shadow(0 0 15px rgba(255,215,0,0.8));
-        }
-        .vector-character-boy.walk-forward { transform: translateX(0); }
-        .vector-character-boy.kneel-down { transform: translateX(0) translateY(15px) rotate(-12deg); }
 
-        .vector-character-girl {
-            font-size: 4.2rem; position: relative; animation: vectorGlow 2s infinite ease-in-out;
-            filter: drop-shadow(0 0 15px rgba(255,0,127,0.8));
+        /* റിയലിസ്റ്റിക് സിലൗട്ട് / വെക്റ്റർ സ്റ്റെപ്പ് ആനിമേഷൻ ക്യാരക്ടറുകൾ */
+        .character-box-real {
+            display: flex; align-items: flex-end; justify-content: center; gap: 25px; width: 100%;
         }
-        @keyframes vectorGlow { 0%, 100% { filter: drop-shadow(0 0 10px rgba(255,0,127,0.6)); } 50% { filter: drop-shadow(0 0 25px rgba(255,215,0,0.9)); } }
-        .vector-character-girl.say-yes { animation: girlCelebration 0.6s infinite alternate ease-in-out; }
-        @keyframes girlCelebration { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-15px) scale(1.12); } }
+        
+        .person-element {
+            font-size: 4rem; filter: drop-shadow(0 0 12px rgba(255,215,0,0.6));
+            transition: transform 2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .person-boy.walk { transform: translateX(-110px); }
+        .person-boy.walk-in { transform: translateX(0); }
+        .person-boy.kneel { transform: translateX(0) translateY(12px) rotate(-15deg); }
 
-        .luxury-ring-box {
-            position: absolute; bottom: 35px; left: 47%; transform: translateX(-50%) scale(0); font-size: 2.2rem;
+        .person-girl {
+            font-size: 4.0rem; filter: drop-shadow(0 0 12px rgba(255,0,127,0.6));
+            animation: girlBreath 2s infinite ease-in-out;
+        }
+        @keyframes girlBreath { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        .person-girl.happy { animation: girlJump 0.5s infinite alternate ease-in-out; }
+        @keyframes girlJump { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-12px) scale(1.1); filter: drop-shadow(0 0 20px #ff007f); } }
+
+        .ring-box-element {
+            position: absolute; bottom: 25px; left: 47%; transform: translateX(-50%) scale(0); font-size: 2.2rem;
             transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 0 20px #ffd700); z-index: 10;
         }
-        .luxury-ring-box.reveal-ring { transform: translateX(-50%) scale(1.4); animation: ringPulse 1.5s infinite alternate; }
-        @keyframes ringPulse { 0% { filter: drop-shadow(0 0 10px #ffd700); } 100% { filter: drop-shadow(0 0 30px #ffffff); } }
+        .ring-box-element.open { transform: translateX(-50%) scale(1.3); }
+
+        .neon-emblem-badge {
+            width: 75px; height: 75px; border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,0,127,0.2));
+            border: 1px solid #ffd700; display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; margin-bottom: 12px; box-shadow: 0 0 20px rgba(255,215,0,0.4);
+            animation: badgeGlow 3s infinite ease-in-out;
+        }
+        @keyframes badgeGlow {
+            0%, 100% { transform: translateY(0); box-shadow: 0 0 15px rgba(255,215,0,0.3); }
+            50% { transform: translateY(-5px); box-shadow: 0 0 25px rgba(255,0,127,0.6); }
+        }
 
         .interactive-choice-box {
-            display: none; gap: 12px; margin-top: 14px; animation: popIn 0.5s ease-out; z-index: 99;
+            display: none; gap: 12px; margin-top: 12px; animation: popIn 0.5s ease-out; z-index: 99;
         }
         @keyframes popIn { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
         .choice-btn-yes {
-            background: linear-gradient(45deg, #ff007f, #ff5e62); color: #fff; border: 2px solid #ffd700;
-            padding: 10px 22px; border-radius: 25px; font-weight: 800; font-size: 0.95rem; cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.8); animation: pulseYes 1.4s infinite;
+            background: linear-gradient(45deg, #ff007f, #ff5e62); color: #fff; border: 1px solid #ffd700;
+            padding: 8px 20px; border-radius: 20px; font-weight: 800; font-size: 0.9rem; cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.8); animation: pulseYes 1.4s infinite;
         }
-        @keyframes pulseYes { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+        @keyframes pulseYes { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
         
         .choice-btn-think {
-            background: rgba(255, 255, 255, 0.15); color: #ffd700; border: 1px solid rgba(255,215,0,0.5);
-            padding: 10px 18px; border-radius: 25px; font-size: 0.82rem; cursor: pointer; font-weight: 600;
+            background: rgba(255, 255, 255, 0.08); color: #ffd700; border: 1px solid rgba(255,215,0,0.4);
+            padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; font-weight: 600;
             transition: all 0.2s;
         }
-        .choice-btn-think:hover { background: rgba(255,215,0,0.25); }
+        .choice-btn-think:hover { background: rgba(255,215,0,0.2); }
 
-        .story-caption { font-size: 0.92rem; color: #ffd700; margin-top: 10px; font-weight: 600; min-height: 28px; }
+        .story-caption { font-size: 0.88rem; color: #ffd700; margin-top: 8px; font-weight: 600; min-height: 26px; }
 
         .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
         .btn {
-            background: linear-gradient(45deg, #ffd700, #ffaa00); color: #1a1a2e; border: none; padding: 10px 16px; font-size: 0.82rem;
-            border-radius: 25px; cursor: pointer; font-weight: 700; box-shadow: 0 3px 12px rgba(255, 215, 0, 0.3); transition: all 0.2s;
+            background: linear-gradient(45deg, #ffd700, #ffaa00); color: #130f23; border: none; padding: 10px 18px; font-size: 0.82rem;
+            border-radius: 22px; cursor: pointer; font-weight: 700; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); transition: all 0.2s;
         }
         .btn:active { transform: scale(0.95); }
         .btn-heart { background: linear-gradient(45deg, #ff3366, #ff6b81); color: #fff; }
@@ -174,8 +192,8 @@
             background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; padding: 20px;
         }
         .modal-box {
-            background: #1b1b2f; border: 2px solid #ffd700; border-radius: 18px; padding: 20px;
-            width: 100%; max-width: 320px; text-align: center; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); animation: modalIn 0.3s ease-out;
+            background: #130f23; border: 1px solid #ffd700; border-radius: 20px; padding: 20px;
+            width: 100%; max-width: 320px; text-align: center; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); animation: modalIn 0.3s ease-out;
         }
         @keyframes modalIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         .modal-box p { font-size: 0.95rem; line-height: 1.5; color: #f8fafc; margin-bottom: 16px; white-space: pre-wrap; }
@@ -286,7 +304,7 @@
         </div>
 
         <div class="container" id="mediaSection" style="margin-top: 10px;">
-            <h3 id="celebrationHeader" style="font-size: 1.1rem; margin-bottom: 8px;">🎉 Celebration Stage</h3>
+            <h3 id="celebrationHeader" style="font-size: 1.1rem; margin-bottom: 8px;">✨ Celebration Stage</h3>
             
             <div id="singlePhotoWrapper" class="single-photo-box" style="display:none;">
                 <img id="singlePhotoImg" src="" alt="Surprise Photo">
@@ -428,7 +446,7 @@
                 lockTitle: "⏳ Portal Locked!", lockSubtitle: "This exclusive surprise opens on:",
                 giftPrompt: "🎁 Tap the Gift Box to Unwrap!", giftSubPrompt: "Tap anywhere to reveal your special surprise...",
                 targetTimeText: "Target Time", scratchInstruction: "👇 Scratch the card below to reveal your surprise!",
-                surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "🎉 Celebration Stage",
+                surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "✨ Celebration Stage",
                 statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
                 openWhenTitle: "💌 Open When...", btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
                 btnProposalStory: "💍 Proposal Story", btnWeddingStory: "💒 Wedding Story",
@@ -448,7 +466,7 @@
                 lockTitle: "⏳ പോർട്ടൽ ലോക്ക് ചെയ്തിരിക്കുന്നു!", lockSubtitle: "ഈ പ്രത്യേക സർപ്രൈസ് തുറക്കുന്ന സമയം:",
                 giftPrompt: "🎁 തുറക്കാൻ ഗിഫ്റ്റ് ബോക്സിൽ അമർത്തൂ!", giftSubPrompt: "നിങ്ങളുടെ സർപ്രൈസ് കാണാൻ ടാപ്പ് ചെയ്യൂ...",
                 targetTimeText: "ലഭ്യമാകുന്ന സമയം", scratchInstruction: "👇 സർപ്രൈസ് കാണാൻ താഴെ സ്ക്രാച്ച് ചെയ്യുക!",
-                surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "🎉 ആഘോഷ വേദി",
+                surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "✨ ആഘോഷ വേദി",
                 statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
                 openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
                 btnProposalStory: "💍 Proposal Story", btnWeddingStory: "💒 Wedding Story",
@@ -513,7 +531,7 @@
             document.body.className = `theme-${currentCategory}-bg`;
         }
 
-        // --- 💍 PROPOSAL STORYLINE (YES / THINK ME LATER) ---
+        // --- 💍 REALISTIC PROPOSAL STORYLINE ---
         let isStoryActive = false;
 
         function playProposalStory() {
@@ -525,11 +543,11 @@
             const caption = document.getElementById('storyCaptionText');
             const choiceBox = document.getElementById('proposalChoiceBox');
 
-            if (boy) boy.classList.add('walk-forward');
+            if (boy) boy.classList.add('walk-in');
 
             setTimeout(() => {
-                if (boy) boy.classList.add('kneel-down');
-                if (ringBox) ringBox.classList.add('reveal-ring');
+                if (boy) boy.classList.add('kneel');
+                if (ringBox) ringBox.classList.add('open');
                 caption.innerText = "🧎‍♂️ He gracefully kneels down and opens the velvet box... 'Will you marry me?' 💍✨";
                 confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
                 if (choiceBox) choiceBox.style.display = 'flex';
@@ -542,7 +560,7 @@
             const choiceBox = document.getElementById('proposalChoiceBox');
 
             if (choiceBox) choiceBox.style.display = 'none';
-            if (girl) girl.classList.add('say-yes');
+            if (girl) girl.classList.add('happy');
             caption.innerText = "💖 Absolute perfection! She said YES! Celebrations unlocked with pure joy! ✨🎉";
             
             shower3DRedRoses();
@@ -628,10 +646,10 @@
 
             if (currentCategory === 'Proposal') {
                 stage.innerHTML = `
-                    <div class="cinematic-viewport">
-                        <div id="storyBoy" class="vector-character-boy">🤵</div>
-                        <div id="storyRingBox" class="luxury-ring-box">💍</div>
-                        <div id="storyGirl" class="vector-character-girl">👰</div>
+                    <div class="character-box-real">
+                        <div id="storyBoy" class="person-element person-boy walk">🤵</div>
+                        <div id="storyRingBox" class="ring-box-element">💍</div>
+                        <div id="storyGirl" class="person-element person-girl">👰</div>
                     </div>
                     <div class="interactive-choice-box" id="proposalChoiceBox">
                         <button class="choice-btn-yes" onclick="acceptProposalYes()">YES! 💖</button>
@@ -645,7 +663,7 @@
                 `;
             } else if (currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
-                    <div style="font-size: 5rem; margin-bottom: 5px;">💒🕊️</div>
+                    <div class="neon-emblem-badge">💒</div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'Wedding Story' to begin the celebration!</div>
                 `;
                 container.innerHTML = `
@@ -654,7 +672,7 @@
                 `;
             } else if (currentCategory === 'Wedding') {
                 stage.innerHTML = `
-                    <div style="font-size: 5rem; margin-bottom: 5px;">🥂💖</div>
+                    <div class="neon-emblem-badge">🥂</div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'Wedding Anniversary Story' to begin!</div>
                 `;
                 container.innerHTML = `
@@ -663,7 +681,7 @@
                 `;
             } else if (currentCategory === 'Graduation') {
                 stage.innerHTML = `
-                    <div style="font-size: 5rem; margin-bottom: 5px;">🎓🏆</div>
+                    <div class="neon-emblem-badge">🎓</div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'Graduation Story' to begin!</div>
                 `;
                 container.innerHTML = `
@@ -671,7 +689,7 @@
                 `;
             } else if (currentCategory === 'NewBorn') {
                 stage.innerHTML = `
-                    <div style="font-size: 5rem; margin-bottom: 5px;">👶🍼</div>
+                    <div class="neon-emblem-badge">👶</div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'Baby Born Story' to begin!</div>
                 `;
                 container.innerHTML = `
@@ -680,7 +698,7 @@
             } else {
                 // Birthday
                 stage.innerHTML = `
-                    <div style="font-size: 5rem; margin-bottom: 5px;">🎂🎉</div>
+                    <div class="neon-emblem-badge">🎂</div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'Birthday Cake Story' to begin!</div>
                 `;
                 container.innerHTML = `
