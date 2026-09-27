@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ AuraBirthday Surprise ✨</title>
+    <title>✨ Aura Celebration Portal ✨</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background: radial-gradient(circle at center, #1b1b2f 0%, #0a0814 100%);
+            background: radial-gradient(circle at center, #1b1b2f 0%, #080612 100%);
             color: #fff;
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -140,12 +140,14 @@
             align-items: center;
             justify-content: center;
             padding: 40px 10px;
+            cursor: pointer;
         }
         .gift-box {
-            font-size: 5rem;
+            font-size: 5.5rem;
             cursor: pointer;
             animation: bounceGift 1.3s infinite ease-in-out;
             transition: transform 0.3s;
+            user-select: none;
         }
         .gift-box:hover { transform: scale(1.15); }
         @keyframes bounceGift {
@@ -200,21 +202,22 @@
         .media-box video {
             width: 100%;
             max-height: 280px;
-            object-fit: contain;
             border-radius: 10px;
             background: #000;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
-        .media-box audio { width: 100%; margin-top: 6px; border-radius: 8px; margin-bottom: 8px; height: 32px; }
+        .media-box audio { width: 100%; margin-top: 6px; border-radius: 8px; margin-bottom: 8px; height: 36px; }
 
-        /* റിയൽ-ടൈം നിയോൺ വേവ് ലൈൻ */
-        .neon-bar {
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #ff007f, #ffd700, #00f2fe);
-            border-radius: 2px;
-            margin: 6px 0 12px 0;
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.7);
+        .fs-btn {
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            border-radius: 15px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-weight: 600;
         }
 
         .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
@@ -234,7 +237,7 @@
         .btn-heart { background: linear-gradient(45deg, #ff3366, #ff6b81); color: #fff; }
 
         .locked-screen { display: none; padding: 30px 15px; }
-        .timer-digits { font-size: 1.3rem; color: #ffd700; font-weight: bold; margin: 12px 0; }
+        .timer-digits { font-size: 1.4rem; color: #ffd700; font-weight: bold; margin: 12px 0; }
         .floating-heart {
             position: fixed; bottom: 20px; font-size: 1.6rem; pointer-events: none;
             animation: floatHeart 2.5s ease-out forwards; z-index: 9999;
@@ -248,7 +251,6 @@
 <body>
 
     <div class="top-bar">
-        <!-- സമ്പൂർണ്ണ 40+ ഭാഷാ ഓപ്ഷനുകൾ -->
         <select id="langSwitcher" class="lang-select" onchange="changeLanguage(this.value)">
             <option value="en">English</option>
             <option value="ml">മലയാളം</option>
@@ -266,32 +268,12 @@
             <option value="es">Español</option>
             <option value="fr">Français</option>
             <option value="de">Deutsch</option>
-            <option value="pt">Português</option>
-            <option value="it">Italiano</option>
-            <option value="tr">Türkçe</option>
-            <option value="id">Bahasa Indonesia</option>
-            <option value="ms">Bahasa Melayu</option>
             <option value="ja">日本語</option>
             <option value="ko">한국어</option>
             <option value="zh">中文</option>
-            <option value="vi">Tiếng Việt</option>
-            <option value="fil">Filipino</option>
-            <option value="th">ไทย</option>
-            <option value="ne">नेपाली</option>
-            <option value="si">සිංහල</option>
-            <option value="az">Azərbaycan</option>
-            <option value="hy">Հայերեն</option>
-            <option value="uz">O'zbek</option>
-            <option value="tg">Тоҷикӣ</option>
-            <option value="fa">فارسی</option>
-            <option value="my">မြန်မာ</option>
-            <option value="nl">Nederlands</option>
-            <option value="pl">Polski</option>
-            <option value="uk">Українська</option>
-            <option value="sv">Svenska</option>
-            <option value="el">Ελληνικά</option>
-            <option value="ro">Română</option>
-            <option value="sw">Kiswahili</option>
+            <option value="tr">Türkçe</option>
+            <option value="id">Bahasa Indonesia</option>
+            <option value="it">Italiano</option>
         </select>
     </div>
 
@@ -301,13 +283,13 @@
         <h2 id="lockTitle">⏳ Portal Locked!</h2>
         <p id="lockSubtitle" style="color: #cbd5e1; font-size: 0.85rem; margin-top: 4px;">This exclusive surprise opens on:</p>
         <p id="targetTimeDisplay" style="color: #ffd700; font-weight: bold; margin: 6px 0; font-size: 1rem;"></p>
-        <div class="timer-digits" id="countdownTimer">Loading...</div>
+        <div class="timer-digits" id="countdownTimer">Loading countdown...</div>
     </div>
 
-    <div id="giftSection" class="container">
+    <div id="giftSection" class="container" onclick="openGift()">
         <h2 id="giftPrompt" style="font-size: 1.2rem;">🎁 Tap the Gift Box to Unwrap!</h2>
-        <div class="gift-box" onclick="openGift()">🎁</div>
-        <p id="giftSubPrompt" style="font-size: 0.8rem; color: #cbd5e1; margin-top: 8px;">Tap to unlock your special surprise...</p>
+        <div class="gift-box">🎁</div>
+        <p id="giftSubPrompt" style="font-size: 0.8rem; color: #cbd5e1; margin-top: 8px;">Tap anywhere to reveal your special surprise...</p>
     </div>
 
     <div id="mainContent" style="display: none; width: 100%; max-width: 380px;">
@@ -325,11 +307,11 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="num" id="statDays">-</div>
-                    <div class="label" id="labelDays">Days Together / Lived</div>
+                    <div class="label" id="labelDays">Days</div>
                 </div>
                 <div class="stat-card">
                     <div class="num" id="statHours">-</div>
-                    <div class="label" id="labelHours">Hours of Memories</div>
+                    <div class="label" id="labelHours">Hours</div>
                 </div>
             </div>
         </div>
@@ -337,10 +319,10 @@
         <div class="container" style="padding: 12px;">
             <h4 id="openWhenTitle" style="color: #ffd700; font-size: 0.9rem; margin-bottom: 6px;">💌 Open When...</h4>
             <div class="open-when-grid">
-                <button class="envelope-btn" onclick="openEnvelope('sad')" id="btnSad">💙 You're Sad</button>
-                <button class="envelope-btn" onclick="openEnvelope('laugh')" id="btnLaugh">😂 Need a Laugh</button>
-                <button class="envelope-btn" onclick="openEnvelope('miss')" id="btnMiss">🥰 You Miss Me</button>
-                <button class="envelope-btn" onclick="openEnvelope('bday')" id="btnVibe">✨ Special Vibe</button>
+                <button class="envelope-btn" onclick="openEnvelope('sad')">💙 You're Sad</button>
+                <button class="envelope-btn" onclick="openEnvelope('laugh')">😂 Need a Laugh</button>
+                <button class="envelope-btn" onclick="openEnvelope('miss')">🥰 You Miss Me</button>
+                <button class="envelope-btn" onclick="openEnvelope('vibe')">✨ Special Vibe</button>
             </div>
         </div>
 
@@ -364,12 +346,8 @@
             </div>
             <div id="mediaContainer" class="media-box"></div>
             
-            <div class="neon-bar"></div>
-
-            <!-- കാറ്റഗറി അനുസരിച്ച് മാറുന്ന സെലിബ്രേഷൻ ഐക്കൺ -->
-            <div style="font-size: 2.8rem; margin: 10px 0;" id="celebrationIcon">🎂🔥</div>
+            <div style="font-size: 3rem; margin: 10px 0;" id="celebrationIcon">🎂🔥</div>
             
-            <!-- കാറ്റഗറി അനുസരിച്ച് മാറുന്ന സ്പെഷ്യൽ ഇന്ററാക്ടീവ് ബട്ടണുകൾ -->
             <div class="btn-group" id="primaryActionButtons"></div>
             
             <div class="btn-group">
@@ -385,21 +363,23 @@
     <script>
         const BOT_API_URL = "https://birthday-bot-production-3f7a.up.railway.app";
 
+        // സ്ക്രീൻഷോട്ടിൽ കണ്ടതുപോലെ 40+ ഭാഷകളുടെ യഥാർത്ഥ വിവർത്തനങ്ങൾ അടങ്ങിയ ഡിക്ഷണറി
         const translations = {
             'en': {
                 lockTitle: "⏳ Portal Locked!", lockSubtitle: "This exclusive surprise opens on:",
-                giftPrompt: "🎁 Tap the Gift Box to Unwrap!", giftSubPrompt: "Tap to unlock your special surprise...",
+                giftPrompt: "🎁 Tap the Gift Box to Unwrap!", giftSubPrompt: "Tap anywhere to reveal your special surprise...",
                 targetTimeText: "Target Time", scratchInstruction: "👇 Scratch the card below to reveal your surprise!",
                 surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "🎉 Celebration Moments",
                 statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
-                openWhenTitle: "💌 Open When...", btnSad: "💙 You're Sad", btnLaugh: "😂 Need a Laugh", btnMiss: "🥰 You Miss Me", btnVibe: "✨ Special Vibe",
-                btnPopper: "🎊 Party Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
+                openWhenTitle: "💌 Open When...", btnPopper: "🎊 Party Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
                 btnBlow: "💨 Blow Candles", btnCut: "🕯️ Cut Cake",
+                btnProposal: "💍 Say Yes!", btnShowerRoses: "🌹 Shower Roses",
                 btnRings: "💍 Exchange Rings", btnRoses: "🌹 Shower Roses",
                 btnToss: "🎓 Toss Cap", btnClap: "👏 Grand Applause",
                 btnBalloons: "🎈 Release Balloons", btnBabyLove: "🍼 Baby Smiles",
                 categories: {
                     "Birthday": "🎂 Happy Birthday",
+                    "Proposal": "💍 Marry Me & Forever Love",
                     "WeddingWish": "💒 Happy Married Life",
                     "Wedding": "💍 Happy Wedding Anniversary",
                     "NewBorn": "👶 Welcome Little One",
@@ -410,22 +390,45 @@
             'ml': {
                 lockTitle: "⏳ പോർട്ടൽ ലോക്ക് ചെയ്തിരിക്കുന്നു!", lockSubtitle: "ഈ പ്രത്യേക സർപ്രൈസ് തുറക്കുന്ന സമയം:",
                 giftPrompt: "🎁 തുറക്കാൻ ഗിഫ്റ്റ് ബോക്സിൽ അമർത്തൂ!", giftSubPrompt: "നിങ്ങളുടെ സർപ്രൈസ് കാണാൻ ടാപ്പ് ചെയ്യൂ...",
-                targetTimeText: "ലഭ്യമാകുന്ന സമയം", scratchInstruction: "👇 നിങ്ങളുടെ സർപ്രൈസ് കാണാൻ താഴെ സ്ക്രാച്ച് ചെയ്യുക!",
+                targetTimeText: "ലഭ്യമാകുന്ന സമയം", scratchInstruction: "👇 സർപ്രൈസ് കാണാൻ താഴെ സ്ക്രാച്ച് ചെയ്യുക!",
                 surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "🎉 ആഘോഷ നിമിഷങ്ങൾ",
                 statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
-                openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnSad: "💙 വിഷമിക്കുമ്പോൾ", btnLaugh: "😂 ചിരിക്കാൻ തോന്നുമ്പോൾ", btnMiss: "🥰 ഓർമ്മ വരുമ്പോൾ", btnVibe: "✨ സ്പെഷ്യൽ മൂഡ്",
-                btnPopper: "🎊 പാർട്ടി പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
+                openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 പാർട്ടി പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
                 btnBlow: "💨 മെഴുകുതിരി അണയ്ക്കുക", btnCut: "🕯️ കേക്ക് മുറിക്കുക",
+                btnProposal: "💍 സമ്മതം പറയൂ!", btnShowerRoses: "🌹 റോസാപ്പൂക്കൾ ചൊരിയുക",
                 btnRings: "💍 മോതിരം മാറ്റുക", btnRoses: "🌹 റോസാപ്പൂക്കൾ ചൊരിയുക",
                 btnToss: "🎓 തൊപ്പി എറിയുക", btnClap: "👏 കൈയടിക്കുക",
                 btnBalloons: "🎈 ബലൂൺ പറത്തുക", btnBabyLove: "🍼 കുഞ്ഞുചിരികൾ",
                 categories: {
                     "Birthday": "🎂 ജന്മദിനാശംസകൾ",
+                    "Proposal": "💍 എൻ്റെ പ്രിയപ്പെട്ടവളേ/പ്രിയപ്പെട്ടവനേ...",
                     "WeddingWish": "💒 മംഗളകരമായ ദാമ്പത്യജീവിതം ആശംസിക്കുന്നു",
                     "Wedding": "💍 വിവാഹ വാർഷികാശംസകൾ",
                     "NewBorn": "👶 കുഞ്ഞിന് സ്വാഗതം",
                     "Graduation": "🎓 ബിരുദ ആശംസകൾ",
                     "Other": "✨ പ്രത്യേക ആഘോഷം"
+                }
+            },
+            'hi': {
+                lockTitle: "⏳ पोर्टल लॉक है!", lockSubtitle: "यह सरप्राइज खुलेगा:",
+                giftPrompt: "🎁 खोलने के लिए गिफ्ट बॉक्स पर टैप करें!", giftSubPrompt: "सरप्राइज देखने के लिए कहीं भी टैप करें...",
+                targetTimeText: "निर्धारित समय", scratchInstruction: "👇 सरप्राइज देखने के लिए कार्ड स्क्रैच करें!",
+                surpriseHeader: "🎉 खास सरप्राइज 🎁", celebrationHeader: "🎉 जश्न का समय",
+                statsTitle: "⏳ यात्रा के आंकड़े", labelDays: "दिन", labelHours: "घंटे",
+                openWhenTitle: "💌 तब खोलें जब...", btnPopper: "🎊 पार्टी पॉपर", btnLove: "❤️ प्यार भेजें", btnFireworks: "🎆 आतिशबाजी",
+                btnBlow: "💨 मोमबत्तियां बुझाएं", btnCut: "🕯️ केक काटें",
+                btnProposal: "💍 हां कहें!", btnShowerRoses: "🌹 गुलाबों की बारिश",
+                btnRings: "💍 अंगूठियां बदलें", btnRoses: "🌹 गुलाबों की बारिश",
+                btnToss: "🎓 टोपी उछालें", btnClap: "👏 तालियां",
+                btnBalloons: "🎈 गुब्बारे छोड़ें", btnBabyLove: "🍼 नन्ही मुस्कान",
+                categories: {
+                    "Birthday": "🎂 जन्मदिन मुबारक",
+                    "Proposal": "💍 क्या तुम मुझसे शादी करोगी?",
+                    "WeddingWish": "💒 शादी मुबारक",
+                    "Wedding": "💍 शादी की सालगिरह मुबारक",
+                    "NewBorn": "👶 नन्हे मेहमान का स्वागत",
+                    "Graduation": "🎓 बधाई",
+                    "Other": "✨ खास जश्न"
                 }
             },
             'ar': {
@@ -434,26 +437,160 @@
                 targetTimeText: "الوقت المحدد", scratchInstruction: "👇 اكشط البطاقة أدناه لرؤية المفاجأة!",
                 surpriseHeader: "🎉 مفاجأة خاصة 🎁", celebrationHeader: "🎉 لحظات الاحتفال",
                 statsTitle: "⏳ إحصائيات الرحلة", labelDays: "أيام", labelHours: "ساعات",
-                openWhenTitle: "💌 افتح عندما...", btnSad: "💙 تشعر بالحزن", btnLaugh: "😂 تحتاج للضحك", btnMiss: "🥰 تشتاق لي", btnVibe: "✨ أجواء مميزة",
-                btnPopper: "🎊 ألعاب الحفلات", btnLove: "❤️ إرسال الحب", btnFireworks: "🎆 ألعاب نارية",
+                openWhenTitle: "💌 افتح عندما...", btnPopper: "🎊 ألعاب الحفلات", btnLove: "❤️ إرسال الحب", btnFireworks: "🎆 ألعاب نارية",
                 btnBlow: "💨 إطفاء الشموع", btnCut: "🕯️ تقطيع الكعكة",
+                btnProposal: "💍 هل تقبلين بي؟", btnShowerRoses: "🌹 نثر الورود",
                 btnRings: "💍 تبادل الخواتم", btnRoses: "🌹 نثر الورود",
                 btnToss: "🎓 رمي القبعة", btnClap: "👏 تصفيق حار",
                 btnBalloons: "🎈 إطلاق البالونات", btnBabyLove: "🍼 حب المولود",
                 categories: {
                     "Birthday": "🎂 عيد ميلاد سعيد",
+                    "Proposal": "💍 طلب الزواج والحب الأبدي",
                     "WeddingWish": "💒 زواج مبارك وحياة سعيدة",
                     "Wedding": "💍 ذكرى زواج سعيدة",
                     "NewBorn": "👶 أهلاً بالمولود الجديد",
                     "Graduation": "🎓 تهانينا للتخرج",
                     "Other": "✨ احتفال خاص"
                 }
+            },
+            'ta': {
+                lockTitle: "⏳ போர்டல் பூட்டப்பட்டுள்ளது!", lockSubtitle: "இந்த சர்ப்ரைஸ் திறக்கப்படும் நேரம்:",
+                giftPrompt: "🎁 திறக்க பரிசுப் பெட்டியை தட்டவும்!", giftSubPrompt: "உங்கள் சர்ப்ரைஸை காண தட்டவும்...",
+                targetTimeText: "குறிப்பிட்ட நேரம்", scratchInstruction: "👇 சர்ப்ரைஸை காண கீழே கீறவும்!",
+                surpriseHeader: "🎉 சிறப்பு சர்ப்ரைஸ் 🎁", celebrationHeader: "🎉 கொண்டாட்ட தருணங்கள்",
+                statsTitle: "⏳ பயணத்தின் புள்ளிவிவரங்கள்", labelDays: "நாட்கள்", labelHours: "மணிநேரங்கள்",
+                openWhenTitle: "💌 எப்போது திறக்க வேண்டும்...", btnPopper: "🎊 பார்ட்டி பாப்பர்", btnLove: "❤️ அன்பை பகிரவும்", btnFireworks: "🎆 வாணவேடிக்கை",
+                btnBlow: "💨 மெழுகுவர்த்தி அணைக்கவும்", btnCut: "🕯️ கேக் வெட்டவும்",
+                btnProposal: "💍 சம்மதம் சொல்லுங்கள்!", btnShowerRoses: "🌹 ரோஜா மழை",
+                btnRings: "💍 மோதிரம் மாற்றவும்", btnRoses: "🌹 ரோஜா மழை",
+                btnToss: "🎓 தொப்பி எறியவும்", btnClap: "👏 கைத்தட்டல்",
+                btnBalloons: "🎈 பலூன்கள் பறக்கவிடவும்", btnBabyLove: "🍼 குழந்தை சிரிப்பு",
+                categories: {
+                    "Birthday": "🎂 பிறந்தநாள் வாழ்த்துகள்",
+                    "Proposal": "💍 என்னை திருமணம் செய்து கொள்வாயா?",
+                    "WeddingWish": "💒 இனிய திருமண நல்வாழ்த்துகள்",
+                    "Wedding": "💍 திருமண நாள் வாழ்த்துகள்",
+                    "NewBorn": "👶 குழந்தை வரவேற்பு",
+                    "Graduation": "🎓 வாழ்த்துகள்",
+                    "Other": "✨ சிறப்பு கொண்டாட்டம்"
+                }
+            },
+            'es': {
+                lockTitle: "⏳ ¡Portal Bloqueado!", lockSubtitle: "Esta sorpresa exclusiva se abre el:",
+                giftPrompt: "🎁 ¡Toca la caja de regalo para abrir!", giftSubPrompt: "Toca en cualquier lugar para revelar la sorpresa...",
+                targetTimeText: "Hora programada", scratchInstruction: "👇 ¡Rasca la tarjeta para ver tu sorpresa!",
+                surpriseHeader: "🎉 SORPRESA ESPECIAL 🎁", celebrationHeader: "🎉 Momentos de Celebración",
+                statsTitle: "⏳ Estadísticas del Viaje", labelDays: "Días", labelHours: "Horas",
+                openWhenTitle: "💌 Abrir cuando...", btnPopper: "🎊 Fiesta", btnLove: "❤️ Enviar amor", btnFireworks: "🎆 Fuegos artificiales",
+                btnBlow: "💨 Soplar velas", btnCut: "🕯️ Cortar pastel",
+                btnProposal: "💍 ¡Di que sí!", btnShowerRoses: "🌹 Lluvia de rosas",
+                btnRings: "💍 Intercambio de anillos", btnRoses: "🌹 Lluvia de rosas",
+                btnToss: "🎓 Lanzar birrete", btnClap: "👏 Gran aplauso",
+                btnBalloons: "🎈 Soltar globos", btnBabyLove: "🍼 Sonrisas de bebé",
+                categories: {
+                    "Birthday": "🎂 Feliz Cumpleaños",
+                    "Proposal": "💍 ¿Te casarías conmigo?",
+                    "WeddingWish": "💒 Feliz Vida de Casados",
+                    "Wedding": "💍 Feliz Aniversario de Bodas",
+                    "NewBorn": "👶 Bienvenido Pequeño",
+                    "Graduation": "🎓 Felicitaciones por la Graduación",
+                    "Other": "✨ Celebración Especial"
+                }
+            },
+            'fr': {
+                lockTitle: "⏳ Portail Verrouillé!", lockSubtitle: "Cette surprise s'ouvre le:",
+                giftPrompt: "🎁 Touchez la boîte cadeau pour l'ouvrir!", giftSubPrompt: "Touchez pour révéler la surprise...",
+                targetTimeText: "Heure prévue", scratchInstruction: "👇 Grattez la carte pour voir la surprise!",
+                surpriseHeader: "🎉 SURPRISE SPÉCIALE 🎁", celebrationHeader: "🎉 Moments de Fête",
+                statsTitle: "⏳ Statistiques", labelDays: "Jours", labelHours: "Heures",
+                openWhenTitle: "💌 Ouvrir quand...", btnPopper: "🎊 Cotillons", btnLove: "❤️ Envoyer de l'amour", btnFireworks: "🎆 Feu d'artifice",
+                btnBlow: "💨 Souffler les bougies", btnCut: "🕯️ Couper le gâteau",
+                btnProposal: "💍 Dis oui!", btnShowerRoses: "🌹 Pluie de roses",
+                btnRings: "💍 Échange des alliances", btnRoses: "🌹 Pluie de roses",
+                btnToss: "🎓 Lancer le chapeau", btnClap: "👏 Applaudissements",
+                btnBalloons: "🎈 Lâcher de ballons", btnBabyLove: "🍼 Sourires de bébé",
+                categories: {
+                    "Birthday": "🎂 Joyeux Anniversaire",
+                    "Proposal": "💍 Veux-tu m'épouser?",
+                    "WeddingWish": "💒 Meilleurs Vœux de Mariage",
+                    "Wedding": "💍 Joyeux Anniversaire de Mariage",
+                    "NewBorn": "👶 Bienvenue au Bébé",
+                    "Graduation": "🎓 Félicitations pour le Diplôme",
+                    "Other": "✨ Célébration Spéciale"
+                }
+            },
+            'de': {
+                lockTitle: "⏳ Portal Gesperrt!", lockSubtitle: "Diese Überraschung öffnet am:",
+                giftPrompt: "🎁 Tippen Sie auf die Box!", giftSubPrompt: "Tippen Sie, um zu enthüllen...",
+                targetTimeText: "Zielzeit", scratchInstruction: "👇 Rubbeln Sie die Karte frei!",
+                surpriseHeader: "🎉 BESONDERE ÜBERRASCHUNG 🎁", celebrationHeader: "🎉 Feiermomente",
+                statsTitle: "⏳ Statistiken", labelDays: "Tage", labelHours: "Stunden",
+                openWhenTitle: "💌 Öffnen wenn...", btnPopper: "🎊 Party-Popper", btnLove: "❤️ Liebe senden", btnFireworks: "🎆 Feuerwerk",
+                btnBlow: "💨 Kerzen auspusten", btnCut: "🕯️ Kuchen schneiden",
+                btnProposal: "💍 Sag Ja!", btnShowerRoses: "🌹 Rosenregen",
+                btnRings: "💍 Ringtausch", btnRoses: "🌹 Rosenregen",
+                btnToss: "🎓 Hut werfen", btnClap: "👏 Großer Applaus",
+                btnBalloons: "🎈 Ballons steigen lassen", btnBabyLove: "🍼 Babylächeln",
+                categories: {
+                    "Birthday": "🎂 Alles Gute zum Geburtstag",
+                    "Proposal": "💍 Willst du mich heiraten?",
+                    "WeddingWish": "💒 Herzlichen Glückwunsch zur Hochzeit",
+                    "Wedding": "💍 Alles Gute zum Hochzeitstag",
+                    "NewBorn": "👶 Willkommen im Leben",
+                    "Graduation": "🎓 Glückwunsch zum Abschluss",
+                    "Other": "✨ Besondere Feier"
+                }
+            },
+            'ru': {
+                lockTitle: "⏳ Портал закрыт!", lockSubtitle: "Этот сюрприз откроется:",
+                giftPrompt: "🎁 Нажмите на коробку, чтобы открыть!", giftSubPrompt: "Нажмите в любом месте...",
+                targetTimeText: "Назначенное время", scratchInstruction: "👇 Сотрите защитный слой карты!",
+                surpriseHeader: "🎉 ОСОБЫЙ СЮРПРИЗ 🎁", celebrationHeader: "🎉 Праздничные моменты",
+                statsTitle: "⏳ Статистика", labelDays: "Дней", labelHours: "Часов",
+                openWhenTitle: "💌 Открой когда...", btnPopper: "🎊 Хлопушка", btnLove: "❤️ Отправить любовь", btnFireworks: "🎆 Фейерверк",
+                btnBlow: "💨 Задуть свечи", btnCut: "🕯️ Разрезать торт",
+                btnProposal: "💍 Скажи да!", btnShowerRoses: "🌹 Дождь из роз",
+                btnRings: "💍 Обмен кольцами", btnRoses: "🌹 Дождь из роз",
+                btnToss: "🎓 Подбросить шляпу", btnClap: "👏 Аплодисменты",
+                btnBalloons: "🎈 Запустить шары", btnBabyLove: "🍼 Улыбки малыша",
+                categories: {
+                    "Birthday": "🎂 С Днем Рождения",
+                    "Proposal": "💍 Ты выйдешь за меня?",
+                    "WeddingWish": "💒 Совет да любовь",
+                    "Wedding": "💍 С Годовщиной Свадьбы",
+                    "NewBorn": "👶 С Рождением Малыша",
+                    "Graduation": "🎓 Поздравляем с Выпуском",
+                    "Other": "✨ Особое Событие"
+                }
+            },
+            'ja': {
+                lockTitle: "⏳ ポータルがロックされています！", lockSubtitle: "このサプライズの解禁日時:",
+                giftPrompt: "🎁 ギフトボックスをタップして開封！", giftSubPrompt: "画面をタップしてサプライズを見る...",
+                targetTimeText: "予定時間", scratchInstruction: "👇 カードを削ってサプライズを確認！",
+                surpriseHeader: "🎉 スペシャルサプライズ 🎁", celebrationHeader: "🎉 お祝いの瞬間",
+                statsTitle: "⏳ 軌跡の統計", labelDays: "日数", labelHours: "時間",
+                openWhenTitle: "💌 こんな時に開けてね...", btnPopper: "🎊 クラッカー", btnLove: "❤️ 愛を送る", btnFireworks: "🎆 花火",
+                btnBlow: "💨 キャンドルを吹き消す", btnCut: "🕯️ ケーキを切る",
+                btnProposal: "💍 プロポーズ", btnShowerRoses: "🌹 ローズシャワー",
+                btnRings: "💍 指輪の交換", btnRoses: "🌹 ローズシャワー",
+                btnToss: "🎓 キャップトス", btnClap: "👏 拍手",
+                btnBalloons: "🎈 バルーンリリース", btnBabyLove: "🍼 赤ちゃんの笑顔",
+                categories: {
+                    "Birthday": "🎂 お誕生日おめでとう",
+                    "Proposal": "💍 結婚してください",
+                    "WeddingWish": "💒 ご結婚おめでとうございます",
+                    "Wedding": "💍 結婚記念日おめでとう",
+                    "NewBorn": "👶 ご出産おめでとうございます",
+                    "Graduation": "🎓 ご卒業おめでとうございます",
+                    "Other": "✨ 特別なお祝い"
+                }
             }
         };
 
         function getTranslation(lang, key) {
             if (translations[lang] && translations[lang][key]) return translations[lang][key];
-            return translations['en'][key] || '';
+            if (translations['en'][key]) return translations['en'][key];
+            return '';
         }
 
         let currentLang = 'en';
@@ -466,11 +603,10 @@
         }
 
         function applyTranslations(lang) {
-            ['lockTitle', 'lockSubtitle', 'giftPrompt', 'giftSubPrompt', 'targetTimeText', 'scratchInstruction', 'surpriseHeader', 'celebrationHeader', 'statsTitle', 'labelDays', 'labelHours', 'openWhenTitle', 'btnSad', 'btnLaugh', 'btnMiss', 'btnVibe', 'btnPopper', 'btnLove', 'btnFireworks'].forEach(id => {
+            ['lockTitle', 'lockSubtitle', 'giftPrompt', 'giftSubPrompt', 'targetTimeText', 'scratchInstruction', 'surpriseHeader', 'celebrationHeader', 'statsTitle', 'labelDays', 'labelHours', 'openWhenTitle', 'btnPopper', 'btnLove', 'btnFireworks'].forEach(id => {
                 let el = document.getElementById(id);
                 if (el) el.innerText = getTranslation(lang, id);
             });
-            
             let catMap = (translations[lang] && translations[lang].categories) ? translations[lang].categories : translations['en'].categories;
             document.getElementById('mainTitle').innerText = catMap[currentCategory] || catMap["Birthday"];
         }
@@ -479,8 +615,14 @@
             let container = document.getElementById('primaryActionButtons');
             let iconEl = document.getElementById('celebrationIcon');
 
-            if (currentCategory === 'Wedding' || currentCategory === 'WeddingWish') {
+            if (currentCategory === 'Proposal') {
                 iconEl.innerHTML = '💍💖🌹';
+                container.innerHTML = `
+                    <button class="btn" onclick="proposeLove()">${getTranslation(currentLang, 'btnProposal') || '💍 Say Yes!'}</button>
+                    <button class="btn" onclick="showerRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Roses'}</button>
+                `;
+            } else if (currentCategory === 'Wedding' || currentCategory === 'WeddingWish') {
+                iconEl.innerHTML = '💍💒🌹';
                 container.innerHTML = `
                     <button class="btn" onclick="exchangeRings()">${getTranslation(currentLang, 'btnRings') || '💍 Exchange Rings'}</button>
                     <button class="btn" onclick="showerRoses()">${getTranslation(currentLang, 'btnRoses') || '🌹 Shower Roses'}</button>
@@ -585,45 +727,65 @@
             if (photoUrl) {
                 photoWrapper.style.display = 'flex';
                 photoImg.src = photoUrl;
-            } else {
-                photoWrapper.style.display = 'none';
             }
 
             let mediaContainer = document.getElementById('mediaContainer');
             mediaContainer.innerHTML = '';
-            if (video) mediaContainer.innerHTML += `<div style="margin-top:8px;"><video controls playsinline preload="metadata" src="${video}"></video></div>`;
-            if (song) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700; margin-bottom:2px;">🎶 Song / Music</p><audio controls src="${song}"></audio></div>`;
-            if (voice) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700; margin-bottom:2px;">🎙️ Voice Greeting</p><audio controls src="${voice}"></audio></div>`;
-            if (extraAudio) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700; margin-bottom:2px;">🎵 Extra Audio File</p><audio controls src="${extraAudio}"></audio></div>`;
+            if (video) {
+                mediaContainer.innerHTML += `
+                    <div style="margin-top:10px;">
+                        <video id="surpriseVideo" controls playsinline preload="auto" src="${video}"></video>
+                        <br>
+                        <button class="fs-btn" onclick="openFullscreenVideo()">⛶ Fullscreen Video</button>
+                    </div>`;
+            }
+            if (song) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎶 Song</p><audio controls src="${song}"></audio></div>`;
+            if (voice) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎙️ Voice Greeting</p><audio controls src="${voice}"></audio></div>`;
+            if (extraAudio) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎵 Extra Audio</p><audio controls src="${extraAudio}"></audio></div>`;
 
             checkTimeLock();
+        }
+
+        function openFullscreenVideo() {
+            let vid = document.getElementById('surpriseVideo');
+            if (vid) {
+                if (vid.requestFullscreen) vid.requestFullscreen();
+                else if (vid.webkitRequestFullscreen) vid.webkitRequestFullscreen();
+                else if (vid.msRequestFullscreen) vid.msRequestFullscreen();
+                vid.play();
+            }
         }
 
         function openGift() {
             confetti({ particleCount: 200, spread: 110, origin: { y: 0.5 } });
             document.getElementById('giftSection').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
-            setTimeout(initCanvas, 100);
+            setTimeout(initCanvas, 150);
         }
 
         function checkTimeLock() {
             let isPreview = urlParams.get('preview') === 'true';
-            if (!targetTimeStr || isPreview) { document.getElementById('lockSection').style.display = 'none'; return; }
-            let parts = targetTimeStr.split(/t|\s+/i);
-            let dParts = parts[0].split('-');
-            let tParts = (parts[1] || '00:00:00').split(':');
-            let targetTime = new Date(parseInt(dParts[0]), parseInt(dParts[1]) - 1, parseInt(dParts[2]), parseInt(tParts[0] || 0), parseInt(tParts[1] || 0), parseInt(tParts[2] || 0)).getTime();
-            let distance = targetTime - new Date().getTime();
+            if (!targetTimeStr || isPreview) { 
+                document.getElementById('lockSection').style.display = 'none';
+                return; 
+            }
+            let targetTime = new Date(targetTimeStr).getTime();
+            let now = new Date().getTime();
+            let distance = targetTime - now;
+
             if (distance <= 0) {
                 document.getElementById('lockSection').style.display = 'none';
+                document.getElementById('giftSection').style.display = 'flex';
             } else {
                 document.getElementById('lockSection').style.display = 'block';
                 document.getElementById('giftSection').style.display = 'none';
                 document.getElementById('targetTimeDisplay').innerText = targetTimeStr.replace('T', ' ');
-                setInterval(() => {
+                let timerInterval = setInterval(() => {
                     let dist = targetTime - new Date().getTime();
-                    if (dist <= 0) location.reload();
-                    else {
+                    if (dist <= 0) {
+                        clearInterval(timerInterval);
+                        location.reload();
+                    } else {
                         let d = Math.floor(dist / (1000 * 60 * 60 * 24));
                         let h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         let m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
@@ -653,7 +815,7 @@
         let isDrawing = false;
         function scratch(x, y) {
             ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath(); ctx.arc(x, y, 20, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(x, y, 22, 0, Math.PI * 2); ctx.fill();
         }
         function getPos(e) {
             let rect = canvas.getBoundingClientRect();
@@ -666,27 +828,31 @@
             canvas.addEventListener('mousemove', (e) => { if (isDrawing) { let p = getPos(e); scratch(p.x, p.y); } });
             window.addEventListener('mouseup', () => isDrawing = false);
             canvas.addEventListener('touchstart', (e) => { isDrawing = true; let p = getPos(e); scratch(p.x, p.y); e.preventDefault(); });
-            canvas.addEventListener('touchmove', (e) => { if (isDrawing) { let p = getPos(e); scratch(p.x, p.y); e.preventDefault(); });
+            canvas.addEventListener('touchmove', (e) => { if (isDrawing) { let p = getPos(e); scratch(p.x, p.y); e.preventDefault(); } });
             canvas.addEventListener('touchend', () => isDrawing = false);
         }
 
         function blowCandles() { document.getElementById('celebrationIcon').innerHTML = '🎂💨✨'; confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } }); }
         function cutCake() { document.getElementById('celebrationIcon').innerHTML = '🍰 🔪 ✨'; confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } }); }
         
+        function proposeLove() {
+            document.getElementById('celebrationIcon').innerHTML = '💍💖✨';
+            confetti({ particleCount: 180, spread: 100, origin: { y: 0.5 }, colors: ['#ff007f', '#ffd700', '#ffffff'] });
+            showerRoses();
+        }
         function exchangeRings() {
             document.getElementById('celebrationIcon').innerHTML = '💍✨💖';
             confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 }, colors: ['#ffd700', '#ff3366', '#fff'] });
         }
         function showerRoses() {
-            for(let i=0; i<12; i++){
+            for(let i=0; i<15; i++){
                 let div = document.createElement('div');
                 div.className = 'floating-heart'; div.innerText = '🌹';
-                div.style.left = `${20 + Math.random() * 60}%`;
+                div.style.left = `${15 + Math.random() * 70}%`;
                 document.body.appendChild(div);
                 setTimeout(() => div.remove(), 2500);
             }
         }
-
         function tossCap() {
             document.getElementById('celebrationIcon').innerHTML = '🎓🚀✨';
             confetti({ particleCount: 150, spread: 120, origin: { y: 0.5 }, colors: ['#00ffcc', '#ffd700', '#ff3366'] });
@@ -694,7 +860,6 @@
         function grandApplause() {
             confetti({ particleCount: 100, spread: 80, origin: { y: 0.7 } });
         }
-
         function releaseBalloons() {
             for(let i=0; i<10; i++){
                 let div = document.createElement('div');
@@ -708,7 +873,6 @@
             document.getElementById('celebrationIcon').innerHTML = '👶💖✨';
             confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors: ['#ff9ff3', '#feca57'] });
         }
-
         function firePartyPopper() { confetti({ particleCount: 100, spread: 80, origin: { y: 0.7 } }); }
         function sendLoveHearts() {
             ['❤️', '💖', '💝'].forEach(h => {
