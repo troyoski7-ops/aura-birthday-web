@@ -238,16 +238,16 @@
             font-weight: 600;
         }
 
+        /* --- സ്റ്റേജ് ആനിമേഷൻ സ്റ്റൈലുകൾ --- */
         .story-stage {
             width: 100%;
-            min-height: 260px;
+            min-height: 270px;
             background: radial-gradient(circle at bottom, rgba(255,215,0,0.12) 0%, rgba(0,0,0,0.88) 80%);
             border-radius: 20px;
             border: 2px solid rgba(255,215,0,0.4);
             margin: 12px 0;
             padding: 16px;
             position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -258,70 +258,133 @@
         .character-viewport {
             position: relative;
             width: 290px;
-            height: 170px;
+            height: 180px;
             display: flex;
             align-items: flex-end;
             justify-content: center;
+            overflow: visible;
         }
 
-        .story-asset {
+        /* പ്രൊപ്പോസൽ സ്പ്ലിറ്റ് കാരക്ടേഴ്സ് */
+        .split-actor-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 0 15px;
+        }
+
+        .actor-boy-box {
+            width: 120px;
+            height: 150px;
+            background-repeat: no-repeat;
+            background-size: 260px auto;
+            background-position: left bottom;
+            transform: translateX(-100px);
+            opacity: 0;
+            transition: all 1.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .actor-boy-box.walking-in {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .actor-girl-box {
+            width: 120px;
+            height: 150px;
+            background-repeat: no-repeat;
+            background-size: 260px auto;
+            background-position: right bottom;
+            animation: girlIdle 2.5s infinite ease-in-out;
+        }
+        @keyframes girlIdle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .actor-girl-box.accepted {
+            animation: girlExcited 0.6s infinite alternate ease-in-out;
+        }
+        @keyframes girlExcited {
+            0% { transform: scale(1) translateY(0); }
+            100% { transform: scale(1.08) translateY(-8px); filter: drop-shadow(0 0 12px #ff007f); }
+        }
+
+        .proposal-ring-beam {
+            position: absolute;
+            bottom: 60px;
+            left: 110px;
+            font-size: 1.8rem;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 0 15px #ffd700);
+            z-index: 10;
+        }
+        .proposal-ring-beam.shining {
+            opacity: 1;
+            transform: scale(1.2);
+            animation: ringPulse 1.2s infinite alternate;
+        }
+        @keyframes ringPulse {
+            0% { transform: scale(1.1); filter: drop-shadow(0 0 8px #ffd700); }
+            100% { transform: scale(1.35); filter: drop-shadow(0 0 20px #fff); }
+        }
+
+        .standard-asset {
             max-height: 160px;
             max-width: 100%;
             object-fit: contain;
             filter: drop-shadow(0 10px 18px rgba(0,0,0,0.65));
-            transition: all 0.8s ease;
+            animation: softBreathing 3s infinite ease-in-out;
+            transform-origin: bottom center;
         }
-
-        .proposal-entry {
-            transform: translateX(-60px);
-            opacity: 0;
-        }
-        .proposal-walking {
-            animation: walkInKneel 2.5s forwards ease-in-out;
-        }
-        @keyframes walkInKneel {
-            0% { transform: translateX(-60px); opacity: 0; }
-            50% { transform: translateX(-20px); opacity: 1; }
-            100% { transform: translateX(0px); opacity: 1; }
+        @keyframes softBreathing {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-6px) scale(1.02, 0.98); }
         }
 
         .interactive-choice-box {
             display: none;
-            gap: 10px;
-            margin-top: 12px;
+            gap: 12px;
+            margin-top: 14px;
             animation: popIn 0.5s ease-out;
-            z-index: 10;
+            z-index: 99;
         }
         @keyframes popIn {
-            0% { transform: scale(0.7); opacity: 0; }
+            0% { transform: scale(0.6); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
         .choice-btn-yes {
             background: linear-gradient(45deg, #ff007f, #ff5e62);
             color: #fff;
             border: 2px solid #ffd700;
-            padding: 8px 18px;
-            border-radius: 20px;
+            padding: 10px 22px;
+            border-radius: 25px;
             font-weight: 800;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
-            animation: pulseYes 1.5s infinite;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.8);
+            animation: pulseYes 1.4s infinite;
         }
         @keyframes pulseYes {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.06); }
+            50% { transform: scale(1.08); }
         }
         .choice-btn-think {
             background: rgba(255, 255, 255, 0.15);
-            color: #ddd;
+            color: #eee;
             border: 1px solid #aaa;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-size: 0.82rem;
             cursor: pointer;
         }
 
+        /* 🎂 5 Candles & Knife */
         .cake-container-box {
             position: relative;
             display: flex;
@@ -409,9 +472,9 @@
         }
 
         .story-caption {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: #ffd700;
-            margin-top: 10px;
+            margin-top: 12px;
             font-weight: 600;
             min-height: 24px;
         }
@@ -613,11 +676,9 @@
         </div>
     </div>
 
-    <!-- ഇവിടെയാണ് യഥാർത്ഥ ജാവാസ്ക്രിപ്റ്റ് നേരിട്ട് പ്രവർത്തിക്കുന്നത് -->
     <script>
         const BOT_API_URL = "https://birthday-bot-production-3f7a.up.railway.app";
 
-        // നിങ്ങളുടെ GitHub assets ഫോൾഡറിലുള്ള അതേ ഫയൽ പേരുകൾ നേരിട്ട് ലിങ്ക് ചെയ്തിരിക്കുന്നു[span_1](start_span)[span_1](end_span):
         const USER_ASSETS = {
             wedding: "assets/wedding.jpg.jpeg",
             proposal: "assets/proposal.webp.webp",
@@ -833,26 +894,29 @@
             if (isStoryActive) return;
             isStoryActive = true;
 
-            const img = document.getElementById('proposalImg');
+            const boy = document.getElementById('actorBoy');
+            const ringBeam = document.getElementById('ringBeam');
             const caption = document.getElementById('storyCaptionText');
             const choiceBox = document.getElementById('proposalChoiceBox');
 
-            img.classList.remove('proposal-entry');
-            img.classList.add('proposal-walking');
             caption.innerText = "🚶‍♂️ He steps forward with his heart beating fast...";
+            boy.classList.add('walking-in');
 
             setTimeout(() => {
                 caption.innerText = "🧎‍♂️ Gently kneeling down and opening the velvet box... 'Will you marry me?'";
-                confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 } });
+                ringBeam.classList.add('shining');
+                confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
                 choiceBox.style.display = 'flex';
-            }, 2500);
+            }, 2000);
         }
 
         function acceptProposalYes() {
+            const girl = document.getElementById('actorGirl');
             const caption = document.getElementById('storyCaptionText');
             const choiceBox = document.getElementById('proposalChoiceBox');
 
             choiceBox.style.display = 'none';
+            girl.classList.add('accepted');
             caption.innerText = "💖 Blushing with pure joy... She happily extends her hand and says YES!";
             
             shower3DRedRoses();
@@ -955,7 +1019,11 @@
             if (currentCategory === 'Proposal') {
                 stage.innerHTML = `
                     <div class="character-viewport">
-                        <img id="proposalImg" class="story-asset proposal-entry" src="${USER_ASSETS.proposal}" alt="Proposal Scene">
+                        <div class="split-actor-wrapper">
+                            <div id="actorBoy" class="actor-boy-box" style="background-image: url('${USER_ASSETS.proposal}');"></div>
+                            <div id="ringBeam" class="proposal-ring-beam">💍✨</div>
+                            <div id="actorGirl" class="actor-girl-box" style="background-image: url('${USER_ASSETS.proposal}');"></div>
+                        </div>
                     </div>
 
                     <div class="interactive-choice-box" id="proposalChoiceBox">
@@ -972,7 +1040,7 @@
             } else if (currentCategory === 'Wedding' || currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
                     <div class="character-viewport">
-                        <img class="story-asset" src="${USER_ASSETS.wedding}" alt="Wedding Couple">
+                        <img class="standard-asset" src="${USER_ASSETS.wedding}" alt="Wedding Couple">
                     </div>
                     <div class="story-caption" id="storyCaptionText">🔔 Royal Celebration of Eternal Love</div>
                 `;
@@ -987,7 +1055,7 @@
                         <button id="btnGradGirl" class="gender-btn ${selectedGradGender === 'girl' ? 'active' : ''}" onclick="switchGradGender('girl')">👩‍🎓 Girl</button>
                     </div>
                     <div class="character-viewport">
-                        <img id="gradCharacterImg" class="story-asset" src="${selectedGradGender === 'boy' ? USER_ASSETS.graduation_boy : USER_ASSETS.graduation_girl}" alt="Graduation Character">
+                        <img id="gradCharacterImg" class="standard-asset" src="${selectedGradGender === 'boy' ? USER_ASSETS.graduation_boy : USER_ASSETS.graduation_girl}" alt="Graduation Character">
                     </div>
                     <div class="story-caption" id="storyCaptionText">🎓 The Grand Auditorium Standing Ovation</div>
                 `;
@@ -998,7 +1066,7 @@
             } else if (currentCategory === 'NewBorn') {
                 stage.innerHTML = `
                     <div class="character-viewport">
-                        <img class="story-asset" src="${USER_ASSETS.baby}" alt="Baby On Cloud">
+                        <img class="standard-asset" src="${USER_ASSETS.baby}" alt="Baby On Cloud">
                     </div>
                     <div class="story-caption" id="storyCaptionText">✨ A Little Angel has Arrived into Our World</div>
                 `;
@@ -1019,7 +1087,7 @@
                                 <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
                                 <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
                             </div>
-                            <img class="story-asset" src="${USER_ASSETS.cake}" alt="Birthday Cake">
+                            <img class="standard-asset" src="${USER_ASSETS.cake}" alt="Birthday Cake">
                         </div>
                     </div>
                     <div class="story-caption" id="storyCaptionText">✨ Make a Wish & Blow the Candles!</div>
