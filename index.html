@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ Aura Lottie Luxury Celebrations ✨</title>
+    <title>✨ Aura Luxury Celebrations ✨</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <!-- Lottie Player Script -->
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -240,9 +238,10 @@
             font-weight: 600;
         }
 
+        /* --- STAGE & VISUAL EFFECTS --- */
         .story-stage {
             width: 100%;
-            min-height: 280px;
+            min-height: 260px;
             background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(10,8,18,0.95) 80%);
             border-radius: 20px;
             border: 2px solid rgba(255,215,0,0.45);
@@ -256,13 +255,15 @@
             box-shadow: inset 0 0 35px rgba(0,0,0,0.9), 0 0 20px rgba(255,215,0,0.2);
         }
 
-        .lottie-viewport {
-            width: 100%;
-            max-width: 280px;
-            height: 190px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .stage-visual-box {
+            font-size: 4.5rem;
+            animation: bounceIcon 2s infinite ease-in-out;
+            margin-bottom: 5px;
+            filter: drop-shadow(0 0 15px rgba(255,215,0,0.6));
+        }
+        @keyframes bounceIcon {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.08); }
         }
 
         .interactive-choice-box {
@@ -530,16 +531,6 @@
 
     <script>
         const BOT_API_URL = "https://birthday-bot-production-3f7a.up.railway.app";
-
-        const LOTTIE_ASSETS = {
-            proposal: "https://assets2.lottiefiles.com/packages/lf20_q5pk6p1k.json", // റൊമാന്റിക് പ്രൊപ്പോസൽ ആനിമേഷൻ
-            wedding: "https://assets2.lottiefiles.com/packages/lf20_y2hx3qdc.json",  
-            graduation_boy: "https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json", 
-            graduation_girl: "https://assets5.lottiefiles.com/packages/lf20_hx8gspni.json", 
-            baby: "https://assets3.lottiefiles.com/packages/lf20_5njp3vgg.json",   
-            cake: "https://assets4.lottiefiles.com/packages/lf20_t9ceao7g.json"    
-        };
-
         let selectedGradGender = 'boy';
 
         const bgCanvas = document.getElementById('liveBgCanvas');
@@ -738,7 +729,7 @@
             }
         }
 
-        // --- 1. 💍 PROPOSAL STORYLINE ---
+        // --- STORYLINE ACTIONS ---
         let isStoryActive = false;
         function playLiveProposalStory() {
             if (isStoryActive) return;
@@ -747,7 +738,7 @@
             const caption = document.getElementById('storyCaptionText');
             const choiceBox = document.getElementById('proposalChoiceBox');
 
-            caption.innerText = "🧎‍♂️ He gracefully kneels down and opens the velvet box... 'Will you marry me?'";
+            caption.innerText = "🧎‍♂️ He gracefully kneels down with a sparkling ring... 'Will you marry me?'";
             confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
             choiceBox.style.display = 'flex';
         }
@@ -764,7 +755,7 @@
             launchGrandFireworks();
 
             setTimeout(() => {
-                caption.innerText = "✨ The ring finds its finger... Their beautiful forever begins! ✨";
+                caption.innerText = "✨ Their beautiful forever officially begins! ✨";
                 isStoryActive = false;
             }, 3000);
         }
@@ -775,10 +766,9 @@
             setTimeout(acceptProposalYes, 1200);
         }
 
-        // --- 2. 💒 WEDDING WALTZ STORYLINE ---
         function playWeddingWaltzCeremony() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🎻 Walking down the aisle, exchanging rings, and stepping into the eternal waltz...";
+            caption.innerText = "🎻 Exchanging rings and stepping into the eternal waltz together...";
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
@@ -787,7 +777,6 @@
             }, 2000);
         }
 
-        // --- 3. 🎓 GRADUATION STORYLINE ---
         function tossGraduationCapStory() {
             const caption = document.getElementById('storyCaptionText');
             caption.innerText = "📜 Receiving certificate with honor and tossing the cap into the skies! 🎓";
@@ -800,22 +789,21 @@
 
         function switchGradGender(gender) {
             selectedGradGender = gender;
-            const player = document.getElementById('gradLottiePlayer');
+            const visual = document.getElementById('stageVisualIcon');
             const btnBoy = document.getElementById('btnGradBoy');
             const btnGirl = document.getElementById('btnGradGirl');
 
             if (gender === 'boy') {
-                player.setAttribute('src', LOTTIE_ASSETS.graduation_boy);
+                visual.innerText = "👨‍🎓";
                 btnBoy.classList.add('active');
                 btnGirl.classList.remove('active');
             } else {
-                player.setAttribute('src', LOTTIE_ASSETS.graduation_girl);
+                visual.innerText = "👩‍🎓";
                 btnGirl.classList.add('active');
                 btnBoy.classList.remove('active');
             }
         }
 
-        // --- 4. 👶 BABY BORN STORYLINE ---
         function sendBabyBlessings() {
             const caption = document.getElementById('storyCaptionText');
             caption.innerText = "🍼 Little angel smiles as pastel balloons rise to the heavens! ✨";
@@ -829,15 +817,11 @@
 
             if (currentCategory === 'Proposal') {
                 stage.innerHTML = `
-                    <div class="lottie-viewport">
-                        <lottie-player src="${LOTTIE_ASSETS.proposal}" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
-                    </div>
-
+                    <div class="stage-visual-box" id="stageVisualIcon">💍</div>
                     <div class="interactive-choice-box" id="proposalChoiceBox">
                         <button class="choice-btn-yes" onclick="acceptProposalYes()">💍 YES! 💖</button>
                         <button class="choice-btn-think" onclick="thinkProposalJoke()">Let me think 😜</button>
                     </div>
-
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'Start Proposal Story' to begin!</div>
                 `;
                 container.innerHTML = `
@@ -846,9 +830,7 @@
                 `;
             } else if (currentCategory === 'Wedding' || currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
-                    <div class="lottie-viewport">
-                        <lottie-player src="${LOTTIE_ASSETS.wedding}" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="stage-visual-box">💒</div>
                     <div class="story-caption" id="storyCaptionText">🔔 Royal Celebration of Eternal Love</div>
                 `;
                 container.innerHTML = `
@@ -861,9 +843,7 @@
                         <button id="btnGradBoy" class="gender-btn ${selectedGradGender === 'boy' ? 'active' : ''}" onclick="switchGradGender('boy')">👨‍🎓 Boy</button>
                         <button id="btnGradGirl" class="gender-btn ${selectedGradGender === 'girl' ? 'active' : ''}" onclick="switchGradGender('girl')">👩‍🎓 Girl</button>
                     </div>
-                    <div class="lottie-viewport">
-                        <lottie-player id="gradLottiePlayer" src="${selectedGradGender === 'boy' ? LOTTIE_ASSETS.graduation_boy : LOTTIE_ASSETS.graduation_girl}" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="stage-visual-box" id="stageVisualIcon">${selectedGradGender === 'boy' ? '👨‍🎓' : '👩‍🎓'}</div>
                     <div class="story-caption" id="storyCaptionText">🎓 The Grand Auditorium Standing Ovation</div>
                 `;
                 container.innerHTML = `
@@ -872,9 +852,7 @@
                 `;
             } else if (currentCategory === 'NewBorn') {
                 stage.innerHTML = `
-                    <div class="lottie-viewport">
-                        <lottie-player src="${LOTTIE_ASSETS.baby}" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="stage-visual-box">👶</div>
                     <div class="story-caption" id="storyCaptionText">✨ A Little Angel has Arrived into Our World</div>
                 `;
                 container.innerHTML = `
@@ -883,9 +861,7 @@
             } else {
                 // Birthday
                 stage.innerHTML = `
-                    <div class="lottie-viewport">
-                        <lottie-player src="${LOTTIE_ASSETS.cake}" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="stage-visual-box">🎂</div>
                     <div class="story-caption" id="storyCaptionText">✨ Make a Wish & Celebrate!</div>
                 `;
                 container.innerHTML = `
@@ -1179,10 +1155,6 @@
         function grandApplause() {
             fireExtremeDualPoppers();
         }
-        function babySmiles() {
-            release3DPastelBalloons();
-        }
-
         function launchGrandFireworks() {
             let count = 0;
             let fireInterval = setInterval(() => {
