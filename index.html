@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ Aura Ultra Luxury Celebrations ✨</title>
+    <title>✨ Aura Interactive Story Celebrations ✨</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -66,7 +66,6 @@
             z-index: 2;
         }
 
-        /* ഹെഡിംഗ് തീമുകൾ */
         .header-box-base {
             border-radius: 20px;
             padding: 18px 14px;
@@ -239,11 +238,10 @@
             font-weight: 600;
         }
 
-        /* --- റിയൽ 3D ആനിമേഷൻ കാരക്ടർ സ്റ്റേജ് --- */
         .story-stage {
             width: 100%;
-            min-height: 230px;
-            background: radial-gradient(circle at bottom, rgba(255,215,0,0.12) 0%, rgba(0,0,0,0.85) 80%);
+            min-height: 260px;
+            background: radial-gradient(circle at bottom, rgba(255,215,0,0.12) 0%, rgba(0,0,0,0.88) 80%);
             border-radius: 20px;
             border: 2px solid rgba(255,215,0,0.4);
             margin: 12px 0;
@@ -257,73 +255,103 @@
             box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
         }
 
-        .char-img-container {
+        .character-viewport {
             position: relative;
-            width: 100%;
-            height: 150px;
+            width: 290px;
+            height: 170px;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
         }
-        .char-img {
-            max-height: 145px;
-            max-width: 90%;
+
+        .story-asset {
+            max-height: 160px;
+            max-width: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.6));
-            animation: charFloat 3s infinite ease-in-out;
-        }
-        @keyframes charFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            filter: drop-shadow(0 10px 18px rgba(0,0,0,0.65));
+            transition: all 0.8s ease;
         }
 
-        /* യഥാർത്ഥ മൾട്ടി-കാൻഡിൽ റിയലിസ്റ്റിക് 3D കേക്ക് സ്ട്രക്ചർ */
-        .realistic-cake-stage {
+        .proposal-entry {
+            transform: translateX(-60px);
+            opacity: 0;
+        }
+        .proposal-walking {
+            animation: walkInKneel 2.5s forwards ease-in-out;
+        }
+        @keyframes walkInKneel {
+            0% { transform: translateX(-60px); opacity: 0; }
+            50% { transform: translateX(-20px); opacity: 1; }
+            100% { transform: translateX(0px); opacity: 1; }
+        }
+
+        .interactive-choice-box {
+            display: none;
+            gap: 10px;
+            margin-top: 12px;
+            animation: popIn 0.5s ease-out;
+            z-index: 10;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .choice-btn-yes {
+            background: linear-gradient(45deg, #ff007f, #ff5e62);
+            color: #fff;
+            border: 2px solid #ffd700;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
+            animation: pulseYes 1.5s infinite;
+        }
+        @keyframes pulseYes {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+        .choice-btn-think {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ddd;
+            border: 1px solid #aaa;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .cake-container-box {
             position: relative;
-            width: 220px;
-            height: 140px;
-            margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
-        }
-        .cake-knife-real {
-            position: absolute;
-            top: -20px;
-            right: 15px;
-            font-size: 2.8rem;
-            transform: rotate(45deg);
-            opacity: 0;
-            transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 10;
-        }
-        .cake-knife-real.slicing {
-            opacity: 1;
-            transform: translate(-50px, 60px) rotate(-15deg);
+            height: 100%;
         }
         .candles-row {
             display: flex;
-            gap: 16px;
-            margin-bottom: 2px;
-            z-index: 3;
+            gap: 14px;
+            margin-bottom: -15px;
+            z-index: 5;
         }
         .wax-candle {
             width: 6px;
-            height: 28px;
+            height: 24px;
             background: linear-gradient(to bottom, #ff9ff3, #feca57);
             border-radius: 3px;
             position: relative;
         }
         .candle-flame-real {
-            width: 10px;
-            height: 14px;
+            width: 9px;
+            height: 13px;
             background: radial-gradient(circle, #fff 0%, #ffaa00 60%, #ff3838 100%);
             border-radius: 50% 50% 20% 20%;
             position: absolute;
-            top: -15px;
-            left: -2px;
-            box-shadow: 0 0 10px #ffaa00, 0 0 20px #ff3838;
+            top: -14px;
+            left: -1.5px;
+            box-shadow: 0 0 8px #ffaa00, 0 0 16px #ff3838;
             animation: flameWobble 0.5s infinite alternate ease-in-out;
         }
         @keyframes flameWobble {
@@ -334,7 +362,7 @@
             position: absolute;
             top: -25px;
             left: -4px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             opacity: 0;
             display: none;
             animation: riseSmoke 1.2s forwards ease-out;
@@ -343,55 +371,45 @@
             0% { opacity: 0.9; transform: translateY(0) scale(0.6); }
             100% { opacity: 0; transform: translateY(-30px) scale(1.5); }
         }
-        .cake-layer-top {
-            width: 130px;
-            height: 42px;
-            background: linear-gradient(to bottom, #fff5eb 0%, #f3a683 100%);
-            border-radius: 12px 12px 6px 6px;
-            border: 2px solid #e17055;
-            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.15);
-            position: relative;
-            z-index: 2;
+
+        .cake-knife-real {
+            position: absolute;
+            top: -20px;
+            right: 25px;
+            font-size: 2.8rem;
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
         }
-        .cake-layer-bottom {
-            width: 170px;
-            height: 52px;
-            background: linear-gradient(to bottom, #ff7675 0%, #d63031 100%);
-            border-radius: 12px 12px 8px 8px;
-            border: 2px solid #b71540;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
-            margin-top: -6px;
-            z-index: 1;
-            transition: transform 0.6s ease;
-        }
-        .cake-sliced-left {
-            transform: translateX(-15px) rotate(-4deg);
-        }
-        .cake-sliced-right {
-            transform: translateX(15px) rotate(4deg);
+        .cake-knife-real.slicing {
+            opacity: 1;
+            transform: translate(-50px, 60px) rotate(-15deg);
         }
 
-        .speech-bubble-vector {
-            position: absolute;
-            top: 5px;
-            right: 25px;
-            background: #ff007f;
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 18px;
-            font-size: 0.85rem;
-            font-weight: 800;
-            display: none;
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.8);
-            animation: popBubble 0.4s ease-out forwards;
+        .gender-switch-box {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            z-index: 10;
         }
-        @keyframes popBubble {
-            0% { transform: scale(0); }
-            100% { transform: scale(1); }
+        .gender-btn {
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .gender-btn.active {
+            background: #ffd700;
+            color: #000;
         }
 
         .story-caption {
-            font-size: 0.84rem;
+            font-size: 0.85rem;
             color: #ffd700;
             margin-top: 10px;
             font-weight: 600;
@@ -574,7 +592,6 @@
             
             <div id="mediaContainer" class="media-box"></div>
             
-            <!-- സിനിമാറ്റിക് 3D സ്റ്റേജ് -->
             <div class="story-stage" id="storyStageContainer"></div>
             
             <div class="btn-group" id="primaryActionButtons"></div>
@@ -596,8 +613,21 @@
         </div>
     </div>
 
+    <!-- ഇവിടെയാണ് യഥാർത്ഥ ജാവാസ്ക്രിപ്റ്റ് നേരിട്ട് പ്രവർത്തിക്കുന്നത് -->
     <script>
         const BOT_API_URL = "https://birthday-bot-production-3f7a.up.railway.app";
+
+        // നിങ്ങളുടെ GitHub assets ഫോൾഡറിലുള്ള അതേ ഫയൽ പേരുകൾ നേരിട്ട് ലിങ്ക് ചെയ്തിരിക്കുന്നു[span_1](start_span)[span_1](end_span):
+        const USER_ASSETS = {
+            wedding: "assets/wedding.jpg.jpeg",
+            proposal: "assets/proposal.webp.webp",
+            graduation_boy: "assets/graduation_boy.jpg.jpeg",
+            graduation_girl: "assets/graduation_girl.jpg.jpeg",
+            baby: "assets/baby.jpg.jpeg",
+            cake: "assets/cake.jpg.jpeg"
+        };
+
+        let selectedGradGender = 'boy';
 
         const bgCanvas = document.getElementById('liveBgCanvas');
         const bgCtx = bgCanvas.getContext('2d');
@@ -637,7 +667,6 @@
 
             fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
 
-            // 3D റോസാപ്പൂവിതളുകൾ
             for (let i = customPetals.length - 1; i >= 0; i--) {
                 let pt = customPetals[i];
                 pt.y += pt.speedY;
@@ -659,7 +688,6 @@
                 if (pt.y > fxCanvas.height + 50) customPetals.splice(i, 1);
             }
 
-            // പാസ്റ്റൽ ബലൂണുകൾ
             for (let i = customBalloons.length - 1; i >= 0; i--) {
                 let bl = customBalloons[i];
                 bl.y -= bl.speedY;
@@ -682,10 +710,9 @@
                 fxCtx.stroke();
                 fxCtx.restore();
 
-                if (bl.y < -60) customBalloons.splice(i, 1);
+                if (bl.y < -80) customBalloons.splice(i, 1);
             }
 
-            // ഹാർട്ട്സ്
             for (let i = customHearts.length - 1; i >= 0; i--) {
                 let h = customHearts[i];
                 h.y += h.speedY;
@@ -715,11 +742,11 @@
                 surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "🎉 Celebration Stage",
                 statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
                 openWhenTitle: "💌 Open When...", btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
-                btnBlow: "💨 Blow Candles", btnCut: "🕯️ Cut Cake",
-                btnPlayStory: "💍 Play Proposal Story", btnShowerRoses: "🌹 Shower Red Roses",
-                btnWeddingWaltz: "💒 Royal Wedding Waltz",
-                btnToss: "🎓 Toss Graduation Cap", btnClap: "👏 Standing Ovation",
-                btnBalloons: "🎈 Release Pastel Balloons", btnBabyLove: "🍼 Baby Smiles",
+                btnBlow: "💨 Blow 5 Candles", btnCut: "🍰 Cut Cake",
+                btnPlayStory: "💍 Start Proposal Story", btnShowerRoses: "🌹 Shower Red Roses",
+                btnWeddingWaltz: "💒 Exchange Rings & Waltz",
+                btnToss: "🎓 Receive Certificate & Toss Cap", btnClap: "👏 Standing Ovation",
+                btnBalloons: "🎈 Send Blessings & Release Balloons", btnBabyLove: "🍼 Baby Smiles",
                 categories: {
                     "Birthday": "🎂 Happy Birthday",
                     "Proposal": "💍 Will You Marry Me & Forever Love",
@@ -737,11 +764,11 @@
                 surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "🎉 ആഘോഷ വേദി",
                 statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
                 openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
-                btnBlow: "💨 മെഴുകുതിരി അണയ്ക്കുക", btnCut: "🕯️ കേക്ക് മുറിക്കുക",
-                btnPlayStory: "💍 പ്രൊപ്പോസൽ സ്റ്റോറി പ്ലേ ചെയ്യൂ", btnShowerRoses: "🌹 റോസാപ്പൂക്കൾ ചൊരിയുക",
-                btnWeddingWaltz: "💒 റോയൽ വെഡ്ഡിംഗ് വാൾട്സ്",
-                btnToss: "🎓 തൊപ്പി വാനിലേക്ക് എറിയുക", btnClap: "👏 ആർപ്പുവിളി & കൈയടി",
-                btnBalloons: "🎈 ബലൂൺ പറത്തുക", btnBabyLove: "🍼 കുഞ്ഞുചിരികൾ",
+                btnBlow: "💨 5 മെഴുകുതിരികളും അണയ്ക്കൂ", btnCut: "🍰 കേക്ക് മുറിക്കുക",
+                btnPlayStory: "💍 പ്രൊപ്പോസൽ സ്റ്റോറി ആരംഭിക്കൂ", btnShowerRoses: "🌹 റോസാപ്പൂക്കൾ ചൊരിയുക",
+                btnWeddingWaltz: "💒 മോതിരം മാറ്റുക & വാൾട്സ്",
+                btnToss: "🎓 സർട്ടിഫിക്കറ്റ് വാങ്ങി തൊപ്പി വാനിലേക്ക് എറിയൂ", btnClap: "👏 ആർപ്പുവിളി & കൈയടി",
+                btnBalloons: "🎈 അനുഗ്രഹങ്ങളും ബലൂണുകളും അയക്കൂ", btnBabyLove: "🍼 കുഞ്ഞുചിരികൾ",
                 categories: {
                     "Birthday": "🎂 ജന്മദിനാശംസകൾ",
                     "Proposal": "💍 എന്നെ വിവാഹം കഴിക്കാമോ?",
@@ -800,34 +827,51 @@
             }
         }
 
-        // --- 1. 💍 ലൈവ് പ്രൊപ്പോസൽ സ്റ്റോറി ---
+        // --- 1. 💍 PROPOSAL STORYLINE ---
         let isStoryActive = false;
         function playLiveProposalStory() {
             if (isStoryActive) return;
             isStoryActive = true;
 
-            const bubble = document.getElementById('girlBubble');
+            const img = document.getElementById('proposalImg');
             const caption = document.getElementById('storyCaptionText');
+            const choiceBox = document.getElementById('proposalChoiceBox');
 
-            caption.innerText = "💍 'Will you hold my hand forever and make my world complete?'";
-            confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+            img.classList.remove('proposal-entry');
+            img.classList.add('proposal-walking');
+            caption.innerText = "🚶‍♂️ He steps forward with his heart beating fast...";
 
             setTimeout(() => {
-                if (bubble) bubble.style.display = 'block';
-                caption.innerText = "💖 She blushes with joy... 'YES, FOREVER!'";
-                shower3DRedRoses();
-
-                setTimeout(() => {
-                    fireExtremeDualPoppers();
-                    launchGrandFireworks();
-                    caption.innerText = "✨ The beginning of their beautiful forever! ✨";
-                    isStoryActive = false;
-                }, 2200);
-
-            }, 1800);
+                caption.innerText = "🧎‍♂️ Gently kneeling down and opening the velvet box... 'Will you marry me?'";
+                confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 } });
+                choiceBox.style.display = 'flex';
+            }, 2500);
         }
 
-        // --- 2. 🎂 റിയലിസ്റ്റിക് മൾട്ടി-കാൻഡിൽ ബ്ലോവിംഗ് & കേക്ക് സ്ലൈസിംഗ് ---
+        function acceptProposalYes() {
+            const caption = document.getElementById('storyCaptionText');
+            const choiceBox = document.getElementById('proposalChoiceBox');
+
+            choiceBox.style.display = 'none';
+            caption.innerText = "💖 Blushing with pure joy... She happily extends her hand and says YES!";
+            
+            shower3DRedRoses();
+            fireExtremeDualPoppers();
+            launchGrandFireworks();
+
+            setTimeout(() => {
+                caption.innerText = "✨ The ring finds its finger... Their beautiful forever begins! ✨";
+                isStoryActive = false;
+            }, 3000);
+        }
+
+        function thinkProposalJoke() {
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "😜 She smiles teasingly... But her heart already knows it's YES! 💖";
+            setTimeout(acceptProposalYes, 1200);
+        }
+
+        // --- 2. 🎂 5 CANDLES BLOWING & SLICING STORYLINE ---
         function blowRealCandles() {
             const flames = document.querySelectorAll('.candle-flame-real');
             const smokes = document.querySelectorAll('.smoke-puff');
@@ -836,27 +880,30 @@
             flames.forEach(f => f.style.display = 'none');
             smokes.forEach(s => s.style.display = 'block');
 
-            caption.innerText = "💨 The candles are blown... Wishes soaring to the stars! ✨";
+            caption.innerText = "💨 All 5 candles are blown... Wishes soaring to the stars! ✨";
             confetti({ particleCount: 90, spread: 75, origin: { y: 0.6 } });
+
+            setTimeout(() => {
+                cutRealCake();
+            }, 1200);
         }
 
         function cutRealCake() {
             const knife = document.getElementById('realCakeKnife');
-            const bottomLayer = document.getElementById('bottomCakeLayer');
             const caption = document.getElementById('storyCaptionText');
 
             if (knife) knife.classList.add('slicing');
             setTimeout(() => {
-                if (bottomLayer) bottomLayer.classList.add('cake-sliced-right');
                 caption.innerText = "🍰 Cake sliced with love! Happy Birthday! 🎉";
                 fireExtremeDualPoppers();
                 launchGrandFireworks();
             }, 600);
         }
 
+        // --- 3. 💒 WEDDING WALTZ STORYLINE ---
         function playWeddingWaltzCeremony() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🎻 Melodic vows and eternal love exchanged...";
+            caption.innerText = "🎻 Walking down the aisle, exchanging rings, and stepping into the eternal waltz...";
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
@@ -865,9 +912,10 @@
             }, 2000);
         }
 
+        // --- 4. 🎓 GRADUATION STORYLINE ---
         function tossGraduationCapStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🎓 Caps soaring high towards infinite dreams!";
+            caption.innerText = "📜 Receiving certificate with honor and tossing the cap into the skies! 🎓";
             fireExtremeDualPoppers();
             setTimeout(() => {
                 launchGrandFireworks();
@@ -875,76 +923,110 @@
             }, 1200);
         }
 
-        // ഓരോ കാറ്റഗറിക്കും കൃത്യമായ സ്റ്റേജ്
+        function switchGradGender(gender) {
+            selectedGradGender = gender;
+            const img = document.getElementById('gradCharacterImg');
+            const btnBoy = document.getElementById('btnGradBoy');
+            const btnGirl = document.getElementById('btnGradGirl');
+
+            if (gender === 'boy') {
+                img.src = USER_ASSETS.graduation_boy;
+                btnBoy.classList.add('active');
+                btnGirl.classList.remove('active');
+            } else {
+                img.src = USER_ASSETS.graduation_girl;
+                btnGirl.classList.add('active');
+                btnBoy.classList.remove('active');
+            }
+        }
+
+        // --- 5. 👶 BABY BORN STORYLINE ---
+        function sendBabyBlessings() {
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "🍼 Little angel smiles as pastel balloons rise to the heavens! ✨";
+            release3DPastelBalloons();
+            babySmiles();
+        }
+
         function renderCategoryActions() {
             let container = document.getElementById('primaryActionButtons');
             let stage = document.getElementById('storyStageContainer');
 
             if (currentCategory === 'Proposal') {
                 stage.innerHTML = `
-                    <div class="char-img-container">
-                        <div class="speech-bubble-vector" id="girlBubble">YES! 💖</div>
-                        <img id="mainCharImg" class="char-img" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=400&q=80" alt="Proposal Animation" onerror="this.src='https://cdn-icons-png.flaticon.com/512/8643/8643906.png'">
+                    <div class="character-viewport">
+                        <img id="proposalImg" class="story-asset proposal-entry" src="${USER_ASSETS.proposal}" alt="Proposal Scene">
                     </div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Play Proposal Story' to witness the magic!</div>
+
+                    <div class="interactive-choice-box" id="proposalChoiceBox">
+                        <button class="choice-btn-yes" onclick="acceptProposalYes()">💍 YES! 💖</button>
+                        <button class="choice-btn-think" onclick="thinkProposalJoke()">Let me think 😜</button>
+                    </div>
+
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Start Proposal Story' to begin!</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700);" onclick="playLiveProposalStory()">${getTranslation(currentLang, 'btnPlayStory') || '💍 Play Proposal Story'}</button>
+                    <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700);" onclick="playLiveProposalStory()">${getTranslation(currentLang, 'btnPlayStory') || '💍 Start Proposal Story'}</button>
                     <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
                 `;
             } else if (currentCategory === 'Wedding' || currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
-                    <div class="char-img-container">
-                        <img class="char-img" src="https://cdn-icons-png.flaticon.com/512/3656/3656878.png" alt="Wedding Couple">
+                    <div class="character-viewport">
+                        <img class="story-asset" src="${USER_ASSETS.wedding}" alt="Wedding Couple">
                     </div>
-                    <div class="story-caption" id="storyCaptionText">🎻 Melodic Waltz of Eternal Vows</div>
+                    <div class="story-caption" id="storyCaptionText">🔔 Royal Celebration of Eternal Love</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="playWeddingWaltzCeremony()">${getTranslation(currentLang, 'btnWeddingWaltz') || '💒 Royal Wedding Waltz'}</button>
+                    <button class="btn" onclick="playWeddingWaltzCeremony()">${getTranslation(currentLang, 'btnWeddingWaltz') || '💒 Exchange Rings & Waltz'}</button>
                     <button class="btn" onclick="shower3DRedRoses()">${getTranslation(currentLang, 'btnShowerRoses') || '🌹 Shower Red Roses'}</button>
                 `;
             } else if (currentCategory === 'Graduation') {
                 stage.innerHTML = `
-                    <div class="char-img-container">
-                        <img class="char-img" src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Graduation Couple">
+                    <div class="gender-switch-box">
+                        <button id="btnGradBoy" class="gender-btn ${selectedGradGender === 'boy' ? 'active' : ''}" onclick="switchGradGender('boy')">👨‍🎓 Boy</button>
+                        <button id="btnGradGirl" class="gender-btn ${selectedGradGender === 'girl' ? 'active' : ''}" onclick="switchGradGender('girl')">👩‍🎓 Girl</button>
+                    </div>
+                    <div class="character-viewport">
+                        <img id="gradCharacterImg" class="story-asset" src="${selectedGradGender === 'boy' ? USER_ASSETS.graduation_boy : USER_ASSETS.graduation_girl}" alt="Graduation Character">
                     </div>
                     <div class="story-caption" id="storyCaptionText">🎓 The Grand Auditorium Standing Ovation</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="tossGraduationCapStory()">${getTranslation(currentLang, 'btnToss') || '🎓 Toss Graduation Cap'}</button>
+                    <button class="btn" onclick="tossGraduationCapStory()">${getTranslation(currentLang, 'btnToss') || '🎓 Receive Certificate & Toss Cap'}</button>
                     <button class="btn" onclick="grandApplause()">${getTranslation(currentLang, 'btnClap') || '👏 Standing Ovation'}</button>
                 `;
             } else if (currentCategory === 'NewBorn') {
                 stage.innerHTML = `
-                    <div class="char-img-container">
-                        <img class="char-img" src="https://cdn-icons-png.flaticon.com/512/2821/2821739.png" alt="Baby In Cradle">
+                    <div class="character-viewport">
+                        <img class="story-asset" src="${USER_ASSETS.baby}" alt="Baby On Cloud">
                     </div>
                     <div class="story-caption" id="storyCaptionText">✨ A Little Angel has Arrived into Our World</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="release3DPastelBalloons()">${getTranslation(currentLang, 'btnBalloons') || '🎈 Release Pastel Balloons'}</button>
+                    <button class="btn" onclick="sendBabyBlessings()">${getTranslation(currentLang, 'btnBalloons') || '🎈 Send Blessings & Release Balloons'}</button>
                     <button class="btn" onclick="babySmiles()">${getTranslation(currentLang, 'btnBabyLove') || '🍼 Baby Smiles'}</button>
                 `;
             } else {
-                // യഥാർത്ഥ മൾട്ടി-കാൻഡിൽ റിയലിസ്റ്റിക് 3D കേക്ക് സ്റ്റേജ്
+                // Birthday
                 stage.innerHTML = `
-                    <div class="realistic-cake-stage">
+                    <div class="character-viewport">
                         <div class="cake-knife-real" id="realCakeKnife">🔪</div>
-                        <div class="candles-row">
-                            <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
-                            <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
-                            <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
-                            <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
-                            <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
+                        <div class="cake-container-box">
+                            <div class="candles-row">
+                                <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
+                                <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
+                                <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
+                                <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
+                                <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
+                            </div>
+                            <img class="story-asset" src="${USER_ASSETS.cake}" alt="Birthday Cake">
                         </div>
-                        <div class="cake-layer-top"></div>
-                        <div class="cake-layer-bottom" id="bottomCakeLayer"></div>
                     </div>
                     <div class="story-caption" id="storyCaptionText">✨ Make a Wish & Blow the Candles!</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="blowRealCandles()">${getTranslation(currentLang, 'btnBlow') || '💨 Blow Candles'}</button>
-                    <button class="btn" onclick="cutRealCake()">${getTranslation(currentLang, 'btnCut') || '🕯️ Cut Cake'}</button>
+                    <button class="btn" onclick="blowRealCandles()">${getTranslation(currentLang, 'btnBlow') || '💨 Blow 5 Candles'}</button>
+                    <button class="btn" onclick="cutRealCake()">${getTranslation(currentLang, 'btnCut') || '🍰 Cut Cake'}</button>
                 `;
             }
         }
