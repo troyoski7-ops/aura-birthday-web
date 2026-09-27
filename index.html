@@ -330,7 +330,6 @@
             <div class="scratch-container">
                 <div class="hidden-content">
                     <h3 id="surpriseHeader">🎉 SPECIAL SURPRISE 🎁</h3>
-                    <!-- ഇവിടെയാണ് ബോട്ടിൽ നിന്ന് വരുന്ന ആശംസ (wish) കൃത്യമായി വരുന്നത് -->
                     <p id="wishMessage">Wishing you an extraordinary day filled with joy and success!</p>
                 </div>
                 <canvas id="scratchCanvas"></canvas>
@@ -372,7 +371,7 @@
     </div>
 
     <script>
-        const BOT_API_URL = "https://birthday-bot-hmkb.onrender.com";
+        const BOT_API_URL = "https://aura-birthday-web.vercel.app"; // അല്ലെങ്കിൽ നിങ്ങളുടെ റെയിൽവേ ബാക്ക്എൻഡ് URL നൽകുക
 
         const translations = {
             'en': {
@@ -396,17 +395,6 @@
                 btnBlow: "💨 മെഴുകുതിരി അണയ്ക്കുക", btnCut: "🕯️ കേക്ക് മുറിക്കുക", btnPopper: "🎊 പാർട്ടി പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
                 guestbookTitle: "💌 ആശംസാ പുസ്തകം", guestNamePlaceholder: "നിങ്ങളുടെ പേര്...", guestWishPlaceholder: "ചെറിയൊരു ആശംസ എഴുതൂ...", btnPostWish: "പോസ്റ്റ് ചെയ്യൂ ✨",
                 categories: { "Birthday": "🎂 പിറന്നാൾ ആശംസകൾ", "Wedding": "💍 വിവാഹ വാർഷിക ആശംസകൾ", "NewBorn": "👶 കുഞ്ഞിന് സ്വാഗതം", "Graduation": "🎓 ബിരുദാനന്തര ആശംസകൾ", "Other": "✨ പ്രത്യേക ആഘോഷം" }
-            },
-            'hi': {
-                lockTitle: "⏳ पोर्टल लॉक है!", lockSubtitle: "यह विशेष सरप्राइज खुलेगा:",
-                giftPrompt: "🎁 खोलने के लिए गिफ्ट बॉक्स पर टैप करें!", giftSubPrompt: "अपना विशेष सरप्राइज अनलॉक करने के लिए टैप करें...",
-                targetTimeText: "लक्ष्य समय", scratchInstruction: "👇 अपना सरप्राइज देखने के लिए नीचे खरोंचें!",
-                surpriseHeader: "🎉 विशेष सरप्राइज 🎁", celebrationHeader: "🎂 जश्न का समय",
-                statsTitle: "⏳ जीवन यात्रा के आंकड़े", labelDays: "जीए गए दिन", labelHours: "जीए गए घंटे",
-                openWhenTitle: "💌 जब आप चाहें तब खोलें...",
-                btnBlow: "💨 मोमबत्ती बुझाएं", btnCut: "🕯️ केक काटें", btnPopper: "🎊 पार्टी पॉपर", btnLove: "❤️ प्यार भेजें", btnFireworks: "🎆 आतिशबाजी",
-                guestbookTitle: "💌 शुभकामनाएं दीवार", guestNamePlaceholder: "आपका नाम...", guestWishPlaceholder: "एक छोटी शुभकामना लिखें...", btnPostWish: "शुभकामना पोस्ट करें ✨",
-                categories: { "Birthday": "🎂 जन्मदिन की शुभकामनाएं", "Wedding": "💍 सालगिरह की शुभकामनाएं", "NewBorn": "👶 नन्हे मेहमान का स्वागत", "Graduation": "🎓 स्नातक की बधाई", "Other": "✨ विशेष उत्सव" }
             }
         };
 
@@ -451,15 +439,20 @@
 
         function calculateLifeStats(dobOrAge) {
             let diffDays = 20 * 365, diffHours = 20 * 365 * 24;
-            if (dobOrAge && dobOrAge.includes('-')) {
-                let birthDate = new Date(dobOrAge);
-                let diffTime = Math.abs(new Date() - birthDate);
-                diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                diffHours = Math.floor(diffTime / (1000 * 60 * 60));
-            } else if (dobOrAge && !isNaN(dobOrAge)) {
-                let age = parseInt(dobOrAge);
-                diffDays = age * 365;
-                diffHours = age * 365 * 24;
+            if (dobOrAge) {
+                let strVal = dobOrAge.toString().trim();
+                if (strVal.includes('-')) {
+                    let birthDate = new Date(strVal);
+                    if (!isNaN(birthDate)) {
+                        let diffTime = Math.abs(new Date() - birthDate);
+                        diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                        diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+                    }
+                } else if (!isNaN(strVal)) {
+                    let age = parseInt(strVal);
+                    diffDays = age * 365;
+                    diffHours = age * 365 * 24;
+                }
             }
             document.getElementById('statDays').innerText = diffDays.toLocaleString();
             document.getElementById('statHours').innerText = diffHours.toLocaleString();
@@ -470,7 +463,7 @@
 
             if (surpriseId) {
                 try {
-                    let response = await fetch(`${BOT_API_URL}/api/surprise?id=${surpriseId}`);
+                    let response = await fetch(`https://birthday-bot-hmkb.onrender.com/api/surprise?id=${surpriseId}`);
                     if (response.ok) {
                         let data = await response.json();
                         name = data.name || name;
@@ -506,7 +499,7 @@
             applyTranslations(currentLang);
 
             document.getElementById('recipientName').innerText = name;
-            document.getElementById('wishMessage').innerText = msg; // സ്ക്രാച്ച് കാർഡിനുള്ളിൽ wish കൃത്യമായി വരുന്നു
+            document.getElementById('wishMessage').innerText = msg;
 
             calculateLifeStats(dobOrAge);
 
@@ -524,7 +517,7 @@
             if (video) mediaContainer.innerHTML += `<div style="margin-top:8px;"><video controls playsinline preload="metadata" src="${video}"></video></div>`;
             if (song) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700; margin-bottom:2px;">🎶 Song / Audio</p><audio controls src="${song}"></audio></div>`;
             if (voice) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700; margin-bottom:2px;">🎙️ Neural Voice Greeting</p><audio controls src="${voice}"></audio></div>`;
-            if (extraAudio) mediaContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700; margin-bottom:2px;">🎵 Additional Audio File</p><audio controls src="${extraAudio}"></audio></div>`;
+            if (extraAudio) mediaContainer.innerHTML += `<div style="margin-top:8px;<p style='font-size:0.8rem; color:#ffd700; margin-bottom:2px;'>🎵 Additional Audio File</p><audio controls src="${extraAudio}"></audio></div>`;
 
             checkTimeLock();
         }
@@ -540,7 +533,6 @@
                 if (el) el.innerText = getTranslation(lang, id);
             });
             
-            // കാറ്റഗറി അനുസരിച്ചുള്ള ശീർഷകം ഭാഷ മാറ്റുമ്പോൾ അപ്ഡേറ്റ് ആകും
             let catMap = translations[lang] && translations[lang].categories ? translations[lang].categories : translations['en'].categories;
             document.getElementById('mainTitle').innerText = catMap[currentCategory] || catMap["Birthday"];
 
