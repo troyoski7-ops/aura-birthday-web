@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ Aura Interactive Story Celebrations ✨</title>
+    <title>✨ Aura Lottie Luxury Celebrations ✨</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Lottie Player Script -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -238,113 +240,30 @@
             font-weight: 600;
         }
 
-        /* --- സ്റ്റേജ് ആനിമേഷൻ സ്റ്റൈലുകൾ --- */
+        /* --- LOTTIE STAGE STYLES --- */
         .story-stage {
             width: 100%;
-            min-height: 270px;
-            background: radial-gradient(circle at bottom, rgba(255,215,0,0.12) 0%, rgba(0,0,0,0.88) 80%);
+            min-height: 280px;
+            background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(10,8,18,0.95) 80%);
             border-radius: 20px;
-            border: 2px solid rgba(255,215,0,0.4);
+            border: 2px solid rgba(255,215,0,0.45);
             margin: 12px 0;
-            padding: 16px;
+            padding: 18px;
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
+            box-shadow: inset 0 0 35px rgba(0,0,0,0.9), 0 0 20px rgba(255,215,0,0.2);
         }
 
-        .character-viewport {
-            position: relative;
-            width: 290px;
-            height: 180px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            overflow: visible;
-        }
-
-        /* പ്രൊപ്പോസൽ സ്പ്ലിറ്റ് കാരക്ടേഴ്സ് */
-        .split-actor-wrapper {
-            position: relative;
+        .lottie-viewport {
             width: 100%;
-            height: 100%;
+            max-width: 280px;
+            height: 190px;
             display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            padding: 0 15px;
-        }
-
-        .actor-boy-box {
-            width: 120px;
-            height: 150px;
-            background-repeat: no-repeat;
-            background-size: 260px auto;
-            background-position: left bottom;
-            transform: translateX(-100px);
-            opacity: 0;
-            transition: all 1.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .actor-boy-box.walking-in {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .actor-girl-box {
-            width: 120px;
-            height: 150px;
-            background-repeat: no-repeat;
-            background-size: 260px auto;
-            background-position: right bottom;
-            animation: girlIdle 2.5s infinite ease-in-out;
-        }
-        @keyframes girlIdle {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-
-        .actor-girl-box.accepted {
-            animation: girlExcited 0.6s infinite alternate ease-in-out;
-        }
-        @keyframes girlExcited {
-            0% { transform: scale(1) translateY(0); }
-            100% { transform: scale(1.08) translateY(-8px); filter: drop-shadow(0 0 12px #ff007f); }
-        }
-
-        .proposal-ring-beam {
-            position: absolute;
-            bottom: 60px;
-            left: 110px;
-            font-size: 1.8rem;
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(0 0 15px #ffd700);
-            z-index: 10;
-        }
-        .proposal-ring-beam.shining {
-            opacity: 1;
-            transform: scale(1.2);
-            animation: ringPulse 1.2s infinite alternate;
-        }
-        @keyframes ringPulse {
-            0% { transform: scale(1.1); filter: drop-shadow(0 0 8px #ffd700); }
-            100% { transform: scale(1.35); filter: drop-shadow(0 0 20px #fff); }
-        }
-
-        .standard-asset {
-            max-height: 160px;
-            max-width: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 10px 18px rgba(0,0,0,0.65));
-            animation: softBreathing 3s infinite ease-in-out;
-            transform-origin: bottom center;
-        }
-        @keyframes softBreathing {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-6px) scale(1.02, 0.98); }
+            align-items: center;
+            justify-content: center;
         }
 
         .interactive-choice-box {
@@ -384,76 +303,10 @@
             cursor: pointer;
         }
 
-        /* 🎂 5 Candles & Knife */
-        .cake-container-box {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            height: 100%;
-        }
-        .candles-row {
-            display: flex;
-            gap: 14px;
-            margin-bottom: -15px;
-            z-index: 5;
-        }
-        .wax-candle {
-            width: 6px;
-            height: 24px;
-            background: linear-gradient(to bottom, #ff9ff3, #feca57);
-            border-radius: 3px;
-            position: relative;
-        }
-        .candle-flame-real {
-            width: 9px;
-            height: 13px;
-            background: radial-gradient(circle, #fff 0%, #ffaa00 60%, #ff3838 100%);
-            border-radius: 50% 50% 20% 20%;
-            position: absolute;
-            top: -14px;
-            left: -1.5px;
-            box-shadow: 0 0 8px #ffaa00, 0 0 16px #ff3838;
-            animation: flameWobble 0.5s infinite alternate ease-in-out;
-        }
-        @keyframes flameWobble {
-            0% { transform: scale(0.9) rotate(-3deg); }
-            100% { transform: scale(1.1) rotate(3deg); }
-        }
-        .smoke-puff {
-            position: absolute;
-            top: -25px;
-            left: -4px;
-            font-size: 0.9rem;
-            opacity: 0;
-            display: none;
-            animation: riseSmoke 1.2s forwards ease-out;
-        }
-        @keyframes riseSmoke {
-            0% { opacity: 0.9; transform: translateY(0) scale(0.6); }
-            100% { opacity: 0; transform: translateY(-30px) scale(1.5); }
-        }
-
-        .cake-knife-real {
-            position: absolute;
-            top: -20px;
-            right: 25px;
-            font-size: 2.8rem;
-            transform: rotate(45deg);
-            opacity: 0;
-            transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 10;
-        }
-        .cake-knife-real.slicing {
-            opacity: 1;
-            transform: translate(-50px, 60px) rotate(-15deg);
-        }
-
         .gender-switch-box {
             display: flex;
             gap: 8px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             z-index: 10;
         }
         .gender-btn {
@@ -679,13 +532,14 @@
     <script>
         const BOT_API_URL = "https://birthday-bot-production-3f7a.up.railway.app";
 
-        const USER_ASSETS = {
-            wedding: "assets/wedding.jpg.jpeg",
-            proposal: "assets/proposal.webp.webp",
-            graduation_boy: "assets/graduation_boy.jpg.jpeg",
-            graduation_girl: "assets/graduation_girl.jpg.jpeg",
-            baby: "assets/baby.jpg.jpeg",
-            cake: "assets/cake.jpg.jpeg"
+        // സൗജന്യവും ലൈവായി ചലിക്കുന്നതുമായ പ്രൊഫഷണൽ Lottie ആനിമേഷൻ ലിങ്കുകൾ
+        const LOTTIE_ASSETS = {
+            proposal: "https://assets9.lottiefiles.com/packages/lf20_w51pcehl.json", // Romantic Proposal
+            wedding: "https://assets2.lottiefiles.com/packages/lf20_y2hx3qdc.json",  // Wedding Rings / Celebration
+            graduation_boy: "https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json", // Graduation Boy
+            graduation_girl: "https://assets5.lottiefiles.com/packages/lf20_hx8gspni.json", // Graduation Girl
+            baby: "https://assets3.lottiefiles.com/packages/lf20_5njp3vgg.json",   // Cute Sleeping Baby
+            cake: "https://assets4.lottiefiles.com/packages/lf20_t9ceao7g.json"    // Birthday Cake
         };
 
         let selectedGradGender = 'boy';
@@ -803,11 +657,10 @@
                 surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "🎉 Celebration Stage",
                 statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
                 openWhenTitle: "💌 Open When...", btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
-                btnBlow: "💨 Blow 5 Candles", btnCut: "🍰 Cut Cake",
                 btnPlayStory: "💍 Start Proposal Story", btnShowerRoses: "🌹 Shower Red Roses",
                 btnWeddingWaltz: "💒 Exchange Rings & Waltz",
                 btnToss: "🎓 Receive Certificate & Toss Cap", btnClap: "👏 Standing Ovation",
-                btnBalloons: "🎈 Send Blessings & Release Balloons", btnBabyLove: "🍼 Baby Smiles",
+                btnBalloons: "🎈 Send Blessings & Release Balloons",
                 categories: {
                     "Birthday": "🎂 Happy Birthday",
                     "Proposal": "💍 Will You Marry Me & Forever Love",
@@ -825,11 +678,10 @@
                 surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "🎉 ആഘോഷ വേദി",
                 statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
                 openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
-                btnBlow: "💨 5 മെഴുകുതിരികളും അണയ്ക്കൂ", btnCut: "🍰 കേക്ക് മുറിക്കുക",
                 btnPlayStory: "💍 പ്രൊപ്പോസൽ സ്റ്റോറി ആരംഭിക്കൂ", btnShowerRoses: "🌹 റോസാപ്പൂക്കൾ ചൊരിയുക",
                 btnWeddingWaltz: "💒 മോതിരം മാറ്റുക & വാൾട്സ്",
                 btnToss: "🎓 സർട്ടിഫിക്കറ്റ് വാങ്ങി തൊപ്പി വാനിലേക്ക് എറിയൂ", btnClap: "👏 ആർപ്പുവിളി & കൈയടി",
-                btnBalloons: "🎈 അനുഗ്രഹങ്ങളും ബലൂണുകളും അയക്കൂ", btnBabyLove: "🍼 കുഞ്ഞുചിരികൾ",
+                btnBalloons: "🎈 അനുഗ്രഹങ്ങളും ബലൂണുകളും അയക്കൂ",
                 categories: {
                     "Birthday": "🎂 ജന്മദിനാശംസകൾ",
                     "Proposal": "💍 എന്നെ വിവാഹം കഴിക്കാമോ?",
@@ -894,30 +746,20 @@
             if (isStoryActive) return;
             isStoryActive = true;
 
-            const boy = document.getElementById('actorBoy');
-            const ringBeam = document.getElementById('ringBeam');
             const caption = document.getElementById('storyCaptionText');
             const choiceBox = document.getElementById('proposalChoiceBox');
 
-            caption.innerText = "🚶‍♂️ He steps forward with his heart beating fast...";
-            boy.classList.add('walking-in');
-
-            setTimeout(() => {
-                caption.innerText = "🧎‍♂️ Gently kneeling down and opening the velvet box... 'Will you marry me?'";
-                ringBeam.classList.add('shining');
-                confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
-                choiceBox.style.display = 'flex';
-            }, 2000);
+            caption.innerText = "🧎‍♂️ He gracefully kneels down and opens the velvet box... 'Will you marry me?'";
+            confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+            choiceBox.style.display = 'flex';
         }
 
         function acceptProposalYes() {
-            const girl = document.getElementById('actorGirl');
             const caption = document.getElementById('storyCaptionText');
             const choiceBox = document.getElementById('proposalChoiceBox');
 
             choiceBox.style.display = 'none';
-            girl.classList.add('accepted');
-            caption.innerText = "💖 Blushing with pure joy... She happily extends her hand and says YES!";
+            caption.innerText = "💖 Blushing with pure joy... She happily extends her hand and says YES! ✨";
             
             shower3DRedRoses();
             fireExtremeDualPoppers();
@@ -935,36 +777,7 @@
             setTimeout(acceptProposalYes, 1200);
         }
 
-        // --- 2. 🎂 5 CANDLES BLOWING & SLICING STORYLINE ---
-        function blowRealCandles() {
-            const flames = document.querySelectorAll('.candle-flame-real');
-            const smokes = document.querySelectorAll('.smoke-puff');
-            const caption = document.getElementById('storyCaptionText');
-
-            flames.forEach(f => f.style.display = 'none');
-            smokes.forEach(s => s.style.display = 'block');
-
-            caption.innerText = "💨 All 5 candles are blown... Wishes soaring to the stars! ✨";
-            confetti({ particleCount: 90, spread: 75, origin: { y: 0.6 } });
-
-            setTimeout(() => {
-                cutRealCake();
-            }, 1200);
-        }
-
-        function cutRealCake() {
-            const knife = document.getElementById('realCakeKnife');
-            const caption = document.getElementById('storyCaptionText');
-
-            if (knife) knife.classList.add('slicing');
-            setTimeout(() => {
-                caption.innerText = "🍰 Cake sliced with love! Happy Birthday! 🎉";
-                fireExtremeDualPoppers();
-                launchGrandFireworks();
-            }, 600);
-        }
-
-        // --- 3. 💒 WEDDING WALTZ STORYLINE ---
+        // --- 2. 💒 WEDDING WALTZ STORYLINE ---
         function playWeddingWaltzCeremony() {
             const caption = document.getElementById('storyCaptionText');
             caption.innerText = "🎻 Walking down the aisle, exchanging rings, and stepping into the eternal waltz...";
@@ -976,7 +789,7 @@
             }, 2000);
         }
 
-        // --- 4. 🎓 GRADUATION STORYLINE ---
+        // --- 3. 🎓 GRADUATION STORYLINE ---
         function tossGraduationCapStory() {
             const caption = document.getElementById('storyCaptionText');
             caption.innerText = "📜 Receiving certificate with honor and tossing the cap into the skies! 🎓";
@@ -989,27 +802,27 @@
 
         function switchGradGender(gender) {
             selectedGradGender = gender;
-            const img = document.getElementById('gradCharacterImg');
+            const player = document.getElementById('gradLottiePlayer');
             const btnBoy = document.getElementById('btnGradBoy');
             const btnGirl = document.getElementById('btnGradGirl');
 
             if (gender === 'boy') {
-                img.src = USER_ASSETS.graduation_boy;
+                player.setAttribute('src', LOTTIE_ASSETS.graduation_boy);
                 btnBoy.classList.add('active');
                 btnGirl.classList.remove('active');
             } else {
-                img.src = USER_ASSETS.graduation_girl;
+                player.setAttribute('src', LOTTIE_ASSETS.graduation_girl);
                 btnGirl.classList.add('active');
                 btnBoy.classList.remove('active');
             }
         }
 
-        // --- 5. 👶 BABY BORN STORYLINE ---
+        // --- 4. 👶 BABY BORN STORYLINE ---
         function sendBabyBlessings() {
             const caption = document.getElementById('storyCaptionText');
             caption.innerText = "🍼 Little angel smiles as pastel balloons rise to the heavens! ✨";
             release3DPastelBalloons();
-            babySmiles();
+            launchGrandFireworks();
         }
 
         function renderCategoryActions() {
@@ -1018,12 +831,8 @@
 
             if (currentCategory === 'Proposal') {
                 stage.innerHTML = `
-                    <div class="character-viewport">
-                        <div class="split-actor-wrapper">
-                            <div id="actorBoy" class="actor-boy-box" style="background-image: url('${USER_ASSETS.proposal}');"></div>
-                            <div id="ringBeam" class="proposal-ring-beam">💍✨</div>
-                            <div id="actorGirl" class="actor-girl-box" style="background-image: url('${USER_ASSETS.proposal}');"></div>
-                        </div>
+                    <div class="lottie-viewport">
+                        <lottie-player src="${LOTTIE_ASSETS.proposal}" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
                     </div>
 
                     <div class="interactive-choice-box" id="proposalChoiceBox">
@@ -1039,8 +848,8 @@
                 `;
             } else if (currentCategory === 'Wedding' || currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
-                    <div class="character-viewport">
-                        <img class="standard-asset" src="${USER_ASSETS.wedding}" alt="Wedding Couple">
+                    <div class="lottie-viewport">
+                        <lottie-player src="${LOTTIE_ASSETS.wedding}" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
                     </div>
                     <div class="story-caption" id="storyCaptionText">🔔 Royal Celebration of Eternal Love</div>
                 `;
@@ -1054,8 +863,8 @@
                         <button id="btnGradBoy" class="gender-btn ${selectedGradGender === 'boy' ? 'active' : ''}" onclick="switchGradGender('boy')">👨‍🎓 Boy</button>
                         <button id="btnGradGirl" class="gender-btn ${selectedGradGender === 'girl' ? 'active' : ''}" onclick="switchGradGender('girl')">👩‍🎓 Girl</button>
                     </div>
-                    <div class="character-viewport">
-                        <img id="gradCharacterImg" class="standard-asset" src="${selectedGradGender === 'boy' ? USER_ASSETS.graduation_boy : USER_ASSETS.graduation_girl}" alt="Graduation Character">
+                    <div class="lottie-viewport">
+                        <lottie-player id="gradLottiePlayer" src="${selectedGradGender === 'boy' ? LOTTIE_ASSETS.graduation_boy : LOTTIE_ASSETS.graduation_girl}" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
                     </div>
                     <div class="story-caption" id="storyCaptionText">🎓 The Grand Auditorium Standing Ovation</div>
                 `;
@@ -1065,36 +874,24 @@
                 `;
             } else if (currentCategory === 'NewBorn') {
                 stage.innerHTML = `
-                    <div class="character-viewport">
-                        <img class="standard-asset" src="${USER_ASSETS.baby}" alt="Baby On Cloud">
+                    <div class="lottie-viewport">
+                        <lottie-player src="${LOTTIE_ASSETS.baby}" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
                     </div>
                     <div class="story-caption" id="storyCaptionText">✨ A Little Angel has Arrived into Our World</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" onclick="sendBabyBlessings()">${getTranslation(currentLang, 'btnBalloons') || '🎈 Send Blessings & Release Balloons'}</button>
-                    <button class="btn" onclick="babySmiles()">${getTranslation(currentLang, 'btnBabyLove') || '🍼 Baby Smiles'}</button>
                 `;
             } else {
                 // Birthday
                 stage.innerHTML = `
-                    <div class="character-viewport">
-                        <div class="cake-knife-real" id="realCakeKnife">🔪</div>
-                        <div class="cake-container-box">
-                            <div class="candles-row">
-                                <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
-                                <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
-                                <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
-                                <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
-                                <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
-                            </div>
-                            <img class="standard-asset" src="${USER_ASSETS.cake}" alt="Birthday Cake">
-                        </div>
+                    <div class="lottie-viewport">
+                        <lottie-player src="${LOTTIE_ASSETS.cake}" background="transparent" speed="1" style="width: 180px; height: 180px;" loop autoplay></lottie-player>
                     </div>
-                    <div class="story-caption" id="storyCaptionText">✨ Make a Wish & Blow the Candles!</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Make a Wish & Celebrate!</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="blowRealCandles()">${getTranslation(currentLang, 'btnBlow') || '💨 Blow 5 Candles'}</button>
-                    <button class="btn" onclick="cutRealCake()">${getTranslation(currentLang, 'btnCut') || '🍰 Cut Cake'}</button>
+                    <button class="btn" onclick="fireExtremeDualPoppers()">${getTranslation(currentLang, 'btnPopper') || '🎊 Celebration Popper'}</button>
                 `;
             }
         }
@@ -1384,7 +1181,7 @@
         function grandApplause() {
             fireExtremeDualPoppers();
         }
-        function babySmiles() {
+        function babySmils() {
             release3DPastelBalloons();
         }
 
