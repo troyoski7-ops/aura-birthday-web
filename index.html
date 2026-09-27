@@ -242,7 +242,7 @@
         /* --- റിയൽ 3D ആനിമേഷൻ കാരക്ടർ സ്റ്റേജ് --- */
         .story-stage {
             width: 100%;
-            min-height: 240px;
+            min-height: 230px;
             background: radial-gradient(circle at bottom, rgba(255,215,0,0.12) 0%, rgba(0,0,0,0.85) 80%);
             border-radius: 20px;
             border: 2px solid rgba(255,215,0,0.4);
@@ -257,17 +257,16 @@
             box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
         }
 
-        /* 3D ആനിമേഷൻ ഇമേജ് ക്യാരക്ടറുകൾ */
         .char-img-container {
             position: relative;
             width: 100%;
-            height: 160px;
+            height: 150px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .char-img {
-            max-height: 150px;
+            max-height: 145px;
             max-width: 90%;
             object-fit: contain;
             filter: drop-shadow(0 8px 16px rgba(0,0,0,0.6));
@@ -278,7 +277,100 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* ബബിൾ */
+        /* യഥാർത്ഥ മൾട്ടി-കാൻഡിൽ റിയലിസ്റ്റിക് 3D കേക്ക് സ്ട്രക്ചർ */
+        .realistic-cake-stage {
+            position: relative;
+            width: 220px;
+            height: 140px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .cake-knife-real {
+            position: absolute;
+            top: -20px;
+            right: 15px;
+            font-size: 2.8rem;
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
+        }
+        .cake-knife-real.slicing {
+            opacity: 1;
+            transform: translate(-50px, 60px) rotate(-15deg);
+        }
+        .candles-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 2px;
+            z-index: 3;
+        }
+        .wax-candle {
+            width: 6px;
+            height: 28px;
+            background: linear-gradient(to bottom, #ff9ff3, #feca57);
+            border-radius: 3px;
+            position: relative;
+        }
+        .candle-flame-real {
+            width: 10px;
+            height: 14px;
+            background: radial-gradient(circle, #fff 0%, #ffaa00 60%, #ff3838 100%);
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -15px;
+            left: -2px;
+            box-shadow: 0 0 10px #ffaa00, 0 0 20px #ff3838;
+            animation: flameWobble 0.5s infinite alternate ease-in-out;
+        }
+        @keyframes flameWobble {
+            0% { transform: scale(0.9) rotate(-3deg); }
+            100% { transform: scale(1.1) rotate(3deg); }
+        }
+        .smoke-puff {
+            position: absolute;
+            top: -25px;
+            left: -4px;
+            font-size: 1rem;
+            opacity: 0;
+            display: none;
+            animation: riseSmoke 1.2s forwards ease-out;
+        }
+        @keyframes riseSmoke {
+            0% { opacity: 0.9; transform: translateY(0) scale(0.6); }
+            100% { opacity: 0; transform: translateY(-30px) scale(1.5); }
+        }
+        .cake-layer-top {
+            width: 130px;
+            height: 42px;
+            background: linear-gradient(to bottom, #fff5eb 0%, #f3a683 100%);
+            border-radius: 12px 12px 6px 6px;
+            border: 2px solid #e17055;
+            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 2;
+        }
+        .cake-layer-bottom {
+            width: 170px;
+            height: 52px;
+            background: linear-gradient(to bottom, #ff7675 0%, #d63031 100%);
+            border-radius: 12px 12px 8px 8px;
+            border: 2px solid #b71540;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+            margin-top: -6px;
+            z-index: 1;
+            transition: transform 0.6s ease;
+        }
+        .cake-sliced-left {
+            transform: translateX(-15px) rotate(-4deg);
+        }
+        .cake-sliced-right {
+            transform: translateX(15px) rotate(4deg);
+        }
+
         .speech-bubble-vector {
             position: absolute;
             top: 5px;
@@ -482,7 +574,7 @@
             
             <div id="mediaContainer" class="media-box"></div>
             
-            <!-- സിനിമാറ്റിക് 3D ആനിമേഷൻ കാരക്ടർ സ്റ്റേജ് -->
+            <!-- സിനിമാറ്റിക് 3D സ്റ്റേജ് -->
             <div class="story-stage" id="storyStageContainer"></div>
             
             <div class="btn-group" id="primaryActionButtons"></div>
@@ -716,7 +808,6 @@
 
             const bubble = document.getElementById('girlBubble');
             const caption = document.getElementById('storyCaptionText');
-            const charImg = document.getElementById('mainCharImg');
 
             caption.innerText = "💍 'Will you hold my hand forever and make my world complete?'";
             confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
@@ -736,7 +827,33 @@
             }, 1800);
         }
 
-        // --- 2. 💒 റോയൽ വെഡ്ഡിംഗ് വാൾട്സ് സ്റ്റോറി ---
+        // --- 2. 🎂 റിയലിസ്റ്റിക് മൾട്ടി-കാൻഡിൽ ബ്ലോവിംഗ് & കേക്ക് സ്ലൈസിംഗ് ---
+        function blowRealCandles() {
+            const flames = document.querySelectorAll('.candle-flame-real');
+            const smokes = document.querySelectorAll('.smoke-puff');
+            const caption = document.getElementById('storyCaptionText');
+
+            flames.forEach(f => f.style.display = 'none');
+            smokes.forEach(s => s.style.display = 'block');
+
+            caption.innerText = "💨 The candles are blown... Wishes soaring to the stars! ✨";
+            confetti({ particleCount: 90, spread: 75, origin: { y: 0.6 } });
+        }
+
+        function cutRealCake() {
+            const knife = document.getElementById('realCakeKnife');
+            const bottomLayer = document.getElementById('bottomCakeLayer');
+            const caption = document.getElementById('storyCaptionText');
+
+            if (knife) knife.classList.add('slicing');
+            setTimeout(() => {
+                if (bottomLayer) bottomLayer.classList.add('cake-sliced-right');
+                caption.innerText = "🍰 Cake sliced with love! Happy Birthday! 🎉";
+                fireExtremeDualPoppers();
+                launchGrandFireworks();
+            }, 600);
+        }
+
         function playWeddingWaltzCeremony() {
             const caption = document.getElementById('storyCaptionText');
             caption.innerText = "🎻 Melodic vows and eternal love exchanged...";
@@ -748,7 +865,6 @@
             }, 2000);
         }
 
-        // --- 3. 🎓 ഗ്രാജ്വേഷൻ ക്യാപ് ടോസ് സ്റ്റോറി ---
         function tossGraduationCapStory() {
             const caption = document.getElementById('storyCaptionText');
             caption.innerText = "🎓 Caps soaring high towards infinite dreams!";
@@ -759,21 +875,7 @@
             }, 1200);
         }
 
-        // --- 4. 🎂 ബർത്ത്ഡേ കേക്ക് കട്ടിംഗ് സ്റ്റോറി ---
-        function blowCandlesStory() {
-            const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "💨 Make a wish and whisper it to the stars... ✨";
-            confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-        }
-
-        function cutCakeStory() {
-            const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🍰 Celebrating another year of sweet memories and joy!";
-            fireExtremeDualPoppers();
-            launchGrandFireworks();
-        }
-
-        // ഓരോ കാറ്റഗറിക്കും കൃത്യമായ 3D ആനിമേഷൻ ഇമേജ് സ്റ്റേജ് നൽകുന്നു
+        // ഓരോ കാറ്റഗറിക്കും കൃത്യമായ സ്റ്റേജ്
         function renderCategoryActions() {
             let container = document.getElementById('primaryActionButtons');
             let stage = document.getElementById('storyStageContainer');
@@ -824,16 +926,25 @@
                     <button class="btn" onclick="babySmiles()">${getTranslation(currentLang, 'btnBabyLove') || '🍼 Baby Smiles'}</button>
                 `;
             } else {
-                // Birthday 3D Cake
+                // യഥാർത്ഥ മൾട്ടി-കാൻഡിൽ റിയലിസ്റ്റിക് 3D കേക്ക് സ്റ്റേജ്
                 stage.innerHTML = `
-                    <div class="char-img-container">
-                        <img class="char-img" src="https://cdn-icons-png.flaticon.com/512/2682/2682446.png" alt="Birthday Cake 3D">
+                    <div class="realistic-cake-stage">
+                        <div class="cake-knife-real" id="realCakeKnife">🔪</div>
+                        <div class="candles-row">
+                            <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
+                            <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
+                            <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
+                            <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
+                            <div class="wax-candle"><div class="candle-flame-real"></div><div class="smoke-puff">💨</div></div>
+                        </div>
+                        <div class="cake-layer-top"></div>
+                        <div class="cake-layer-bottom" id="bottomCakeLayer"></div>
                     </div>
                     <div class="story-caption" id="storyCaptionText">✨ Make a Wish & Blow the Candles!</div>
                 `;
                 container.innerHTML = `
-                    <button class="btn" onclick="blowCandlesStory()">${getTranslation(currentLang, 'btnBlow') || '💨 Blow Candles'}</button>
-                    <button class="btn" onclick="cutCakeStory()">${getTranslation(currentLang, 'btnCut') || '🕯️ Cut Cake'}</button>
+                    <button class="btn" onclick="blowRealCandles()">${getTranslation(currentLang, 'btnBlow') || '💨 Blow Candles'}</button>
+                    <button class="btn" onclick="cutRealCake()">${getTranslation(currentLang, 'btnCut') || '🕯️ Cut Cake'}</button>
                 `;
             }
         }
@@ -1044,7 +1155,6 @@
             canvas.addEventListener('touchend', () => isDrawing = false);
         }
 
-        // --- 💥 3-വേവ് 3D സ്റ്റേജ് പോപ്പർ ---
         function fireExtremeDualPoppers() {
             confetti({
                 particleCount: 80, angle: 60, spread: 80,
