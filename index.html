@@ -62,8 +62,8 @@
         body.theme-Festival-bg { background: radial-gradient(circle at center, #43114a 0%, #09010a 100%); }
         .theme-Festival { background: linear-gradient(135deg, rgba(255,100,0,0.3), rgba(255,215,0,0.25)); border: 1px solid #ff7700; box-shadow: 0 0 35px rgba(255,119,0,0.5); }
 
-        body.theme-Morning-bg, body.theme-Night-bg { background: radial-gradient(circle at center, #1a2a6c 0%, #0f0c29 100%); }
-        .theme-Morning, .theme-Night { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(79,172,254,0.2)); border: 1px solid #00f2fe; box-shadow: 0 0 30px rgba(0,242,254,0.4); }
+        body.theme-Simple-bg { background: radial-gradient(circle at center, #1a2a6c 0%, #0f0c29 100%); }
+        .theme-Simple { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(79,172,254,0.2)); border: 1px solid #00f2fe; box-shadow: 0 0 30px rgba(0,242,254,0.4); }
 
         .category-title-text { font-size: 1.35rem; font-weight: 800; line-height: 1.4; letter-spacing: 0.5px; color: #ffd700; }
 
@@ -149,6 +149,16 @@
         @keyframes flameFlicker {
             0% { transform: scale(1) rotate(-3deg); background: #ffd700; }
             100% { transform: scale(1.15) rotate(3deg); background: #ff4500; }
+        }
+
+        .cinematic-viewport {
+            position: relative; width: 100%; height: 130px; display: flex; align-items: flex-end; justify-content: center; gap: 30px; margin-bottom: 6px;
+        }
+        .person-element { font-size: 3.5rem; filter: drop-shadow(0 0 12px rgba(255,215,0,0.6)); }
+        .couple-dance { animation: coupleMove 2s infinite alternate ease-in-out; }
+        @keyframes coupleMove {
+            0% { transform: translateY(0) rotate(-4deg); }
+            100% { transform: translateY(-12px) rotate(4deg); }
         }
 
         .lamp-stage { font-size: 4rem; animation: lampGlow 1.5s infinite alternate; margin-bottom: 5px; }
@@ -303,7 +313,8 @@
     </div>
 
     <script>
-        const BOT_API_URL = "https://aura-birthday-production-3f7a.up.railway.app";
+        // കൃത്യമായ Railway ബോട്ട് API URL
+        const BOT_API_URL = "https://birthday-bot-production-3f7a.up.railway.app";
 
         const bgCanvas = document.getElementById('liveBgCanvas');
         const bgCtx = bgCanvas.getContext('2d');
@@ -318,13 +329,13 @@
         window.addEventListener('resize', resizeCanvases);
         resizeCanvases();
 
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 55; i++) {
             particles.push({
                 x: Math.random() * bgCanvas.width,
                 y: Math.random() * bgCanvas.height,
-                radius: Math.random() * 2 + 0.8,
+                radius: Math.random() * 2.2 + 0.8,
                 alpha: Math.random() * 0.7 + 0.2,
-                speedY: Math.random() * 0.6 + 0.2,
+                speedY: Math.random() * 0.7 + 0.25,
                 color: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff'][Math.floor(Math.random() * 4)]
             });
         }
@@ -532,9 +543,10 @@
             let catMap = (translations[lang] && translations[lang].categories) ? translations[lang].categories : translations['en'].categories;
             document.getElementById('mainTitle').innerText = catMap[currentCategory] || currentCategory;
 
+            let themeKey = ['Birthday', 'Proposal', 'WeddingWish', 'Wedding', 'NewBorn', 'Graduation', 'HouseWarming', 'Festival'].includes(currentCategory) ? currentCategory : 'Simple';
             let headerBox = document.getElementById('royalHeaderContainer');
-            if (headerBox) headerBox.className = 'header-box-base theme-' + currentCategory;
-            document.body.className = `theme-${currentCategory}-bg`;
+            if (headerBox) headerBox.className = 'header-box-base theme-' + themeKey;
+            document.body.className = `theme-${themeKey}-bg`;
 
             let isSimpleWish = ['Morning', 'Night', 'Congratulations', 'Love', 'MissYou', 'Thanks', 'Sorry', 'Luck', 'AllTheBest', 'GetWell', 'TakeCare', 'Exam', 'NewJob', 'Achievement', 'Journey', 'JustForYou', 'GreatDay', 'Other'].includes(currentCategory);
             document.getElementById('infoBox').style.display = isSimpleWish ? 'none' : 'block';
@@ -644,6 +656,9 @@
                         <div class="world-title">Elegant Wedding Venue</div>
                         <div class="world-subtitle">Soft rose petals, golden rings, and glowing couple aura</div>
                     </div>
+                    <div class="cinematic-viewport">
+                        <div class="person-element couple-dance">${currentGender === 'girl' ? '👰💖🤵' : '🤵💖👰'}</div>
+                    </div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap below to experience wedding magic! ✨</div>
                 `;
                 container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#00f2fe,#4facfe); color:#000;" onclick="playWeddingStory()">${texts.btnWeddingStory}</button>`;
@@ -652,6 +667,9 @@
                     <div class="visual-world-card">
                         <div class="world-title">Anniversary Memory Lane</div>
                         <div class="world-subtitle">Precious photographs floating through golden dust particles</div>
+                    </div>
+                    <div class="cinematic-viewport">
+                        <div class="person-element couple-dance">🥂✨💃🕺</div>
                     </div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap below to begin anniversary story! ✨</div>
                 `;
@@ -662,6 +680,9 @@
                         <div class="world-title">University Spotlight Stage</div>
                         <div class="world-subtitle">Prestigious diploma presentation under bright spotlights</div>
                     </div>
+                    <div class="cinematic-viewport">
+                        <div class="person-element couple-dance">${currentGender === 'girl' ? '👩‍🎓✨' : '👨‍🎓✨'}</div>
+                    </div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap below to walk the graduation stage! ✨</div>
                 `;
                 container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#00ffaa,#00f2fe); color:#000;" onclick="playGraduationStory()">${texts.btnGraduationStory}</button>`;
@@ -671,11 +692,18 @@
                         <div class="world-title">Soft Nursery & Starlit Sky</div>
                         <div class="world-subtitle">Warm soothing light, twinkling stars, and gentle moon glow</div>
                     </div>
+                    <div class="cinematic-viewport">
+                        <div class="person-element couple-dance">${currentGender === 'girl' ? '👶🎀✨' : '👶💙✨'}</div>
+                    </div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap below to welcome the little angel! ✨</div>
                 `;
                 container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#ff9ff3,#feca57); color:#000;" onclick="playBabyStory()">${texts.btnBabyStory}</button>`;
             } else if (currentCategory === 'HouseWarming') {
                 stage.innerHTML = `
+                    <div class="visual-world-card">
+                        <div class="world-title">Traditional House Blessing</div>
+                        <div class="world-subtitle">Warm glowing lamp, floral decorations, and prosperity vibes</div>
+                    </div>
                     <div class="lamp-stage">🪔</div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap below to light the traditional lamp! ✨</div>
                 `;
