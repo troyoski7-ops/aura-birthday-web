@@ -170,6 +170,10 @@
             100% { transform: scale(1.15) rotate(3deg); background: #ff4500; }
         }
 
+        /* House Warming Lamp Animation */
+        .lamp-stage { font-size: 4rem; animation: lampGlow 1.5s infinite alternate; margin-bottom: 5px; }
+        @keyframes lampGlow { 0% { filter: drop-shadow(0 0 5px #ffd700); } 100% { filter: drop-shadow(0 0 25px #ff4500); } }
+
         .interactive-choice-box {
             display: none; gap: 12px; margin-top: 12px; animation: popIn 0.5s ease-out; z-index: 99;
         }
@@ -198,17 +202,6 @@
         }
         .btn:active { transform: scale(0.95); }
         .btn-heart { background: linear-gradient(45deg, #ff3366, #ff6b81); color: #fff; }
-
-        .app-links-bar {
-            margin-top: 10px; background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.25);
-            border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 6px;
-        }
-        .app-links-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-        .app-link-btn {
-            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,215,0,0.3); color: #ffd700;
-            font-size: 0.75rem; padding: 6px 12px; border-radius: 12px; text-decoration: none; font-weight: 600; transition: background 0.2s;
-        }
-        .app-link-btn:hover { background: rgba(255,215,0,0.2); }
 
         .locked-screen { display: none; padding: 30px 15px; }
         .timer-digits { font-size: 1.4rem; color: #ffd700; font-weight: bold; margin: 12px 0; }
@@ -292,10 +285,12 @@
             </h1>
         </div>
         
+        <!-- Detailed Info Box (Hidden for Simple Wishes) -->
         <div class="details-box" id="infoBox">
             <div>📅 <span id="targetTimeText">Target Time</span>: <span id="displayDate">-</span></div>
         </div>
 
+        <!-- Journey Stats (Hidden for Simple Wishes) -->
         <div class="container" style="padding: 12px;" id="statsContainer">
             <h4 id="statsTitle" style="color: #ffd700; font-size: 0.9rem; margin-bottom: 6px;">⏳ Journey Statistics</h4>
             <div class="stats-grid">
@@ -310,7 +305,8 @@
             </div>
         </div>
 
-        <div class="container" style="padding: 12px;">
+        <!-- Open When Envelopes (Hidden for Simple Wishes) -->
+        <div class="container" style="padding: 12px;" id="openWhenContainer">
             <h4 id="openWhenTitle" style="color: #ffd700; font-size: 0.9rem; margin-bottom: 6px;">💌 Open When...</h4>
             <div class="open-when-grid">
                 <button class="envelope-btn" onclick="openEnvelope('sad')">💙 You're Sad</button>
@@ -351,15 +347,6 @@
             <div class="btn-group">
                 <button class="btn btn-heart" onclick="send3DLoveHearts()" id="btnLove">❤️ Send Love</button>
                 <button class="btn" style="background: linear-gradient(45deg, #00ffcc, #00b894);" onclick="launchGrandFireworks()" id="btnFireworks">🎆 Grand Fireworks</button>
-            </div>
-
-            <div class="app-links-bar">
-                <div style="font-size: 0.75rem; color: #ffd700; font-weight: bold;">🌐 Share Across All Apps</div>
-                <div class="app-links-row">
-                    <a id="waShareLink" href="#" target="_blank" class="app-link-btn">🟢 WhatsApp</a>
-                    <a id="tgShareLink" href="#" target="_blank" class="app-link-btn">💬 Telegram</a>
-                    <a id="fbShareLink" href="#" target="_blank" class="app-link-btn">🔵 Facebook</a>
-                </div>
             </div>
         </div>
     </div>
@@ -612,11 +599,12 @@
             if (headerBox) headerBox.className = 'header-box-base theme-' + themeKey;
             document.body.className = `theme-${themeKey}-bg`;
 
-            let shareUrl = window.location.href;
-            let shareText = `✨ Check out this special celebration! 🎉 ${shareUrl}`;
-            document.getElementById('waShareLink').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
-            document.getElementById('tgShareLink').href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent('✨ Special Celebration! 🎉')}`;
-            document.getElementById('fbShareLink').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+            // Simple Wishes check: Hide unnecessary elements if it's a simple daily wish
+            let isSimpleWish = ['Morning', 'Night', 'Congratulations', 'Love', 'MissYou', 'Thanks', 'Sorry', 'Luck', 'AllTheBest', 'GetWell', 'TakeCare', 'Exam', 'NewJob', 'Achievement', 'Journey', 'JustForYou', 'GreatDay', 'Other'].includes(currentCategory);
+            
+            document.getElementById('infoBox').style.display = isSimpleWish ? 'none' : 'block';
+            document.getElementById('statsContainer').style.display = isSimpleWish ? 'none' : 'block';
+            document.getElementById('openWhenContainer').style.display = isSimpleWish ? 'none' : 'block';
         }
 
         let isStoryActive = false;
@@ -782,13 +770,13 @@
                         <div class="world-title">Traditional House Blessing</div>
                         <div class="world-subtitle">Warm glowing lamp, floral decorations, and prosperity vibes</div>
                     </div>
+                    <div class="lamp-stage">🪔</div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'House Warming Story' to light the lamp!</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" style="background:linear-gradient(45deg,#00ffaa,#ffd700); font-size:0.9rem; color:#000;" onclick="playHouseWarmingStory()">${getTranslation(currentLang, 'btnHouseWarmingStory')}</button>
                 `;
             } else if (['Morning', 'Night', 'Congratulations', 'Love', 'MissYou', 'Thanks', 'Sorry', 'Luck', 'AllTheBest', 'GetWell', 'TakeCare', 'Exam', 'NewJob', 'Achievement', 'Journey', 'JustForYou', 'GreatDay', 'Other'].includes(currentCategory)) {
-                // Simple Daily Wishes Interface (Clean & Elegant Vibe)
                 stage.innerHTML = `
                     <div class="visual-world-card">
                         <div class="world-title">✨ Expressive Vibe Stage ✨</div>
