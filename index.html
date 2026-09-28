@@ -47,9 +47,6 @@
         body.theme-Birthday-bg { background: radial-gradient(circle at center, #2b1235 0%, #040106 100%); }
         .theme-Birthday { background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,0,127,0.2)); border: 1px solid #ffd700; box-shadow: 0 0 25px rgba(255,215,0,0.3); }
 
-        body.theme-Proposal-bg { background: radial-gradient(circle at center, #3a0a24 0%, #050104 100%); }
-        .theme-Proposal { background: linear-gradient(135deg, rgba(255,0,127,0.25), rgba(130,0,255,0.25)); border: 1px solid #ff3366; box-shadow: 0 0 30px rgba(255,51,102,0.5); }
-
         body.theme-HouseWarming-bg { background: radial-gradient(circle at center, #1b382b 0%, #020604 100%); }
         .theme-HouseWarming { background: linear-gradient(135deg, rgba(0,255,150,0.2), rgba(255,215,0,0.2)); border: 1px solid #00ffaa; box-shadow: 0 0 30px rgba(0,255,150,0.4); }
 
@@ -107,7 +104,17 @@
 
         .fs-btn { background: rgba(255, 215, 0, 0.15); border: 1px solid #ffd700; color: #ffd700; font-size: 0.75rem; padding: 6px 14px; border-radius: 15px; margin-bottom: 8px; cursor: pointer; font-weight: 600; }
 
-        /* --- 🌟 ലൈവ് ആനിമേഷൻ സ്റ്റേജുകൾ (Realistic Walking/Dancing Characters) --- */
+        /* Gender Selection Bar - Only for Graduation */
+        .gender-selector-box {
+            display: none; background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 14px; padding: 8px; margin-bottom: 10px; font-size: 0.85rem; align-items: center; justify-content: center; gap: 10px;
+        }
+        .gender-btn {
+            background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.4); color: #fff;
+            padding: 4px 12px; border-radius: 10px; cursor: pointer; font-size: 0.8rem; font-weight: 600;
+        }
+        .gender-btn.active { background: #ffd700; color: #130f23; }
+
         .story-stage {
             width: 100%; min-height: 290px;
             background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(6,4,12,0.98) 85%);
@@ -123,18 +130,11 @@
         }
         .person-element { font-size: 3.8rem; filter: drop-shadow(0 0 15px rgba(255,215,0,0.7)); transition: transform 2s ease-in-out; }
         
-        /* Wedding & Anniversary Dancing / Walking Animation */
         .couple-dance { animation: coupleMove 2s infinite alternate ease-in-out; }
         @keyframes coupleMove {
             0% { transform: translateY(0) rotate(-3deg); }
             100% { transform: translateY(-12px) rotate(3deg); }
         }
-
-        .ring-box-element {
-            position: absolute; bottom: 20px; left: 47%; transform: translateX(-50%) scale(0); font-size: 2rem;
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 0 20px #ffd700); z-index: 10;
-        }
-        .ring-box-element.open { transform: translateX(-50%) scale(1.3); }
 
         .birthday-cake-stage {
             position: relative; width: 100%; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; margin-bottom: 10px;
@@ -163,25 +163,6 @@
 
         .lamp-stage { font-size: 4rem; animation: lampGlow 1.5s infinite alternate; margin-bottom: 5px; }
         @keyframes lampGlow { 0% { filter: drop-shadow(0 0 5px #ffd700); } 100% { filter: drop-shadow(0 0 25px #ff4500); } }
-
-        .interactive-choice-box {
-            display: none; gap: 12px; margin-top: 12px; animation: popIn 0.5s ease-out; z-index: 99;
-        }
-        @keyframes popIn { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        
-        .choice-btn-yes {
-            background: linear-gradient(45deg, #ff007f, #ff5e62); color: #fff; border: 1px solid #ffd700;
-            padding: 8px 20px; border-radius: 20px; font-weight: 800; font-size: 0.9rem; cursor: pointer;
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.8); animation: pulseYes 1.4s infinite;
-        }
-        @keyframes pulseYes { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-        
-        .choice-btn-think {
-            background: rgba(255, 255, 255, 0.08); color: #ffd700; border: 1px solid rgba(255,215,0,0.4);
-            padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; font-weight: 600;
-            transition: all 0.2s;
-        }
-        .choice-btn-think:hover { background: rgba(255,215,0,0.2); }
 
         .story-caption { font-size: 0.88rem; color: #ffd700; margin-top: 8px; font-weight: 600; min-height: 26px; }
 
@@ -289,6 +270,13 @@
                 <button class="envelope-btn" onclick="openEnvelope('miss')">🥰 You Miss Me</button>
                 <button class="envelope-btn" onclick="openEnvelope('vibe')">✨ Special Vibe</button>
             </div>
+        </div>
+
+        <!-- Gender Selection Bar (Only visible for Graduation) -->
+        <div id="genderSelectorContainer" class="gender-selector-box">
+            <span>👤 Select Profile:</span>
+            <button id="boyBtn" class="gender-btn active" onclick="setGender('boy')">Boy</button>
+            <button id="girlBtn" class="gender-btn" onclick="setGender('girl')">Girl</button>
         </div>
 
         <p id="scratchInstruction" style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 8px;">👇 Scratch the card below to reveal your surprise!</p>
@@ -408,13 +396,6 @@
                 fxCtx.shadowColor = bl.color;
                 fxCtx.shadowBlur = 10;
                 fxCtx.fill();
-
-                fxCtx.beginPath();
-                fxCtx.moveTo(bl.x, bl.y + bl.radius);
-                fxCtx.lineTo(bl.x + Math.sin(bl.wobble) * 4, bl.y + bl.radius + 20);
-                fxCtx.strokeStyle = "rgba(255,255,255,0.4)";
-                fxCtx.lineWidth = 1;
-                fxCtx.stroke();
                 fxCtx.restore();
 
                 if (bl.y < -80) customBalloons.splice(i, 1);
@@ -449,36 +430,20 @@
                 surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "✨ Celebration Stage",
                 statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
                 openWhenTitle: "💌 Open When...", btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
-                btnProposalStory: "💍 Proposal Story", btnWeddingStory: "💒 Wedding Story",
-                btnAnniversaryStory: "💍 Wedding Anniversary Story", btnGraduationStory: "🎓 Graduation Story",
-                btnBabyStory: "👶 Baby Born Story", btnBirthdayStory: "🎂 Birthday Cake Story",
-                btnHouseWarmingStory: "🏡 House Warming Story", btnFestivalStory: "🏮 Festival Story",
+                btnWeddingStory: "💒 Wedding Wish Story", btnAnniversaryStory: "💍 Wedding Anniversary Story",
+                btnGraduationStory: "🎓 Graduation Story", btnBabyStory: "👶 Baby New Born Story",
+                btnBirthdayStory: "🎂 Birthday Cake Story", btnHouseWarmingStory: "🪔 Traditional Oil Lamp",
+                btnFestivalStory: "🎆 Festival Celebration Lights", btnMorningStory: "🌅 Good Morning Sunshine",
                 categories: {
                     "Birthday": "🎂 Happy Birthday",
-                    "Proposal": "💍 Magical Proposal",
                     "WeddingWish": "💒 Happy Married Life",
                     "Wedding": "💍 Happy Wedding Anniversary",
                     "NewBorn": "👶 Welcome Little Angel",
                     "Graduation": "🎓 Congratulations on Graduation",
-                    "HouseWarming": "🏡 Happy House Warming",
-                    "Festival": "🏮 Happy Festival",
+                    "HouseWarming": "🪔 Happy House Warming",
+                    "Festival": "🎆 Happy Festival",
                     "Morning": "🌅 Good Morning",
                     "Night": "🌙 Good Night",
-                    "Congratulations": "🎉 Congratulations",
-                    "Love": "❤️ I Love You",
-                    "MissYou": "🫂 I Miss You",
-                    "Thanks": "🙏 Thank You",
-                    "Sorry": "🥺 I’m Sorry",
-                    "Luck": "🍀 Good Luck",
-                    "AllTheBest": "💪 All the Best",
-                    "GetWell": "🩷 Get Well Soon",
-                    "TakeCare": "🫶 Take Care",
-                    "Exam": "🎓 Exam Best of Luck",
-                    "NewJob": "💼 New Job",
-                    "Achievement": "🏆 Achievement",
-                    "Journey": "✈️ Safe Journey",
-                    "JustForYou": "🎁 Just For You",
-                    "GreatDay": "😊 Have a Great Day",
                     "Other": "✨ Special Celebration"
                 }
             },
@@ -489,36 +454,20 @@
                 surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "✨ ആഘോഷ വേദി",
                 statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
                 openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
-                btnProposalStory: "💍 Proposal Story", btnWeddingStory: "💒 Wedding Story",
-                btnAnniversaryStory: "💍 Wedding Anniversary Story", btnGraduationStory: "🎓 Graduation Story",
-                btnBabyStory: "👶 Baby Born Story", btnBirthdayStory: "🎂 Birthday Cake Story",
-                btnHouseWarmingStory: "🏡 House Warming Story", btnFestivalStory: "🏮 Festival Story",
+                btnWeddingStory: "💒 Wedding Wish Story", btnAnniversaryStory: "💍 Wedding Anniversary Story",
+                btnGraduationStory: "🎓 Graduation Story", btnBabyStory: "👶 Baby New Born Story",
+                btnBirthdayStory: "🎂 Birthday Cake Story", btnHouseWarmingStory: "🪔 Traditional Oil Lamp",
+                btnFestivalStory: "🎆 Festival Celebration Lights", btnMorningStory: "🌅 Good Morning Sunshine",
                 categories: {
                     "Birthday": "🎂 ജന്മദിനാശംസകൾ",
-                    "Proposal": "💍 മാന്ത്രിക പ്രൊപ്പോസൽ",
                     "WeddingWish": "💒 മംഗളകരമായ ദാമ്പത്യജീവിതം",
                     "Wedding": "💍 വിവാഹ വാർഷികാശംസകൾ",
                     "NewBorn": "👶 കുഞ്ഞുമാലാഖയ്ക്ക് സ്വാഗതം",
                     "Graduation": "🎓 ബിരുദ ആശംസകൾ",
-                    "HouseWarming": "🏡 ഗൃഹപ്രവേശ ആശംസകൾ",
-                    "Festival": "🏮 ആഘോഷ ആശംസകൾ",
+                    "HouseWarming": "🪔 ഗൃഹപ്രവേശ ആശംസകൾ",
+                    "Festival": "🎆 ആഘോഷ ആശംസകൾ",
                     "Morning": "🌅 സുപ്രഭാതം",
                     "Night": "🌙 ശുഭരാത്രി",
-                    "Congratulations": "🎉 അഭിനന്ദനങ്ങൾ",
-                    "Love": "❤️ സ്നേഹം",
-                    "MissYou": "🫂 നിങ്ങളെ ഓർക്കുന്നു",
-                    "Thanks": "🙏 നന്ദി",
-                    "Sorry": "🥺 ക്ഷമിക്കൂ",
-                    "Luck": "🍀 നല്ല ഭാഗ്യം",
-                    "AllTheBest": "💪 എല്ലാവിധ ആശംസകളും",
-                    "GetWell": "🩷 പെട്ടെന്ന് സുഖം പ്രാപിക്കട്ടെ",
-                    "TakeCare": "🫶 ശ്രദ്ധിക്കുക",
-                    "Exam": "🎓 പരീക്ഷയ്ക്ക് ആശംസകൾ",
-                    "NewJob": "💼 പുതിയ ജോലിക്ക് ആശംസകൾ",
-                    "Achievement": "🏆 നേട്ടത്തിന് അഭിനന്ദനങ്ങൾ",
-                    "Journey": "✈️ സുരക്ഷിത യാത്ര",
-                    "JustForYou": "🎁 നിങ്ങൾക്കായി മാത്രം",
-                    "GreatDay": "😊 മനോഹരമായ ഒരു ദിവസം ആശംസിക്കുന്നു",
                     "Other": "✨ പ്രത്യേക ആഘോഷം"
                 }
             },
@@ -529,11 +478,7 @@
                 surpriseHeader: "🎉 ОСОБЫЙ СЮРПРИЗ 🎁", celebrationHeader: "✨ Праздничная сцена",
                 statsTitle: "⏳ Статистика", labelDays: "Дней", labelHours: "Часов",
                 openWhenTitle: "💌 Открыть, когда...", btnPopper: "🎊 Хлопушка", btnLove: "❤️ Любовь", btnFireworks: "🎆 Фейерверк",
-                btnProposalStory: "💍 Предложение", btnWeddingStory: "💒 Свадьба",
-                btnAnniversaryStory: "💍 Годовщина", btnGraduationStory: "🎓 Выпускной",
-                btnBabyStory: "👶 Новорожденный", btnBirthdayStory: "🎂 День рождения",
-                btnHouseWarmingStory: "🏡 Новоселье", btnFestivalStory: "🏮 Праздник",
-                categories: { "Birthday": "🎂 День рождения", "Proposal": "💍 Предложение", "WeddingWish": "💒 Свадьба", "Wedding": "💍 Годовщина", "NewBorn": "👶 Малыш", "Graduation": "🎓 Выпускной", "HouseWarming": "🏡 Новоселье", "Festival": "🏮 Праздник", "Morning": "🌅 Утро", "Night": "🌙 Ночь", "Other": "✨ Праздник" }
+                categories: { "Birthday": "🎂 День рождения", "WeddingWish": "💒 Свадьба", "Wedding": "💍 Годовщина", "NewBorn": "👶 Малыш", "Graduation": "🎓 Выпускной", "HouseWarming": "🪔 Новоселье", "Festival": "🎆 Праздник", "Morning": "🌅 Утро", "Other": "✨ Праздник" }
             },
             'fa': {
                 lockTitle: "⏳ پورتال قفل است!", lockSubtitle: "سورپرایز باز می‌شود:",
@@ -542,11 +487,7 @@
                 surpriseHeader: "🎉 سورپرایز ویژه 🎁", celebrationHeader: "✨ صحنه جشن",
                 statsTitle: "⏳ آمار", labelDays: "روز", labelHours: "ساعت",
                 openWhenTitle: "💌 باز کن وقتی...", btnPopper: "🎊 بمب شادی", btnLove: "❤️ عشق", btnFireworks: "🎆 آتش‌بازی",
-                btnProposalStory: "💍 خواستگاری", btnWeddingStory: "💒 عروسی",
-                btnAnniversaryStory: "💍 سالگرد", btnGraduationStory: "🎓 فارغ‌التحصیلی",
-                btnBabyStory: "👶 تولد نوزاد", btnBirthdayStory: "🎂 تولد",
-                btnHouseWarmingStory: "🏡 خانه جدید", btnFestivalStory: "🏮 فستیوال",
-                categories: { "Birthday": "🎂 تولد", "Proposal": "💍 خواستگاری", "WeddingWish": "💒 ازدواج", "Wedding": "💍 سالگرد", "NewBorn": "👶 نوزاد", "Graduation": "🎓 فارغ‌التحصیلی", "HouseWarming": "🏡 خانه جدید", "Festival": "🏮 فستیوال", "Morning": "🌅 صبح", "Night": "🌙 شب", "Other": "✨ جشن" }
+                categories: { "Birthday": "🎂 تولد", "WeddingWish": "💒 ازدواج", "Wedding": "💍 سالگرد", "NewBorn": "👶 نوزاد", "Graduation": "🎓 فارغ‌التحصیلی", "HouseWarming": "🪔 خانه جدید", "Festival": "🎆 فستیوال", "Morning": "🌅 صبح", "Other": "✨ جشن" }
             },
             'it': {
                 lockTitle: "⏳ Portale Bloccato!", lockSubtitle: "La sorpresa si apre il:",
@@ -555,11 +496,7 @@
                 surpriseHeader: "🎉 SPECIALE SORPRESA 🎁", celebrationHeader: "✨ Palco della Festa",
                 statsTitle: "⏳ Statistiche", labelDays: "Giorni", labelHours: "Ore",
                 openWhenTitle: "💌 Apri Quando...", btnPopper: "🎊 Sparacoriandoli", btnLove: "❤️ Amore", btnFireworks: "🎆 Fuochi",
-                btnProposalStory: "💍 Proposta", btnWeddingStory: "💒 Matrimonio",
-                btnAnniversaryStory: "💍 Anniversario", btnGraduationStory: "🎓 Laurea",
-                btnBabyStory: "👶 Neonato", btnBirthdayStory: "🎂 Compleanno",
-                btnHouseWarmingStory: "🏡 Inaugurazione", btnFestivalStory: "🏮 Festa",
-                categories: { "Birthday": "🎂 Compleanno", "Proposal": "💍 Proposta", "WeddingWish": "💒 Matrimonio", "Wedding": "💍 Anniversario", "NewBorn": "👶 Neonato", "Graduation": "🎓 Laurea", "HouseWarming": "🏡 Inaugurazione", "Festival": "🏮 Festa", "Morning": "🌅 Mattina", "Night": "🌙 Notte", "Other": "✨ Celebrazione" }
+                categories: { "Birthday": "🎂 Compleanno", "WeddingWish": "💒 Matrimonio", "Wedding": "💍 Anniversario", "NewBorn": "👶 Neonato", "Graduation": "🎓 Laurea", "HouseWarming": "🪔 Inaugurazione", "Festival": "🎆 Festa", "Morning": "🌅 Mattina", "Other": "✨ Celebrazione" }
             },
             'id': {
                 lockTitle: "⏳ Portal Dikunci!", lockSubtitle: "Kejutan ini dibuka pada:",
@@ -568,11 +505,7 @@
                 surpriseHeader: "🎉 KEJUTAN KHUSUS 🎁", celebrationHeader: "✨ Panggung Perayaan",
                 statsTitle: "⏳ Statistik", labelDays: "Hari", labelHours: "Jam",
                 openWhenTitle: "💌 Buka Saat...", btnPopper: "🎊 Popper", btnLove: "❤️ Cinta", btnFireworks: "🎆 Kembang Api",
-                btnProposalStory: "💍 Lamaran", btnWeddingStory: "💒 Pernikahan",
-                btnAnniversaryStory: "💍 Ulang Tahun Pernikahan", btnGraduationStory: "🎓 Kelulusan",
-                btnBabyStory: "👶 Bayi Lahir", btnBirthdayStory: "🎂 Ulang Tahun",
-                btnHouseWarmingStory: "🏡 Rumah Baru", btnFestivalStory: "🏮 Festival",
-                categories: { "Birthday": "🎂 Ulang Tahun", "Proposal": "💍 Lamaran", "WeddingWish": "💒 Pernikahan", "Wedding": "💍 Ulang Tahun", "NewBorn": "👶 Bayi Lahir", "Graduation": "🎓 Kelulusan", "HouseWarming": "🏡 Rumah Baru", "Festival": "🏮 Festival", "Morning": "🌅 Pagi", "Night": "🌙 Malam", "Other": "✨ Perayaan" }
+                categories: { "Birthday": "🎂 Ulang Tahun", "WeddingWish": "💒 Pernikahan", "Wedding": "💍 Ulang Tahun", "NewBorn": "👶 Bayi Lahir", "Graduation": "🎓 Kelulusan", "HouseWarming": "🪔 Rumah Baru", "Festival": "🎆 Festival", "Morning": "🌅 Pagi", "Other": "✨ Perayaan" }
             },
             'uz': {
                 lockTitle: "⏳ Portol Qulflangan!", lockSubtitle: "Sovg'a ochiladi:",
@@ -581,11 +514,7 @@
                 surpriseHeader: "🎉 MAXSUS SOVG'A 🎁", celebrationHeader: "✨ Bayram sahnasi",
                 statsTitle: "⏳ Statistika", labelDays: "Kun", labelHours: "Soat",
                 openWhenTitle: "💌 Ochish vaqti...", btnPopper: "🎊 Sahnasi", btnLove: "❤️ Sevgi", btnFireworks: "🎆 Feyerverk",
-                btnProposalStory: "💍 Taklif", btnWeddingStory: "💒 To'y",
-                btnAnniversaryStory: "💍 Yubiley", btnGraduationStory: "🎓 Bitiruv",
-                btnBabyStory: "👶 Chaqaloq", btnBirthdayStory: "🎂 Tug'ilgan kun",
-                btnHouseWarmingStory: "🏡 Yangi uy", btnFestivalStory: "🏮 Festival",
-                categories: { "Birthday": "🎂 Tug'ilgan kun", "Proposal": "💍 Taklif", "WeddingWish": "💒 To'y", "Wedding": "💍 Yubiley", "NewBorn": "👶 Chaqaloq", "Graduation": "🎓 Bitiruv", "HouseWarming": "🏡 Yangi uy", "Festival": "🏮 Festival", "Morning": "🌅 Tong", "Night": "🌙 Tun", "Other": "✨ Bayram" }
+                categories: { "Birthday": "🎂 Tug'ilgan kun", "WeddingWish": "💒 To'y", "Wedding": "💍 Yubiley", "NewBorn": "👶 Chaqaloq", "Graduation": "🎓 Bitiruv", "HouseWarming": "🪔 Yangi uy", "Festival": "🎆 Festival", "Morning": "🌅 Tong", "Other": "✨ Bayram" }
             },
             'tg': {
                 lockTitle: "⏳ Портал маҳкам аст!", lockSubtitle: "Сюрприз кушода мешавад:",
@@ -594,11 +523,7 @@
                 surpriseHeader: "🎉 СЮРПРИЗИ МАХСУС 🎁", celebrationHeader: "✨ Саҳнаи ҷашн",
                 statsTitle: "⏳ Омор", labelDays: "Рӯз", labelHours: "Соат",
                 openWhenTitle: "💌 Кушоед вақте...", btnPopper: "🎊 Хлопушка", btnLove: "❤️ Муҳаббат", btnFireworks: "🎆 Фейерверк",
-                btnProposalStory: "💍 Пешниҳод", btnWeddingStory: "💒 Тӯй",
-                btnAnniversaryStory: "💍 Солгард", btnGraduationStory: "🎓 Хатм",
-                btnBabyStory: "👶 Кӯдак", btnBirthdayStory: "🎂 Мавлуд",
-                btnHouseWarmingStory: "🏡 Хонаи нав", btnFestivalStory: "🏮 Фестивал",
-                categories: { "Birthday": "🎂 Рӯзи таваллуд", "Proposal": "💍 Пешниҳод", "WeddingWish": "💒 Тӯй", "Wedding": "💍 Солгард", "NewBorn": "👶 Кӯдак", "Graduation": "🎓 Хатм", "HouseWarming": "🏡 Хонаи нав", "Festival": "🏮 Фестивал", "Morning": "🌅 Субҳ", "Night": "🌙 Шаб", "Other": "✨ Ҷашн" }
+                categories: { "Birthday": "🎂 Рӯзи таваллуд", "WeddingWish": "💒 Тӯй", "Wedding": "💍 Солгард", "NewBorn": "👶 Кӯдак", "Graduation": "🎓 Хатм", "HouseWarming": "🪔 Хонаи нав", "Festival": "🎆 Фестивал", "Morning": "🌅 Субҳ", "Other": "✨ Ҷашн" }
             },
             'az': {
                 lockTitle: "⏳ Portal Kilidləndi!", lockSubtitle: "Bu sürpriz açılır:",
@@ -607,11 +532,7 @@
                 surpriseHeader: "🎉 XÜSUSİ SÜRPRİZ 🎁", celebrationHeader: "✨ Bayram Səhnəsi",
                 statsTitle: "⏳ Statistika", labelDays: "Gün", labelHours: "Saat",
                 openWhenTitle: "💌 Açın...", btnPopper: "🎊 Partlayış", btnLove: "❤️ Sevgi", btnFireworks: "🎆 Atəşfəşanlıq",
-                btnProposalStory: "💍 Evlilik təklifi", btnWeddingStory: "💒 Toy hekayəsi",
-                btnAnniversaryStory: "💍 Evlilik ildönümü", btnGraduationStory: "🎓 Məzuniyyət",
-                btnBabyStory: "👶 Körpə doğulması", btnBirthdayStory: "🎂 Ad günü tortu",
-                btnHouseWarmingStory: "🏡 Yeni ev", btnFestivalStory: "🏮 Festival",
-                categories: { "Birthday": "🎂 Ad gününüz mübarək", "Proposal": "💍 Evlilik təklifi", "WeddingWish": "💒 Xoşbəxt həyat", "Wedding": "💍 İldönüm", "NewBorn": "👶 Körpə", "Graduation": "🎓 Məzun", "HouseWarming": "🏡 Yeni ev", "Festival": "🏮 Festival", "Morning": "🌅 Səhər", "Night": "🌙 Gecə", "Other": "✨ Bayram" }
+                categories: { "Birthday": "🎂 Ad gününüz mübarək", "WeddingWish": "💒 Xoşbəxt həyat", "Wedding": "💍 İldönüm", "NewBorn": "👶 Körpə", "Graduation": "🎓 Məzun", "HouseWarming": "🪔 Yeni ev", "Festival": "🎆 Festival", "Morning": "🌅 Səhər", "Other": "✨ Bayram" }
             },
             'my': {
                 lockTitle: "⏳ ပေါ်တယ်ပိတ်ထားသည်!", lockSubtitle: "အထူးဆုလက်ဆောင် ပွင့်မည့်အချိန် -",
@@ -620,11 +541,7 @@
                 surpriseHeader: "🎉 အထူးလက်ဆောင် 🎁", celebrationHeader: "✨ အခမ်းအနားစင်မြင့်",
                 statsTitle: "⏳ စာရင်းဇယား", labelDays: "ရက်", labelHours: "နာရီ",
                 openWhenTitle: "💌 ဖွင့်ချိန်...", btnPopper: "🎊 ပေါက်ကွဲမှု", btnLove: "❤️ ချစ်ခြင်း", btnFireworks: "🎆 မီးရှူးမီးပန်း",
-                btnProposalStory: "💍 လက်ထပ်တောင်းခံခြင်း", btnWeddingStory: "💒 မင်္ဂလာပွဲ",
-                btnAnniversaryStory: "💍 နှစ်ပတ်လည်", btnGraduationStory: "🎓 ဘွဲ့ရ",
-                btnBabyStory: "👶 ရင်သွေးငယ်", btnBirthdayStory: "🎂 မွေးနေ့ကိတ်",
-                btnHouseWarmingStory: "🏡 အိမ်သစ်တက်", btnFestivalStory: "🏮 ပွဲတော်",
-                categories: { "Birthday": "🎂 မွေးနေ့ပါ", "Proposal": "💍 လက်ထပ်တောင်းခံ", "WeddingWish": "💒 မင်္ဂလာပွဲ", "Wedding": "💍 နှစ်ပတ်လည်", "NewBorn": "👶 ရင်သွေးငယ်", "Graduation": "🎓 ဘွဲ့ရ", "HouseWarming": "🏡 အိမ်သစ်တက်", "Festival": "🏮 ပွဲတော်", "Morning": "🌅 နံနက်", "Night": "🌙 ည", "Other": "✨ အထူးပွဲ" }
+                categories: { "Birthday": "🎂 မွေးနေ့ပါ", "WeddingWish": "💒 မင်္ဂလာပွဲ", "Wedding": "💍 နှစ်ပတ်လည်", "NewBorn": "👶 ရင်သွေးငယ်", "Graduation": "🎓 ဘွဲ့ရ", "HouseWarming": "🪔 အိမ်သစ်တက်", "Festival": "🎆 ပွဲတော်", "Morning": "🌅 နံနက်", "Other": "✨ အထူးပွဲ" }
             },
             'zh': {
                 lockTitle: "⏳ 传送门已锁定！", lockSubtitle: "惊喜开启时间：",
@@ -633,11 +550,7 @@
                 surpriseHeader: "🎉 特别惊喜 🎁", celebrationHeader: "✨ 庆典舞台",
                 statsTitle: "⏳ 统计", labelDays: "天", labelHours: "小时",
                 openWhenTitle: "💌 打开于...", btnPopper: "🎊 礼炮", btnLove: "❤️ 爱意", btnFireworks: "🎆 焰火",
-                btnProposalStory: "💍 求婚", btnWeddingStory: "💒 婚礼",
-                btnAnniversaryStory: "💍 纪念日", btnGraduationStory: "🎓 毕业",
-                btnBabyStory: "👶 迎新宝宝", btnBirthdayStory: "🎂 生日",
-                btnHouseWarmingStory: "🏡 乔迁", btnFestivalStory: "🏮 节日",
-                categories: { "Birthday": "🎂 生日快乐", "Proposal": "💍 求婚", "WeddingWish": "💒 婚礼", "Wedding": "💍 纪念日", "NewBorn": "👶 宝宝", "Graduation": "🎓 毕业", "HouseWarming": "🏡 乔迁", "Festival": "🏮 节日", "Morning": "🌅 早上好", "Night": "🌙 晚安", "Other": "✨ 庆典" }
+                categories: { "Birthday": "🎂 生日快乐", "WeddingWish": "💒 婚礼", "Wedding": "💍 纪念日", "NewBorn": "👶 宝宝", "Graduation": "🎓 毕业", "HouseWarming": "🪔 乔迁", "Festival": "🎆 节日", "Morning": "🌅 早上好", "Other": "✨ 庆典" }
             }
         };
 
@@ -674,6 +587,13 @@
             renderCategoryActions();
         }
 
+        function setGender(gender) {
+            currentGender = gender;
+            document.getElementById('boyBtn').className = gender === 'boy' ? 'gender-btn active' : 'gender-btn';
+            document.getElementById('girlBtn').className = gender === 'girl' ? 'gender-btn active' : 'gender-btn';
+            renderCategoryActions();
+        }
+
         function applyTranslations(lang) {
             ['lockTitle', 'lockSubtitle', 'giftPrompt', 'giftSubPrompt', 'targetTimeText', 'scratchInstruction', 'surpriseHeader', 'celebrationHeader', 'statsTitle', 'labelDays', 'labelHours', 'openWhenTitle', 'btnPopper', 'btnLove', 'btnFireworks'].forEach(id => {
                 let el = document.getElementById(id);
@@ -683,7 +603,7 @@
             document.getElementById('mainTitle').innerText = catMap[currentCategory] || catMap["Birthday"] || currentCategory;
 
             let themeKey = 'Morning';
-            if (['Birthday', 'Proposal', 'WeddingWish', 'Wedding', 'NewBorn', 'Graduation', 'HouseWarming', 'Festival'].includes(currentCategory)) {
+            if (['Birthday', 'WeddingWish', 'Wedding', 'NewBorn', 'Graduation', 'HouseWarming', 'Festival'].includes(currentCategory)) {
                 themeKey = currentCategory;
             } else if (currentCategory === 'Night') {
                 themeKey = 'Night';
@@ -693,72 +613,27 @@
             if (headerBox) headerBox.className = 'header-box-base theme-' + themeKey;
             document.body.className = `theme-${themeKey}-bg`;
 
-            let isSimpleWish = ['Morning', 'Night', 'Congratulations', 'Love', 'MissYou', 'Thanks', 'Sorry', 'Luck', 'AllTheBest', 'GetWell', 'TakeCare', 'Exam', 'NewJob', 'Achievement', 'Journey', 'JustForYou', 'GreatDay', 'Other'].includes(currentCategory);
-            
-            document.getElementById('infoBox').style.display = isSimpleWish ? 'none' : 'block';
-            document.getElementById('statsContainer').style.display = isSimpleWish ? 'none' : 'block';
-            document.getElementById('openWhenContainer').style.display = isSimpleWish ? 'none' : 'block';
-        }
-
-        let isStoryActive = false;
-
-        function playProposalStory() {
-            if (isStoryActive) return;
-            isStoryActive = true;
-            const boy = document.getElementById('storyBoy');
-            const ringBox = document.getElementById('storyRingBox');
-            const caption = document.getElementById('storyCaptionText');
-            const choiceBox = document.getElementById('proposalChoiceBox');
-
-            if (boy) boy.classList.add('walk-in');
-            setTimeout(() => {
-                if (boy) boy.classList.add('kneel');
-                if (ringBox) ringBox.classList.add('open');
-                caption.innerText = "🧎‍♂️ He gracefully kneels down and opens the velvet box... 'Will you marry me?' 💍✨";
-                confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
-                if (choiceBox) choiceBox.style.display = 'flex';
-            }, 2200);
-        }
-
-        function acceptProposalYes() {
-            const girl = document.getElementById('storyGirl');
-            const caption = document.getElementById('storyCaptionText');
-            const choiceBox = document.getElementById('proposalChoiceBox');
-
-            if (choiceBox) choiceBox.style.display = 'none';
-            if (girl) girl.classList.add('happy');
-            caption.innerText = "💖 Absolute perfection! She said YES! Celebrations unlocked with pure joy! ✨🎉";
-            shower3DRedRoses();
-            fireExtremeDualPoppers();
-            launchGrandFireworks();
-            setTimeout(() => {
-                caption.innerText = "✨ Their magnificent forever officially begins! 💍🥂💫";
-                isStoryActive = false;
-            }, 3500);
-        }
-
-        function thinkMeLaterJoke() {
-            const caption = document.getElementById('storyCaptionText');
-            const choiceBox = document.getElementById('proposalChoiceBox');
-
-            if (choiceBox) choiceBox.style.display = 'none';
-            caption.innerText = "⏳ Thinking time granted! But your heart already knows it's a definite YES! 😉💖";
-            confetti({ particleCount: 40, spread: 50, origin: { y: 0.6 } });
-            setTimeout(() => { acceptProposalYes(); }, 2200);
+            // Show gender selection ONLY for Graduation
+            let genderBox = document.getElementById('genderSelectorContainer');
+            if (currentCategory === 'Graduation') {
+                genderBox.style.display = 'flex';
+            } else {
+                genderBox.style.display = 'none';
+            }
         }
 
         function playBirthdayStory() {
-            const flame = document.getElementById('candleFlame1');
+            const flame1 = document.getElementById('candleFlame1');
             const flame2 = document.getElementById('candleFlame2');
             const flame3 = document.getElementById('candleFlame3');
             const caption = document.getElementById('storyCaptionText');
 
             caption.innerText = "🎂 Glowing candles are lit... Making a heartfelt wish! ✨";
             setTimeout(() => {
-                if (flame) flame.classList.add('extinguished');
+                if (flame1) flame1.classList.add('extinguished');
                 if (flame2) flame2.classList.add('extinguished');
                 if (flame3) flame3.classList.add('extinguished');
-                caption.innerText = "🎉 Candles blown out! Cutting the delicious multi-tier birthday cake! 🍰";
+                caption.innerText = "🎉 Candles blown out! Cutting the delicious birthday cake! 🍰";
                 fireExtremeDualPoppers();
             }, 1800);
             setTimeout(() => {
@@ -769,7 +644,7 @@
 
         function playHouseWarmingStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🏡 Lighting the traditional lamp, welcoming prosperity, love, and light into the new home... ✨";
+            caption.innerText = "🪔 Lighting the traditional oil lamp, welcoming prosperity and warmth into the new home... ✨";
             fireExtremeDualPoppers();
             setTimeout(() => {
                 caption.innerText = "✨ May your new house turn into a blessed and happy home! 🌸";
@@ -779,7 +654,7 @@
 
         function playFestivalStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🏮 Vibrant lights, traditional festivities, and joyful celebration fill the air! ✨";
+            caption.innerText = "🎆 Vibrant lights and festive celebrations fill the air with joy! ✨";
             launchGrandFireworks();
             fireExtremeDualPoppers();
             setTimeout(() => {
@@ -799,8 +674,7 @@
 
         function playWeddingStory() {
             const caption = document.getElementById('storyCaptionText');
-            let couple = currentGender === 'girl' ? '👰💖🤵' : '🤵💖👰';
-            caption.innerText = `💒 Soft rose petals falling, romantic background music playing as they walk and dance together...`;
+            caption.innerText = `💒 Soft rose petals falling, romantic background music playing as they celebrate together...`;
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
@@ -811,7 +685,7 @@
 
         function playAnniversaryStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "💞 Golden memories lighting up as romantic golden dust particles surround the dancing couple...";
+            caption.innerText = "✨ Sparklers and anniversary ribbons lighting up as golden memories surround you...";
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
@@ -846,52 +720,28 @@
             let container = document.getElementById('primaryActionButtons');
             let stage = document.getElementById('storyStageContainer');
 
-            if (currentCategory === 'Proposal') {
-                stage.innerHTML = `
-                    <div class="cinematic-viewport">
-                        <div id="storyBoy" class="person-element person-boy walk">🤵</div>
-                        <div id="storyRingBox" class="ring-box-element">💍</div>
-                        <div id="storyGirl" class="person-element person-girl">👰</div>
-                    </div>
-                    <div class="interactive-choice-box" id="proposalChoiceBox">
-                        <button class="choice-btn-yes" onclick="acceptProposalYes()">YES! 💖</button>
-                        <button class="choice-btn-think" onclick="thinkMeLaterJoke()">Think me later 😉</button>
-                    </div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Proposal Story' to begin! ✨</div>
-                `;
-                container.innerHTML = `
-                    <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700); font-size:0.9rem;" onclick="playProposalStory()">${getTranslation(currentLang, 'btnProposalStory')}</button>
-                    <button class="btn" onclick="shower3DRedRoses()">🌹 Shower Red Roses</button>
-                `;
-            } else if (currentCategory === 'HouseWarming') {
+            if (currentCategory === 'HouseWarming') {
                 stage.innerHTML = `
                     <div class="lamp-stage">🪔</div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap 'House Warming Story' to light the lamp!</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Traditional Oil Lamp' to light up!</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" style="background:linear-gradient(45deg,#00ffaa,#ffd700); font-size:0.9rem; color:#000;" onclick="playHouseWarmingStory()">${getTranslation(currentLang, 'btnHouseWarmingStory')}</button>
                 `;
             } else if (currentCategory === 'Festival') {
                 stage.innerHTML = `
-                    <div class="lamp-stage">🏮</div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Festival Story' to begin celebrations!</div>
+                    <div class="lamp-stage">🎆</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap to light up festival celebrations!</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" style="background:linear-gradient(45deg,#ff7700,#ffd700); font-size:0.9rem; color:#000;" onclick="playFestivalStory()">${getTranslation(currentLang, 'btnFestivalStory')}</button>
                 `;
-            } else if (['Morning', 'Night', 'Congratulations', 'Love', 'MissYou', 'Thanks', 'Sorry', 'Luck', 'AllTheBest', 'GetWell', 'TakeCare', 'Exam', 'NewJob', 'Achievement', 'Journey', 'JustForYou', 'GreatDay', 'Other'].includes(currentCategory)) {
-                stage.innerHTML = `
-                    <div class="story-caption" id="storyCaptionText">✨ Tap below to trigger magical celebration effects! ✨</div>
-                `;
-                container.innerHTML = `
-                    <button class="btn" style="background:linear-gradient(45deg,#00f2fe,#4facfe); font-size:0.9rem; color:#000;" onclick="playMorningStory()">✨ Trigger Magic Vibe</button>
-                `;
             } else if (currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
                     <div class="cinematic-viewport">
-                        <div class="person-element couple-dance">${currentGender === 'girl' ? '👰💖🤵' : '🤵💖👰'}</div>
+                        <div class="person-element couple-dance">💍💒</div>
                     </div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Wedding Story' to experience romantic dance & music!</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap to begin wedding wish celebration!</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" style="background:linear-gradient(45deg,#00f2fe,#4facfe); font-size:0.9rem; color:#000;" onclick="playWeddingStory()">${getTranslation(currentLang, 'btnWeddingStory')}</button>
@@ -900,9 +750,9 @@
             } else if (currentCategory === 'Wedding') {
                 stage.innerHTML = `
                     <div class="cinematic-viewport">
-                        <div class="person-element couple-dance">🥂✨💃🕺</div>
+                        <div class="person-element couple-dance">✨🥂💍</div>
                     </div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Wedding Anniversary Story' to begin!</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap to celebrate anniversary!</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" style="background:linear-gradient(45deg,#ffd700,#ffaa00); font-size:0.9rem; color:#000;" onclick="playAnniversaryStory()">${getTranslation(currentLang, 'btnAnniversaryStory')}</button>
@@ -913,7 +763,7 @@
                     <div class="cinematic-viewport">
                         <div class="person-element couple-dance">${currentGender === 'girl' ? '👩‍🎓✨' : '👨‍🎓✨'}</div>
                     </div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Graduation Story' to walk the stage!</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap to walk the graduation stage!</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" style="background:linear-gradient(45deg,#00ffaa,#00f2fe); font-size:0.9rem; color:#000;" onclick="playGraduationStory()">${getTranslation(currentLang, 'btnGraduationStory')}</button>
@@ -923,10 +773,17 @@
                     <div class="cinematic-viewport">
                         <div class="person-element couple-dance">${currentGender === 'girl' ? '👶🎀✨' : '👶💙✨'}</div>
                     </div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Baby Born Story' to begin!</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap to welcome baby new born!</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" style="background:linear-gradient(45deg,#ff9ff3,#feca57); font-size:0.9rem; color:#000;" onclick="playBabyStory()">${getTranslation(currentLang, 'btnBabyStory')}</button>
+                `;
+            } else if (currentCategory === 'Morning' || currentCategory === 'Night') {
+                stage.innerHTML = `
+                    <div class="story-caption" id="storyCaptionText">✨ Tap below to trigger magical greetings! ✨</div>
+                `;
+                container.innerHTML = `
+                    <button class="btn" style="background:linear-gradient(45deg,#00f2fe,#4facfe); font-size:0.9rem; color:#000;" onclick="playMorningStory()">${getTranslation(currentLang, 'btnMorningStory')}</button>
                 `;
             } else {
                 stage.innerHTML = `
@@ -998,6 +855,7 @@
             }
 
             document.getElementById('langSwitcher').value = currentLang;
+            setGender(currentGender);
             applyTranslations(currentLang);
             renderCategoryActions();
 
