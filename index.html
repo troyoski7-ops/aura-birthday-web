@@ -62,6 +62,9 @@
         body.theme-Festival-bg { background: radial-gradient(circle at center, #43114a 0%, #09010a 100%); }
         .theme-Festival { background: linear-gradient(135deg, rgba(255,100,0,0.3), rgba(255,215,0,0.25)); border: 1px solid #ff7700; box-shadow: 0 0 35px rgba(255,119,0,0.5); }
 
+        body.theme-Morning-bg, body.theme-Night-bg { background: radial-gradient(circle at center, #1a2a6c 0%, #0f0c29 100%); }
+        .theme-Morning, .theme-Night { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(79,172,254,0.2)); border: 1px solid #00f2fe; box-shadow: 0 0 30px rgba(0,242,254,0.4); }
+
         .category-title-text { font-size: 1.35rem; font-weight: 800; line-height: 1.4; letter-spacing: 0.5px; color: #ffd700; }
 
         .details-box {
@@ -529,10 +532,14 @@
             let catMap = (translations[lang] && translations[lang].categories) ? translations[lang].categories : translations['en'].categories;
             document.getElementById('mainTitle').innerText = catMap[currentCategory] || currentCategory;
 
-            let themeKey = ['Birthday', 'Proposal', 'WeddingWish', 'Wedding', 'NewBorn', 'Graduation', 'HouseWarming', 'Festival'].includes(currentCategory) ? currentCategory : 'Birthday';
             let headerBox = document.getElementById('royalHeaderContainer');
-            if (headerBox) headerBox.className = 'header-box-base theme-' + themeKey;
-            document.body.className = `theme-${themeKey}-bg`;
+            if (headerBox) headerBox.className = 'header-box-base theme-' + currentCategory;
+            document.body.className = `theme-${currentCategory}-bg`;
+
+            let isSimpleWish = ['Morning', 'Night', 'Congratulations', 'Love', 'MissYou', 'Thanks', 'Sorry', 'Luck', 'AllTheBest', 'GetWell', 'TakeCare', 'Exam', 'NewJob', 'Achievement', 'Journey', 'JustForYou', 'GreatDay', 'Other'].includes(currentCategory);
+            document.getElementById('infoBox').style.display = isSimpleWish ? 'none' : 'block';
+            document.getElementById('statsContainer').style.display = isSimpleWish ? 'none' : 'block';
+            document.getElementById('openWhenContainer').style.display = isSimpleWish ? 'none' : 'block';
         }
 
         function playBirthdayStory() {
@@ -608,12 +615,30 @@
             }, 2500);
         }
 
+        function playMagicVibe() {
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "✨ Magic vibe triggered! Wishing you an amazingly wonderful day! 🌟";
+            fireExtremeDualPoppers();
+            launchGrandFireworks();
+        }
+
         function renderCategoryActions() {
             let container = document.getElementById('primaryActionButtons');
             let stage = document.getElementById('storyStageContainer');
             let texts = translations[currentLang] || translations['en'];
 
-            if (currentCategory === 'WeddingWish') {
+            let isSimpleWish = ['Morning', 'Night', 'Congratulations', 'Love', 'MissYou', 'Thanks', 'Sorry', 'Luck', 'AllTheBest', 'GetWell', 'TakeCare', 'Exam', 'NewJob', 'Achievement', 'Journey', 'JustForYou', 'GreatDay', 'Other'].includes(currentCategory);
+
+            if (isSimpleWish) {
+                stage.innerHTML = `
+                    <div class="visual-world-card">
+                        <div class="world-title">✨ Expressive Vibe Stage ✨</div>
+                        <div class="world-subtitle">Warm wishes delivered with style, love, and joy</div>
+                    </div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap below to trigger magical celebration effects! ✨</div>
+                `;
+                container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#00f2fe,#4facfe); color:#000;" onclick="playMagicVibe()">✨ Trigger Magic Vibe</button>`;
+            } else if (currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
                     <div class="visual-world-card">
                         <div class="world-title">Elegant Wedding Venue</div>
@@ -669,12 +694,6 @@
                 `;
                 container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700); font-size:0.9rem;" onclick="playBirthdayStory()">${texts.btnBirthdayStory}</button>`;
             }
-
-            // Simple wishes check: hide stats/open when if it's a simple daily wish
-            let isSimpleWish = ['Morning', 'Night', 'Congratulations', 'Love', 'MissYou', 'Thanks', 'Sorry', 'Luck', 'AllTheBest', 'GetWell', 'TakeCare', 'Exam', 'NewJob', 'Achievement', 'Journey', 'JustForYou', 'GreatDay', 'Other'].includes(currentCategory);
-            document.getElementById('infoBox').style.display = isSimpleWish ? 'none' : 'block';
-            document.getElementById('statsContainer').style.display = isSimpleWish ? 'none' : 'block';
-            document.getElementById('openWhenContainer').style.display = isSimpleWish ? 'none' : 'block';
         }
 
         let urlParams = new URLSearchParams(window.location.search);
@@ -789,7 +808,7 @@
 
         function checkTimeLock() {
             let isPreview = urlParams.get('preview') === 'true';
-            if (!targetTimeStr || isPreview) { 
+            if (!targetTimeStr || isPreview || targetTimeStr.trim() === "") { 
                 document.getElementById('lockSection').style.display = 'none';
                 document.getElementById('giftSection').style.display = 'flex';
                 return; 
