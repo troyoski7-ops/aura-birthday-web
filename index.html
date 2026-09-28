@@ -101,59 +101,46 @@
 
         .fs-btn { background: rgba(255, 215, 0, 0.15); border: 1px solid #ffd700; color: #ffd700; font-size: 0.75rem; padding: 6px 14px; border-radius: 15px; margin-bottom: 8px; cursor: pointer; font-weight: 600; }
 
-        /* --- 🌟 റിയലിസ്റ്റിക് ക്യാരക്ടർ സ്റ്റേജ് --- */
+        /* --- 🌟 റിയലിസ്റ്റിക് വിഷ്വൽ വേൾഡ് സ്റ്റേജ് (ലക്വറി ഗ്ലാസ് കാർഡ് ഡിസൈൻ) --- */
         .story-stage {
             width: 100%; min-height: 290px;
-            background: radial-gradient(circle at bottom, rgba(255,0,127,0.2) 0%, rgba(6,4,12,0.98) 85%);
-            border-radius: 20px; border: 1px solid rgba(255,51,102,0.4);
-            margin: 12px 0; padding: 18px; position: relative;
+            background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(6,4,12,0.98) 85%);
+            border-radius: 20px; border: 1px solid rgba(255,215,0,0.4);
+            margin: 12px 0; padding: 20px; position: relative;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-shadow: inset 0 0 35px rgba(0,0,0,0.95), 0 0 25px rgba(255,51,102,0.25);
+            box-shadow: inset 0 0 35px rgba(0,0,0,0.95), 0 0 25px rgba(255,215,0,0.2);
             overflow: hidden;
         }
 
-        .cinematic-viewport {
-            position: relative; width: 100%; height: 150px; display: flex; align-items: flex-end; justify-content: center; gap: 40px; margin-bottom: 6px;
-        }
-
-        /* റിയലിസ്റ്റിക് സിലൗട്ട് / വെക്റ്റർ സ്റ്റെപ്പ് ആനിമേഷൻ ക്യാരക്ടറുകൾ */
-        .character-box-real {
-            display: flex; align-items: flex-end; justify-content: center; gap: 25px; width: 100%;
+        /* ഓരോ ഒക്കേഷനും അനുയോജ്യമായ പ്രൊഫഷണൽ വിഷ്വൽ കാർഡ് വേൾഡ് */
+        .visual-world-card {
+            width: 100%; padding: 22px 15px; border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,215,0,0.3); backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); margin-bottom: 12px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         
-        .person-element {
-            font-size: 4rem; filter: drop-shadow(0 0 12px rgba(255,215,0,0.6));
-            transition: transform 2s cubic-bezier(0.25, 1, 0.5, 1);
+        .world-title { font-size: 1.15rem; font-weight: 700; color: #ffd700; margin-bottom: 6px; letter-spacing: 0.5px; }
+        .world-subtitle { font-size: 0.82rem; color: #e2e8f0; line-height: 1.4; }
+
+        /* പ്രൊപ്പോസൽ സ്റ്റോറിക്കായുള്ള സ്പെഷ്യൽ ക്യാരക്ടർ ഫ്ലോ */
+        .cinematic-viewport {
+            position: relative; width: 100%; height: 130px; display: flex; align-items: flex-end; justify-content: center; gap: 40px; margin-bottom: 6px;
         }
+        .person-element { font-size: 3.5rem; filter: drop-shadow(0 0 12px rgba(255,215,0,0.6)); transition: transform 2.2s cubic-bezier(0.25, 1, 0.5, 1); }
         .person-boy.walk { transform: translateX(-110px); }
         .person-boy.walk-in { transform: translateX(0); }
-        .person-boy.kneel { transform: translateX(0) translateY(12px) rotate(-15deg); }
-
-        .person-girl {
-            font-size: 4.0rem; filter: drop-shadow(0 0 12px rgba(255,0,127,0.6));
-            animation: girlBreath 2s infinite ease-in-out;
-        }
-        @keyframes girlBreath { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        .person-boy.kneel { transform: translateX(0) translateY(10px) rotate(-15deg); }
+        .person-girl { font-size: 3.5rem; filter: drop-shadow(0 0 12px rgba(255,0,127,0.6)); }
         .person-girl.happy { animation: girlJump 0.5s infinite alternate ease-in-out; }
-        @keyframes girlJump { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-12px) scale(1.1); filter: drop-shadow(0 0 20px #ff007f); } }
+        @keyframes girlJump { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-10px) scale(1.1); } }
 
         .ring-box-element {
-            position: absolute; bottom: 25px; left: 47%; transform: translateX(-50%) scale(0); font-size: 2.2rem;
+            position: absolute; bottom: 20px; left: 47%; transform: translateX(-50%) scale(0); font-size: 2rem;
             transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 0 20px #ffd700); z-index: 10;
         }
         .ring-box-element.open { transform: translateX(-50%) scale(1.3); }
-
-        .neon-emblem-badge {
-            width: 75px; height: 75px; border-radius: 20px;
-            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,0,127,0.2));
-            border: 1px solid #ffd700; display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; margin-bottom: 12px; box-shadow: 0 0 20px rgba(255,215,0,0.4);
-            animation: badgeGlow 3s infinite ease-in-out;
-        }
-        @keyframes badgeGlow {
-            0%, 100% { transform: translateY(0); box-shadow: 0 0 15px rgba(255,215,0,0.3); }
-            50% { transform: translateY(-5px); box-shadow: 0 0 25px rgba(255,0,127,0.6); }
-        }
 
         .interactive-choice-box {
             display: none; gap: 12px; margin-top: 12px; animation: popIn 0.5s ease-out; z-index: 99;
@@ -531,7 +518,7 @@
             document.body.className = `theme-${currentCategory}-bg`;
         }
 
-        // --- 💍 REALISTIC PROPOSAL STORYLINE ---
+        // --- 💍 PROPOSAL STORYLINE ---
         let isStoryActive = false;
 
         function playProposalStory() {
@@ -586,67 +573,71 @@
             }, 2200);
         }
 
-        // --- 🎂 മറ്റ് കാറ്റഗറികൾക്കായുള്ള സ്റ്റോറികൾ ---
+        // --- 🌟 ഓരോ ഒക്കേഷനും അനുയോജ്യമായ റിയലിസ്റ്റിക് വിഷ്വൽ വേൾഡ് സ്റ്റോറികൾ ---
         function playWeddingStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "💒 Exchanging sacred vows and rings for a blessed lifetime together! ✨";
+            caption.innerText = "💒 Elegant venue view, soft petals falling, and eternal vows exchanged...";
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
-                caption.innerText = "🔔 Wishing you eternal love, laughter, and happiness! 💍";
+                caption.innerText = "✨ Wishing you a lifetime of shared love, laughter, and grace! 💍";
                 launchGrandFireworks();
             }, 2500);
         }
 
         function playAnniversaryStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🥂 Celebrating wonderful years of togetherness and romantic waltz... 💖";
+            caption.innerText = "💞 Golden memories lighting up as romantic golden particles surround the couple...";
             shower3DRedRoses();
             fireExtremeDualPoppers();
             setTimeout(() => {
-                caption.innerText = "✨ Happy Wedding Anniversary! True love never ends! 🥂💫";
+                caption.innerText = "✨ Happy Anniversary! Cherishing every beautiful moment together. 🥂";
                 launchGrandFireworks();
             }, 2500);
         }
 
         function playGraduationStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🎓 Receiving the honor certificate and tossing caps into the sky! 🌟";
+            caption.innerText = "🎓 University auditorium stage under bright spotlights, diploma in hand...";
             fireExtremeDualPoppers();
             setTimeout(() => {
-                caption.innerText = "🏆 Congratulations on Graduation! The world awaits you! ✨";
+                caption.innerText = "🌟 Congratulations on your remarkable academic milestone! ✨";
                 launchGrandFireworks();
             }, 2500);
         }
 
         function playBabyStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "👶 Welcoming the little bundle of joy with pastel balloons & smiles! 🎈";
+            caption.innerText = "👶 Soft nursery lights under a gentle moon and starry night sky...";
             release3DPastelBalloons();
             setTimeout(() => {
-                caption.innerText = "✨ A tiny angel has brought infinite sunshine to your home! 🌟";
+                caption.innerText = "✨ Welcome little angel, bringing boundless warmth and joy! 🌟";
                 launchGrandFireworks();
             }, 2500);
         }
 
         function playBirthdayStory() {
             const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🎂 Glowing candles, making a grand wish, and cutting the delicious cake! 🎉";
+            caption.innerText = "🎂 Luxury birthday stage reveal with glowing candles and grand confetti...";
             fireExtremeDualPoppers();
             setTimeout(() => {
-                caption.innerText = "🎈 Happy Birthday! May all your dreams come true today! ✨";
+                caption.innerText = "🎉 Wishing you the most magnificent and joyful birthday ever! ✨";
                 launchGrandFireworks();
             }, 2500);
         }
 
-        // --- കാറ്റഗറി അനുസരിച്ച് സ്റ്റേജ് റെൻഡർ ചെയ്യൽ ---
+        // --- കാറ്റഗറി അനുസരിച്ച് വിഷ്വൽ വേൾഡ് റെൻഡർ ചെയ്യൽ ---
         function renderCategoryActions() {
             let container = document.getElementById('primaryActionButtons');
             let stage = document.getElementById('storyStageContainer');
 
             if (currentCategory === 'Proposal') {
                 stage.innerHTML = `
-                    <div class="character-box-real">
+                    <div class="visual-world-card">
+                        <div class="world-title">Sunset & Cinematic Light</div>
+                        <div class="world-subtitle">Ring reveal under romantic golden hour glow</div>
+                    </div>
+                    <div class="cinematic-viewport">
                         <div id="storyBoy" class="person-element person-boy walk">🤵</div>
                         <div id="storyRingBox" class="ring-box-element">💍</div>
                         <div id="storyGirl" class="person-element person-girl">👰</div>
@@ -663,8 +654,11 @@
                 `;
             } else if (currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
-                    <div class="neon-emblem-badge">💒</div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Wedding Story' to begin the celebration!</div>
+                    <div class="visual-world-card">
+                        <div class="world-title">Elegant Wedding Venue</div>
+                        <div class="world-subtitle">Soft rose petals, golden rings, and glowing couple aura</div>
+                    </div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Wedding Story' to experience the magic!</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" style="background:linear-gradient(45deg,#00f2fe,#4facfe); font-size:0.9rem; color:#000;" onclick="playWeddingStory()">${getTranslation(currentLang, 'btnWeddingStory')}</button>
@@ -672,7 +666,10 @@
                 `;
             } else if (currentCategory === 'Wedding') {
                 stage.innerHTML = `
-                    <div class="neon-emblem-badge">🥂</div>
+                    <div class="visual-world-card">
+                        <div class="world-title">Anniversary Memory Lane</div>
+                        <div class="world-subtitle">Precious photographs floating through golden dust particles</div>
+                    </div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'Wedding Anniversary Story' to begin!</div>
                 `;
                 container.innerHTML = `
@@ -681,7 +678,10 @@
                 `;
             } else if (currentCategory === 'Graduation') {
                 stage.innerHTML = `
-                    <div class="neon-emblem-badge">🎓</div>
+                    <div class="visual-world-card">
+                        <div class="world-title">University Spotlight Stage</div>
+                        <div class="world-subtitle">Prestigious diploma presentation under bright spotlights</div>
+                    </div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'Graduation Story' to begin!</div>
                 `;
                 container.innerHTML = `
@@ -689,7 +689,10 @@
                 `;
             } else if (currentCategory === 'NewBorn') {
                 stage.innerHTML = `
-                    <div class="neon-emblem-badge">👶</div>
+                    <div class="visual-world-card">
+                        <div class="world-title">Soft Nursery & Starlit Sky</div>
+                        <div class="world-subtitle">Warm soothing light, twinkling stars, and gentle moon glow</div>
+                    </div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'Baby Born Story' to begin!</div>
                 `;
                 container.innerHTML = `
@@ -698,7 +701,10 @@
             } else {
                 // Birthday
                 stage.innerHTML = `
-                    <div class="neon-emblem-badge">🎂</div>
+                    <div class="visual-world-card">
+                        <div class="world-title">Luxury Birthday Stage</div>
+                        <div class="world-subtitle">Gלowing candles, multi-tier cake reveal, and dazzling confetti</div>
+                    </div>
                     <div class="story-caption" id="storyCaptionText">✨ Tap 'Birthday Cake Story' to begin!</div>
                 `;
                 container.innerHTML = `
