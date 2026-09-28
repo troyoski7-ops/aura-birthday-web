@@ -2,488 +2,436 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ Aura Global Luxury Celebrations ✨</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Aura Celebrations - Ultimate Edition</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        /* CSS Reset and Variables */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #1a0b2e, #0d0614);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 215, 0, 0.3);
+            --gold: #ffd700;
+            --text-light: #ffffff;
+            --text-muted: #ccc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         body {
-            background: radial-gradient(circle at center, #130f23 0%, #030207 100%);
-            color: #fff;
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #0d0614;
+            color: var(--text-light);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 15px;
-            text-align: center;
-            overflow-y: auto;
-            position: relative;
-            transition: background 0.8s ease-in-out;
+            padding: 20px;
+            overflow-x: hidden;
         }
-
-        #liveBgCanvas, #effectsCanvas {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;
-        }
-        #liveBgCanvas { z-index: 0; }
-        #effectsCanvas { z-index: 99999; }
-
-        .top-bar { width: 100%; max-width: 380px; display: flex; justify-content: flex-end; margin-bottom: 10px; z-index: 10; }
-        .lang-select {
-            background: rgba(255, 215, 0, 0.12); border: 1px solid rgba(255, 215, 0, 0.35); color: #ffd700;
-            padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; outline: none; backdrop-filter: blur(8px);
-        }
-        .lang-select option { background: #130f23; color: #fff; }
 
         .container {
-            width: 100%; max-width: 380px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 24px; padding: 18px; backdrop-filter: blur(16px); box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-            margin-bottom: 14px; position: relative; z-index: 2;
+            width: 100%;
+            max-width: 440px;
+            background: var(--bg-gradient);
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border-color);
+            max-height: 95vh;
+            overflow-y: auto;
+            position: relative;
         }
 
-        .header-box-base { border-radius: 20px; padding: 18px 14px; margin-bottom: 14px; transition: all 0.5s ease-in-out; }
-        
-        body.theme-Birthday-bg { background: radial-gradient(circle at center, #2b1235 0%, #040106 100%); }
-        .theme-Birthday { background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,0,127,0.2)); border: 1px solid #ffd700; box-shadow: 0 0 25px rgba(255,215,0,0.3); }
-
-        body.theme-HouseWarming-bg { background: radial-gradient(circle at center, #1b382b 0%, #020604 100%); }
-        .theme-HouseWarming { background: linear-gradient(135deg, rgba(0,255,150,0.2), rgba(255,215,0,0.2)); border: 1px solid #00ffaa; box-shadow: 0 0 30px rgba(0,255,150,0.4); }
-
-        body.theme-Festival-bg { background: radial-gradient(circle at center, #43114a 0%, #09010a 100%); }
-        .theme-Festival { background: linear-gradient(135deg, rgba(255,100,0,0.3), rgba(255,215,0,0.25)); border: 1px solid #ff7700; box-shadow: 0 0 35px rgba(255,119,0,0.5); }
-
-        body.theme-WeddingWish-bg, body.theme-Wedding-bg { background: radial-gradient(circle at center, #092032 0%, #010407 100%); }
-        .theme-WeddingWish, .theme-Wedding { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(255,215,0,0.15)); border: 1px solid #00f2fe; box-shadow: 0 0 30px rgba(0,242,254,0.4); }
-
-        body.theme-Graduation-bg { background: radial-gradient(circle at center, #062b25 0%, #010504 100%); }
-        .theme-Graduation { background: linear-gradient(135deg, rgba(0,255,150,0.15), rgba(0,242,254,0.2)); border: 1px solid #00ffaa; box-shadow: 0 0 30px rgba(0,255,150,0.4); }
-
-        body.theme-NewBorn-bg { background: radial-gradient(circle at center, #2d1326 0%, #050104 100%); }
-        .theme-NewBorn { background: linear-gradient(135deg, rgba(255,182,193,0.25), rgba(173,216,230,0.25)); border: 1px solid #ffb6c1; box-shadow: 0 0 30px rgba(255,182,193,0.5); }
-
-        .category-title-text { font-size: 1.35rem; font-weight: 800; line-height: 1.4; letter-spacing: 0.5px; color: #ffd700; }
-
-        .details-box {
-            background: rgba(255, 215, 0, 0.04); border: 1px dashed rgba(255, 215, 0, 0.3); border-radius: 14px;
-            padding: 10px; margin-bottom: 12px; font-size: 0.85rem; color: #f8fafc;
+        /* Scrollbar Styling */
+        .container::-webkit-scrollbar {
+            width: 5px;
         }
-        .details-box span { color: #ffd700; font-weight: 600; }
-
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
-        .stat-card { background: rgba(255, 215, 0, 0.04); border: 1px solid rgba(255, 215, 0, 0.15); border-radius: 12px; padding: 8px; text-align: center; }
-        .stat-card .num { font-size: 1rem; font-weight: bold; color: #ffd700; }
-        .stat-card .label { font-size: 0.7rem; color: #cbd5e1; margin-top: 2px; }
-
-        #giftSection { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 10px; cursor: pointer; }
-        .gift-box { font-size: 5.5rem; cursor: pointer; animation: bounceGift 1.3s infinite ease-in-out; transition: transform 0.3s; user-select: none; }
-        @keyframes bounceGift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-
-        .scratch-container {
-            position: relative; width: 100%; height: 240px; border-radius: 16px; overflow: hidden;
-            background: linear-gradient(135deg, #22223b, #111122); border: 1px solid rgba(255, 215, 0, 0.3); color: #fff; margin: 8px auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;
+        .container::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 10px;
         }
-        canvas#scratchCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; touch-action: none; z-index: 2; }
-        
-        .hidden-content { width: 100%; height: 100%; overflow-y: auto; padding: 10px; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
-        .hidden-content h3 { color: #ffd700; margin-bottom: 6px; font-size: 1rem; }
-        .hidden-content p { color: #e2e8f0; font-size: 0.85rem; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; }
 
-        .single-photo-box { width: 100%; max-height: 240px; border-radius: 14px; overflow: hidden; margin-bottom: 10px; background: #000; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 215, 0, 0.3); }
-        .single-photo-box img { width: 100%; max-height: 230px; object-fit: contain; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
 
-        .media-box video { width: 100%; max-height: 280px; border-radius: 12px; background: #000; margin-bottom: 6px; }
-        .media-box audio { width: 100%; margin-top: 6px; border-radius: 10px; margin-bottom: 8px; height: 36px; }
+        .header-icon {
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: 0.3s;
+        }
+        .header-icon:hover {
+            color: var(--gold);
+        }
 
-        .story-stage {
-            width: 100%; min-height: 280px;
-            background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(6,4,12,0.98) 85%);
-            border-radius: 20px; border: 1px solid rgba(255,215,0,0.4);
-            margin: 12px 0; padding: 20px; position: relative;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-shadow: inset 0 0 35px rgba(0,0,0,0.95), 0 0 25px rgba(255,215,0,0.2);
+        .title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #f3e7ff;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .greeting {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 8px;
+            text-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .story-text {
+            font-size: 0.9rem;
+            color: #e0d0f0;
+            line-height: 1.6;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 3px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .scratch-section-title {
+            font-size: 0.9rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .scratch-area {
+            background: linear-gradient(135deg, #b0bec5, #78909c, #455a64);
+            height: 130px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #1a202c;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            cursor: pointer;
+            position: relative;
             overflow: hidden;
+            text-align: center;
+            padding: 15px;
+            box-shadow: inset 0 3px 8px rgba(0,0,0,0.4), 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.5s ease;
+            border: 2px dashed rgba(255, 255, 255, 0.4);
         }
 
-        .stage-icon { font-size: 4.5rem; margin-bottom: 8px; animation: floatEffect 2s infinite alternate ease-in-out; }
-        @keyframes floatEffect { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+        .scratch-area:hover {
+            transform: translateY(-2px);
+            box-shadow: inset 0 3px 8px rgba(0,0,0,0.4), 0 8px 20px rgba(0,0,0,0.4);
+        }
 
-        .story-caption { font-size: 0.9rem; color: #ffd700; margin-top: 8px; font-weight: 600; min-height: 28px; }
+        .stage {
+            background: #000000;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 0 15px rgba(255, 215, 0, 0.1);
+        }
 
-        .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
+        .stage-heading {
+            font-size: 1.05rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        #stageContent {
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+            animation: pulseIcon 2s infinite;
+        }
+
+        @keyframes pulseIcon {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        #stageText {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
         .btn {
-            background: linear-gradient(45deg, #ffd700, #ffaa00); color: #130f23; border: none; padding: 10px 18px; font-size: 0.82rem;
-            border-radius: 22px; cursor: pointer; font-weight: 700; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); transition: all 0.2s;
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .btn:active { transform: scale(0.95); }
 
-        .locked-screen { display: none; padding: 30px 15px; }
-        .timer-digits { font-size: 1.4rem; color: #ffd700; font-weight: bold; margin: 12px 0; }
+        .btn-cake { background: linear-gradient(45deg, #ff9966, #ff5e62); color: white; }
+        .btn-popper { background: linear-gradient(45deg, #f7ff00, #db36a4); color: white; }
+        .btn-love { background: linear-gradient(45deg, #ff416c, #ff4b2b); color: white; }
+        .btn-fireworks { background: linear-gradient(45deg, #00c6ff, #0072ff); color: white; }
+
+        .btn:hover {
+            opacity: 0.95;
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        .btn:active {
+            transform: translateY(1px) scale(0.99);
+        }
+
+        /* Footer Credit */
+        .footer-credit {
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
 
-    <canvas id="liveBgCanvas"></canvas>
-    <canvas id="effectsCanvas"></canvas>
-
-    <div class="top-bar">
-        <select id="langSwitcher" class="lang-select" onchange="changeLanguage(this.value)">
-            <option value="en">English</option>
-            <option value="ml">മലയാളം</option>
-            <option value="ru">Русский</option>
-            <option value="fa">فارسی</option>
-            <option value="it">Italiano</option>
-            <option value="id">Bahasa Indonesia</option>
-            <option value="uz">Oʻzbekcha</option>
-            <option value="tg">Тоҷикӣ</option>
-            <option value="az">Azərbaycan</option>
-            <option value="my">မြန်မာ</option>
-            <option value="zh">中文</option>
-        </select>
-    </div>
-
-    <div id="lockSection" class="container locked-screen">
-        <h2 id="lockTitle">⏳ Portal Locked!</h2>
-        <p style="color: #cbd5e1; font-size: 0.85rem; margin-top: 4px;">This exclusive surprise opens on:</p>
-        <p id="targetTimeDisplay" style="color: #ffd700; font-weight: bold; margin: 6px 0; font-size: 1rem;"></p>
-        <div class="timer-digits" id="countdownTimer">Loading countdown...</div>
-    </div>
-
-    <div id="giftSection" class="container" onclick="openGift()">
-        <h2 style="font-size: 1.2rem;">🎁 Tap the Gift Box to Unwrap!</h2>
-        <div class="gift-box">🎁</div>
-        <p style="font-size: 0.8rem; color: #cbd5e1; margin-top: 8px;">Tap anywhere to reveal your special surprise...</p>
-    </div>
-
-    <div id="mainContent" style="display: none; width: 100%; max-width: 380px;">
-
-        <div class="header-box-base" id="royalHeaderContainer">
-            <h1 class="category-title-text" id="royalTitleBox">
-                <span id="mainTitle">Celebration</span>, <span id="recipientName">Friend</span>! ✨
-            </h1>
-        </div>
-        
-        <div class="details-box" id="infoBox">
-            <div>📅 Target Time: <span id="displayDate">-</span></div>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <span class="header-icon" title="Close">❌</span>
+            <span class="title" id="appTitle">Aura Celebrations</span>
+            <span class="header-icon" title="Menu">⋮</span>
         </div>
 
-        <div class="container" style="padding: 12px;" id="statsContainer">
-            <h4 style="color: #ffd700; font-size: 0.9rem; margin-bottom: 6px;">⏳ Journey Statistics</h4>
-            <div class="stats-grid">
-                <div class="stat-card"><div class="num" id="statDays">-</div><div class="label">Days</div></div>
-                <div class="stat-card"><div class="num" id="statHours">-</div><div class="label">Hours</div></div>
+        <!-- Main Greeting & Story Card -->
+        <div class="card">
+            <div class="greeting" id="mainGreeting">✨ Loading... ✨</div>
+            <div class="story-text" id="mainStory">Please wait while we load your special celebration details...</div>
+        </div>
+
+        <!-- Statistics Block -->
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-num" id="stat1Num">-</div>
+                <div class="stat-label" id="stat1Label">-</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num" id="stat2Num">-</div>
+                <div class="stat-label" id="stat2Label">-</div>
             </div>
         </div>
 
-        <p style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 8px;">👇 Scratch the card below to reveal your surprise!</p>
-
-        <div class="container">
-            <div class="scratch-container">
-                <div class="hidden-content">
-                    <h3 style="color: #ffd700; margin-bottom: 6px;">🎉 SPECIAL SURPRISE 🎁</h3>
-                    <p id="wishMessage">Wishing you an extraordinary day!</p>
-                </div>
-                <canvas id="scratchCanvas"></canvas>
-            </div>
+        <!-- Scratch Card Section -->
+        <div class="scratch-section-title" id="scratchTitle">👇 Scratch the card below to reveal your surprise!</div>
+        <div class="scratch-area" id="scratchCard" onclick="revealSurprise()">
+            ✨ SCRATCH HERE TO UNLOCK SURPRISE ✨
         </div>
 
-        <div class="container" id="mediaSection" style="margin-top: 10px;">
-            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">✨ Celebration Stage</h3>
-            
-            <div id="singlePhotoWrapper" class="single-photo-box" style="display:none;">
-                <img id="singlePhotoImg" src="" alt="Surprise Photo">
-            </div>
-            
-            <div id="mediaContainer" class="media-box"></div>
-            
-            <div class="story-stage" id="storyStageContainer"></div>
-            
-            <div class="btn-group" id="primaryActionButtons" style="margin-top: 10px;"></div>
-            
-            <div class="btn-group" style="margin-top: 8px;">
-                <button class="btn" style="background: linear-gradient(45deg, #ff007f, #ffd700);" onclick="fireExtremeDualPoppers()">🎊 3D Stage Popper</button>
-            </div>
-            <div class="btn-group">
-                <button class="btn" style="background: linear-gradient(45deg, #ff3366, #ff6b81); color: #fff;" onclick="send3DLoveHearts()">❤️ Send Love</button>
-                <button class="btn" style="background: linear-gradient(45deg, #00ffcc, #00b894);" onclick="launchGrandFireworks()">🎆 Grand Fireworks</button>
-            </div>
+        <!-- Celebration Stage -->
+        <div class="stage">
+            <div class="stage-heading" id="stageTitleHeading">✨ Celebration Stage ✨</div>
+            <div id="stageContent">✨</div>
+            <div id="stageText">Interact with the buttons below to start the celebration!</div>
         </div>
+
+        <!-- Action Control Buttons -->
+        <div class="btn-group">
+            <button class="btn btn-cake" onclick="triggerAction('primary')" id="btn1">Action 1</button>
+            <button class="btn btn-popper" onclick="triggerAction('popper')" id="btn2">Action 2</button>
+            <button class="btn btn-love" onclick="triggerAction('love')" id="btn3">Action 3</button>
+            <button class="btn btn-fireworks" onclick="triggerAction('fireworks')" id="btn4">Action 4</button>
+        </div>
+
+        <div class="footer-credit">AURA PLATFORM • AUTOMATED ENGINE v4.2</div>
     </div>
 
     <script>
-        const BOT_API_URL = "https://aura-birthday-bot-production-3f7a.up.railway.app";
-
-        const bgCanvas = document.getElementById('liveBgCanvas');
-        const bgCtx = bgCanvas.getContext('2d');
-        let particles = [];
-        for (let i = 0; i < 40; i++) {
-            particles.push({
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                radius: Math.random() * 2 + 0.5,
-                alpha: Math.random() * 0.7 + 0.2,
-                speedY: Math.random() * 0.4 + 0.1,
-                color: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff'][Math.floor(Math.random() * 4)]
-            });
-        }
-        function animateCanvas() {
-            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-            particles.forEach(p => {
-                p.y -= p.speedY;
-                if (p.y < 0) p.y = bgCanvas.height;
-                bgCtx.beginPath();
-                bgCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                bgCtx.fillStyle = p.color;
-                bgCtx.globalAlpha = p.alpha;
-                bgCtx.fill();
-            });
-            requestAnimationFrame(animateCanvas);
-        }
-        window.addEventListener('resize', () => { bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; });
-        bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight;
-        animateCanvas();
-
-        let currentLang = 'en';
-        let currentCategory = 'Birthday';
-
-        const categoryTitles = {
-            'Birthday': "🎂 Happy Birthday",
-            'HouseWarming': "🪔 House Warming",
-            'Festival': "🎆 Festival Celebration",
-            'WeddingWish': "💒 Wedding Celebration",
-            'Wedding': "💍 Wedding Anniversary",
-            'Graduation': "🎓 Graduation Success",
-            'NewBorn': "👶 Baby New Born",
-            'Morning': "🌅 Good Morning",
-            'Night': "🌙 Good Night",
-            'Other': "✨ Special Celebration"
+        /* Comprehensive Master Database for all Occasions with Full Content */
+        const celebrationDatabase = {
+            anniversary: {
+                title: "Aura Anniversary",
+                greeting: "💍 Happy Wedding Anniversary! ✨",
+                story: "\"കൈകോർത്തുപിടിച്ച ഈ ജീവിതയാത്രയിൽ സ്നേഹത്തിന്റെയും സന്തോഷത്തിന്റെയും മനോഹരമായ വർഷങ്ങൾ പിന്നിടുന്നു. ഓരോ നിമിഷവും ഒരു പുത്തൻ കാവ്യമാണ്...\"",
+                stat1Num: "7,300", stat1Label: "Days Together",
+                stat2Num: "175,200", stat2Label: "Hours of Love",
+                scratchHidden: "🎉 Surprise: Wishing you both endless love, absolute harmony, and a lifetime of wonderful togetherness! 💕",
+                stageIcon: "🥂", stageMsg: "Celebrate Our Magical Anniversary Journey!",
+                btn1: "🎂 Cut Anniversary Cake", btn2: "🎉 3D Stage Popper", btn3: "❤️ Send Love", btn4: "🎆 Grand Fireworks"
+            },
+            proposal: {
+                title: "Aura Proposal",
+                greeting: "💖 A Special Proposal ✨",
+                story: "\"എന്റെ ജീവിതത്തിലെ ഏറ്റവും അമൂല്യമായ നിമിഷം നിന്നോടൊപ്പം പങ്കുവെക്കാൻ ഞാൻ ആഗ്രഹിക്കുന്നു. എന്റെ എല്ലാമെല്ലാമായ നിനക്ക് മുന്നിൽ...\"",
+                stat1Num: "1", stat1Label: "True Love",
+                stat2Num: "Forever", stat2Label: "With You",
+                scratchHidden: "💍 \"Will you walk by my side through every chapter, storm, and joy of this lifetime? Say yes!\" ❤️",
+                stageIcon: "🌹", stageMsg: "A Moment That Changes Everything Forever!",
+                btn1: "💍 Say Yes", btn2: "🎉 Romantic Popper", btn3: "❤️ Send Proposal Hug", btn4: "🎆 Fireworks of Love"
+            },
+            wedding: {
+                title: "Aura Wedding Wish",
+                greeting: "💐 Happy Wedding Day! ✨",
+                story: "\"പുതിയൊരു സ്വപ്നത്തിലേക്ക്, പുതിയൊരു ജീവിതത്തിലേക്ക് ചുവടുവെക്കുന്ന പ്രിയപ്പെട്ടവർക്ക് സ്നേഹത്തിന്റെയും ഐശ്വര്യത്തിന്റെയും നിറഞ്ഞ ആശംസകൾ...\"",
+                stat1Num: "New", stat1Label: "Beginning",
+                stat2Num: "100%", stat2Label: "Blessings",
+                scratchHidden: "💐 Wishing you a wonderful, prosperous, and joyful married life filled with endless grace and mutual understanding! ✨",
+                stageIcon: "💒", stageMsg: "Wedding Bells & Divine Blessings!",
+                btn1: "🍰 Sweet Treat", btn2: "🎉 Flower Popper", btn3: "❤️ Send Blessings", btn4: "🎆 Celebration Fireworks"
+            },
+            baby: {
+                title: "Aura Newborn",
+                greeting: "👶 Welcome Little One! ✨",
+                story: "\"ഞങ്ങളുടെ കുടുംബത്തിലേക്ക് സ്നേഹത്തിന്റെ പുത്തൻ പൂഞ്ചിരിയായി, കുഞ്ഞിക്കാലടികളുമായി എത്തിച്ചേർന്ന പൊന്നോമനയ്ക്ക് ഹൃദ്യമായ സ്വാഗതം...\"",
+                stat1Num: "1", stat1Label: "Sweet Baby",
+                stat2Num: "Infinite", stat2Label: "Smiles",
+                scratchHidden: "🍼 May your little angel bring boundless joy, sunshine, and divine blessings to your entire household! 🌟",
+                stageIcon: "🧸", stageMsg: "Newborn Joy, Laughter & Cuddles!",
+                btn1: "🍼 Feed & Care", btn2: "🎉 Baby Popper", btn3: "❤️ Send Cuddles", btn4: "🎆 Welcome Fireworks"
+            },
+            housewarming: {
+                title: "Aura House Warming",
+                greeting: "🏡 Happy House Warming! ✨",
+                story: "\"സ്വപ്നങ്ങളുടെ പുതിയ ഭവനത്തിലേക്ക് സ്വാഗതം. ഈ സ്നേഹവീട്ടിൽ സമാധാനവും ഐശ്വര്യവും സമൃദ്ധിയും എന്നും നിറഞ്ഞുനിൽക്കട്ടെ...\"",
+                stat1Num: "1st", stat1Label: "Dream Home",
+                stat2Num: "Endless", stat2Label: "Memories",
+                scratchHidden: "🏡 May this new house transform into a warm, safe, highly blessed, and joyous permanent home! 🔑",
+                stageIcon: "🗝️", stageMsg: "Opening Doors to Infinite Happiness!",
+                btn1: "🥮 Housewarming Sweets", btn2: "🎉 Door Popper", btn3: "❤️ Warm Wishes", btn4: "🎆 Festive Fireworks"
+            },
+            graduation: {
+                title: "Aura Graduation",
+                greeting: "🎓 Happy Graduation! ✨",
+                story: "\"കഠിനാധ്വാനത്തിന്റെയും സമർപ്പണത്തിന്റെയും വിജയം നേടിയെടുത്ത തിളക്കമാർന്ന നിമിഷം. ഭാവിയിലേക്കുള്ള കരിയർ യാത്രയിൽ വലിയ വിജയങ്ങൾ ആശംസിക്കുന്നു...\"",
+                stat1Num: "Years", stat1Label: "of Hard Work",
+                stat2Num: "Bright", stat2Label: "Future",
+                scratchHidden: "🎓 Congratulations on your massive success! Go forth and conquer your highest dreams with absolute confidence! 🌟",
+                stageIcon: "📜", stageMsg: "Success & Achievement Unlocked Successfully!",
+                btn1: "🎓 Cap Toss", btn2: "🎉 Success Popper", btn3: "❤️ Proud Moments", btn4: "🎆 Victory Fireworks"
+            }
         };
 
-        function changeLanguage(lang) {
-            currentLang = lang;
-            applyThemeSettings();
+        // Automatic URL Parsing from Telegram Bot Link (e.g., ?type=proposal)
+        const urlParams = new URLSearchParams(window.location.search);
+        let activeType = urlParams.get('type') || 'anniversary';
+
+        if (!celebrationDatabase[activeType]) {
+            activeType = 'anniversary'; // Fallback to anniversary if param is invalid
         }
 
-        function applyThemeSettings() {
-            let catKey = currentCategory.trim();
-            let themeKey = 'Birthday';
-            let titleText = "Celebration";
-            let stageIcon = "🎂";
-            let stageDesc = "Happy Birthday Cake Celebration!";
-            let btnText = "Cut Cake";
+        const currentData = celebrationDatabase[activeType];
+        let isCardRevealed = false;
 
-            if (catKey.toLowerCase().includes('house') || catKey.toLowerCase().includes('warming')) {
-                themeKey = 'HouseWarming';
-                titleText = "House Warming";
-                stageIcon = "🪔";
-                stageDesc = "Traditional Oil Lamp - Prosperity & Warmth";
-                btnText = "Light Oil Lamp";
-            } else if (catKey.toLowerCase().includes('festival')) {
-                themeKey = 'Festival';
-                titleText = "Festival Celebration";
-                stageIcon = "🎆";
-                stageDesc = "Vibrant lights and festive celebrations!";
-                btnText = "Festival Lights";
-            } else if (catKey.toLowerCase().includes('wedding') || catKey.toLowerCase().includes('anniversary')) {
-                themeKey = 'WeddingWish';
-                titleText = "Wedding Celebration";
-                stageIcon = "👰💖🤵";
-                stageDesc = "Wishing a lifetime of love and joy in wedding attire!";
-                btnText = "Celebrate Wedding";
-            } else if (catKey.toLowerCase().includes('graduation')) {
-                themeKey = 'Graduation';
-                titleText = "Graduation Success";
-                stageIcon = "🎓";
-                stageDesc = "Congratulations on your academic milestone!";
-                btnText = "Celebrate Success";
-            } else if (catKey.toLowerCase().includes('born') || catKey.toLowerCase().includes('baby')) {
-                themeKey = 'NewBorn';
-                titleText = "Baby New Born";
-                stageIcon = "👶🧺🍼";
-                stageDesc = "Welcome little angel sleeping peacefully in the cradle!";
-                btnText = "Welcome Baby";
-            } else {
-                themeKey = 'Birthday';
-                titleText = categoryTitles[currentCategory] || "Happy Birthday";
-                stageIcon = "🎂";
-                stageDesc = "Happy Birthday Cake Celebration!";
-                btnText = "Cut Cake";
-            }
+        // Render Data Automatically to DOM Elements
+        document.getElementById('pageTitle').innerText = currentData.title;
+        document.getElementById('appTitle').innerText = currentData.title;
+        document.getElementById('mainGreeting').innerText = currentData.greeting;
+        document.getElementById('mainStory').innerText = currentData.story;
+        document.getElementById('stat1Num').innerText = currentData.stat1Num;
+        document.getElementById('stat1Label').innerText = currentData.stat1Label;
+        document.getElementById('stat2Num').innerText = currentData.stat2Num;
+        document.getElementById('stat2Label').innerText = currentData.stat2Label;
+        document.getElementById('stageContent').innerText = currentData.stageIcon;
+        document.getElementById('stageText').innerText = currentData.stageMsg;
 
-            document.body.className = `theme-${themeKey}-bg`;
-            document.getElementById('royalHeaderContainer').className = `header-box-base theme-${themeKey}`;
-            document.getElementById('mainTitle').innerText = titleText;
+        document.getElementById('btn1').innerText = currentData.btn1;
+        document.getElementById('btn2').innerText = currentData.btn2;
+        document.getElementById('btn3').innerText = currentData.btn3;
+        document.getElementById('btn4').innerText = currentData.btn4;
 
-            document.getElementById('storyStageContainer').innerHTML = `
-                <div class="stage-icon">${stageIcon}</div>
-                <div class="story-caption">${stageDesc}</div>
-            `;
-            document.getElementById('primaryActionButtons').innerHTML = `
-                <button class="btn" style="background: linear-gradient(45deg, #ffd700, #ffaa00);" onclick="fireExtremeDualPoppers()">${stageIcon} ${btnText}</button>
-            `;
-        }
-
-        let urlParams = new URLSearchParams(window.location.search);
-        let surpriseId = urlParams.get('id');
-
-        async function loadSurpriseData() {
-            let name = 'Friend', msg = 'Wishing you an extraordinary day!', photoUrl = '', video = '', song = '', voice = '', extraAudio = '', targetTimeStr = '', dobOrAge = '';
-
-            if (surpriseId) {
-                try {
-                    let response = await fetch(`${BOT_API_URL}/api/surprise?id=${surpriseId}`);
-                    if (response.ok) {
-                        let data = await response.json();
-                        name = data.name || name;
-                        msg = data.msg || msg;
-                        currentCategory = data.category || 'Birthday';
-                        targetTimeStr = data.target_time || '';
-                        photoUrl = data.photo || '';
-                        video = data.video || '';
-                        song = data.song || '';
-                        voice = data.voice || '';
-                        extraAudio = data.extra_audio || '';
-                        currentLang = data.lang || 'en';
-                        dobOrAge = data.dob || data.age || '';
-                    }
-                } catch (e) {
-                    console.error("API Error:", e);
-                }
-            }
-
-            document.getElementById('langSwitcher').value = currentLang;
-            applyThemeSettings();
-
-            document.getElementById('recipientName').innerText = name;
-            document.getElementById('wishMessage').innerText = msg;
-            if (targetTimeStr) {
-                document.getElementById('displayDate').innerText = targetTimeStr.replace('T', ' ');
-            }
-
-            calculateLifeStats(dobOrAge);
-
-            if (photoUrl) {
-                let pWrap = document.getElementById('singlePhotoWrapper');
-                pWrap.style.display = 'flex';
-                document.getElementById('singlePhotoImg').src = photoUrl;
-            }
-
-            let mContainer = document.getElementById('mediaContainer');
-            mContainer.innerHTML = '';
-            if (video) mContainer.innerHTML += `<div style="margin-top:10px;"><video controls src="${video}" style="width:100%; border-radius:12px; background:#000;"></video></div>`;
-            if (song) mContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎶 Song / Music</p><audio controls src="${song}" style="width:100%;"></audio></div>`;
-            if (voice) mContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎙️ Voice Greeting</p><audio controls src="${voice}" style="width:100%;"></audio></div>`;
-            if (extraAudio) mContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎵 Extra Audio</p><audio controls src="${extraAudio}" style="width:100%;"></audio></div>`;
-
-            checkTimeLock(targetTimeStr);
-        }
-
-        function calculateLifeStats(dobOrAge) {
-            let diffDays = 20 * 365, diffHours = 20 * 365 * 24;
-            if (dobOrAge) {
-                let strVal = dobOrAge.toString().trim();
-                if (strVal.includes('-')) {
-                    let birthDate = new Date(strVal);
-                    if (!isNaN(birthDate)) {
-                        let diffTime = Math.abs(new Date() - birthDate);
-                        diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                        diffHours = Math.floor(diffTime / (1000 * 60 * 60));
-                    }
-                } else if (!isNaN(strVal)) {
-                    let age = parseInt(strVal);
-                    diffDays = age * 365;
-                    diffHours = age * 365 * 24;
-                }
-            }
-            document.getElementById('statDays').innerText = diffDays.toLocaleString();
-            document.getElementById('statHours').innerText = diffHours.toLocaleString();
-        }
-
-        function checkTimeLock(targetTimeStr) {
-            let isPreview = urlParams.get('preview') === 'true';
-            if (!targetTimeStr || isPreview) { return; }
-            let targetTime = new Date(targetTimeStr).getTime();
-            let now = new Date().getTime();
-            let distance = targetTime - now;
-
-            if (distance > 0) {
-                document.getElementById('lockSection').style.display = 'block';
-                document.getElementById('giftSection').style.display = 'none';
-                document.getElementById('targetTimeDisplay').innerText = targetTimeStr.replace('T', ' ');
-                let timerInterval = setInterval(() => {
-                    let dist = targetTime - new Date().getTime();
-                    if (dist <= 0) {
-                        clearInterval(timerInterval);
-                        location.reload();
-                    } else {
-                        let d = Math.floor(dist / (1000 * 60 * 60 * 24));
-                        let h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        let m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-                        let s = Math.floor((dist % (1000 * 60)) / 1000);
-                        document.getElementById('countdownTimer').innerText = `${d}d ${h}h ${m}m ${s}s`;
-                    }
-                }, 1000);
+        // Scratch Card Reveal Logic
+        function revealSurprise() {
+            const card = document.getElementById('scratchCard');
+            if (!isCardRevealed) {
+                card.style.background = 'linear-gradient(135deg, #ff758c, #ff7eb3, #ff5e62)';
+                card.style.color = '#ffffff';
+                card.style.border = '2px solid #ffd700';
+                card.innerHTML = currentData.scratchHidden;
+                isCardRevealed = true;
             }
         }
 
-        function openGift() {
-            confetti({ particleCount: 200, spread: 110, origin: { y: 0.5 } });
-            document.getElementById('giftSection').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'block';
-            setTimeout(initCanvas, 150);
-        }
+        // Dynamic Interactive Stage Trigger Functions
+        function triggerAction(actionType) {
+            const stageContent = document.getElementById('stageContent');
+            const stageText = document.getElementById('stageText');
 
-        function initCanvas() {
-            let canvas = document.getElementById('scratchCanvas');
-            if (!canvas) return;
-            let ctx = canvas.getContext('2d');
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = canvas.parentElement.clientHeight;
-            ctx.fillStyle = '#bdc3c7';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#ffd700';
-            ctx.font = 'bold 15px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText('✨ SCRATCH HERE ✨', canvas.width / 2, canvas.height / 2);
-            
-            let isDrawing = false;
-            canvas.addEventListener('mousedown', () => isDrawing = true);
-            canvas.addEventListener('mousemove', (e) => {
-                if (!isDrawing) return;
-                let rect = canvas.getBoundingClientRect();
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.beginPath();
-                ctx.arc(e.clientX - rect.left, e.clientY - rect.top, 20, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            window.addEventListener('mouseup', () => isDrawing = false);
+            if(actionType === 'primary') {
+                stageContent.innerText = '🎁🎂✨';
+                stageText.innerText = 'Special Primary Celebration Triggered Successfully with Joy!';
+            } else if(actionType === 'popper') {
+                stageContent.innerText = '🎊🎉🎈✨';
+                stageText.innerText = '3D Stage Popper Activated with High-Energy Effects!';
+            } else if(actionType === 'love') {
+                stageContent.innerText = '💖😍🥰❤️';
+                stageText.innerText = 'Warm Wishes, Hugs and Deep Love Sent Successfully!';
+            } else if(actionType === 'fireworks') {
+                stageContent.innerText = '🎆🎇🎆✨';
+                stageText.innerText = 'Grand Spectacular Fireworks Display Lighting Up the Sky!';
+            }
         }
-
-        function fireExtremeDualPoppers() {
-            confetti({ particleCount: 90, angle: 60, spread: 80, origin: { x: 0, y: 0.95 }, colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff'] });
-            confetti({ particleCount: 90, angle: 120, spread: 80, origin: { x: 1, y: 0.95 }, colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff'] });
-        }
-
-        function send3DLoveHearts() {
-            confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 }, colors: ['#ff3366', '#ff6b81', '#ff007f'] });
-        }
-
-        function launchGrandFireworks() {
-            let count = 0;
-            let fireInterval = setInterval(() => {
-                confetti({ particleCount: 120, spread: 100, origin: { x: 0.2 + Math.random() * 0.6, y: 0.2 + Math.random() * 0.4 }, colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff', '#ffaa00'] });
-                count++;
-                if (count >= 4) clearInterval(fireInterval);
-            }, 300);
-        }
-
-        if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.ready();
-            window.Telegram.WebApp.expand();
-        }
-
-        loadSurpriseData();
     </script>
 </body>
 </html>
