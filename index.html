@@ -110,15 +110,15 @@
             overflow: hidden;
         }
 
-        .cinematic-viewport {
-            position: relative; width: 100%; height: 140px; display: flex; align-items: flex-end; justify-content: center; gap: 30px; margin-bottom: 6px;
+        .visual-world-card {
+            width: 100%; padding: 16px; border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,215,0,0.3); backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); margin-bottom: 10px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .person-element { font-size: 3.8rem; filter: drop-shadow(0 0 15px rgba(255,215,0,0.7)); transition: transform 2s ease-in-out; }
-        .couple-dance { animation: coupleMove 2s infinite alternate ease-in-out; }
-        @keyframes coupleMove {
-            0% { transform: translateY(0) rotate(-3deg); }
-            100% { transform: translateY(-12px) rotate(3deg); }
-        }
+        .world-title { font-size: 1.1rem; font-weight: 700; color: #ffd700; margin-bottom: 4px; }
+        .world-subtitle { font-size: 0.78rem; color: #e2e8f0; line-height: 1.3; }
 
         .birthday-cake-stage {
             position: relative; width: 100%; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; margin-bottom: 10px;
@@ -410,7 +410,11 @@
                 giftPrompt: "🎁 Tap the Gift Box to Unwrap!", giftSubPrompt: "Tap anywhere to reveal your special surprise...",
                 targetTimeText: "Target Time", scratchInstruction: "👇 Scratch the card below to reveal your surprise!",
                 surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "✨ Celebration Stage",
-                btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
+                statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
+                openWhenTitle: "💌 Open When...", btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
+                btnBirthdayStory: "🎂 Birthday Cake Story", btnWeddingStory: "💒 Wedding Story",
+                btnAnniversaryStory: "💍 Anniversary Story", btnGraduationStory: "🎓 Graduation Story",
+                btnBabyStory: "👶 Baby Born Story", btnHouseWarmingStory: "🏡 House Warming Story", btnFestivalStory: "🏮 Festival Story",
                 categories: {
                     "Birthday": "🎂 Happy Birthday",
                     "Proposal": "💍 Magical Proposal",
@@ -427,7 +431,11 @@
                 giftPrompt: "🎁 തുറക്കാൻ ഗിഫ്റ്റ് ബോക്സിൽ അമർത്തൂ!", giftSubPrompt: "നിങ്ങളുടെ സർപ്രൈസ് കാണാൻ ടാപ്പ് ചെയ്യൂ...",
                 targetTimeText: "ലഭ്യമാകുന്ന സമയം", scratchInstruction: "👇 സർപ്രൈസ് കാണാൻ താഴെ സ്ക്രാച്ച് ചെയ്യുക!",
                 surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "✨ ആഘോഷ വേദി",
-                btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
+                statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
+                openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
+                btnBirthdayStory: "🎂 കേക്ക് കട്ടിംഗ് സ്റ്റോറി", btnWeddingStory: "💒 വെഡ്ഡിംഗ് സ്റ്റോറി",
+                btnAnniversaryStory: "💍 ആനിവേഴ്സറി സ്റ്റോറി", btnGraduationStory: "🎓 ഗ്രാജുവേഷൻ സ്റ്റോറി",
+                btnBabyStory: "👶 ബേബി ബോൺ സ്റ്റോറി", btnHouseWarmingStory: "🏡 ഗൃഹപ്രവേശ സ്റ്റോറി", btnFestivalStory: "🏮 ഫെസ്റ്റിവൽ സ്റ്റോറി",
                 categories: {
                     "Birthday": "🎂 ജന്മദിനാശംസകൾ",
                     "Proposal": "💍 മാന്ത്രിക പ്രൊപ്പോസൽ",
@@ -475,7 +483,7 @@
         }
 
         function applyTranslations(lang) {
-            ['lockTitle', 'lockSubtitle', 'giftPrompt', 'giftSubPrompt', 'targetTimeText', 'scratchInstruction', 'surpriseHeader', 'celebrationHeader', 'btnPopper', 'btnLove', 'btnFireworks'].forEach(id => {
+            ['lockTitle', 'lockSubtitle', 'giftPrompt', 'giftSubPrompt', 'targetTimeText', 'scratchInstruction', 'surpriseHeader', 'celebrationHeader', 'statsTitle', 'labelDays', 'labelHours', 'openWhenTitle', 'btnPopper', 'btnLove', 'btnFireworks'].forEach(id => {
                 let el = document.getElementById(id);
                 if (el) el.innerText = getTranslation(lang, id);
             });
@@ -488,53 +496,139 @@
             document.body.className = `theme-${themeKey}-bg`;
         }
 
+        function playBirthdayStory() {
+            const flame1 = document.getElementById('candleFlame1');
+            const flame2 = document.getElementById('candleFlame2');
+            const flame3 = document.getElementById('candleFlame3');
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "🎂 Glowing candles are lit... Making a wish! ✨";
+            setTimeout(() => {
+                if (flame1) flame1.classList.add('extinguished');
+                if (flame2) flame2.classList.add('extinguished');
+                if (flame3) flame3.classList.add('extinguished');
+                caption.innerText = "🎉 Candles blown out! Cutting the delicious cake! 🍰";
+                confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+            }, 1800);
+            setTimeout(() => {
+                caption.innerText = "✨ Happy Birthday! Wishing you joy and success! 🎈";
+                launchGrandFireworks();
+            }, 3500);
+        }
+
+        function playWeddingStory() {
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "💒 Romantic background music playing as they walk and dance together... 🎶";
+            shower3DRedRoses();
+            fireExtremeDualPoppers();
+            setTimeout(() => {
+                caption.innerText = "✨ Wishing you a lifetime of shared love and grace! 💍🥂";
+                launchGrandFireworks();
+            }, 2500);
+        }
+
+        function playAnniversaryStory() {
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "💞 Golden memories lighting up as romantic golden dust particles surround the dancing couple...";
+            shower3DRedRoses();
+            fireExtremeDualPoppers();
+            setTimeout(() => {
+                caption.innerText = "✨ Happy Anniversary! Cherishing every beautiful moment together. 🥂💫";
+                launchGrandFireworks();
+            }, 2500);
+        }
+
+        function playGraduationStory() {
+            const caption = document.getElementById('storyCaptionText');
+            let gradIcon = currentGender === 'girl' ? '👩‍🎓' : '👨‍🎓';
+            caption.innerText = `🎓 University auditorium stage under bright spotlights, ${gradIcon} walking proudly with diploma in hand!`;
+            fireExtremeDualPoppers();
+            setTimeout(() => {
+                caption.innerText = "🌟 Congratulations on your remarkable academic milestone! ✨🎓";
+                launchGrandFireworks();
+            }, 2500);
+        }
+
+        function playBabyStory() {
+            const caption = document.getElementById('storyCaptionText');
+            let babyEmoji = currentGender === 'girl' ? '👶🎀' : '👶💙';
+            caption.innerText = `${babyEmoji} Soft nursery lights, gentle music playing under a starry night sky...`;
+            release3DPastelBalloons();
+            setTimeout(() => {
+                caption.innerText = "✨ Welcome little angel, bringing boundless warmth and joy! 🌟👶";
+                launchGrandFireworks();
+            }, 2500);
+        }
+
+        function playHouseWarmingStory() {
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "🏡 Lighting the traditional lamp, welcoming prosperity, love, and light into the new home... ✨";
+            fireExtremeDualPoppers();
+            setTimeout(() => {
+                caption.innerText = "✨ May your new house turn into a blessed and happy home! 🌸";
+                launchGrandFireworks();
+            }, 2500);
+        }
+
         function renderCategoryActions() {
             let container = document.getElementById('primaryActionButtons');
             let stage = document.getElementById('storyStageContainer');
+            let texts = translations[currentLang] || translations['en'];
 
-            if (currentCategory === 'Wedding' || currentCategory === 'WeddingWish') {
+            if (currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
-                    <div class="cinematic-viewport">
-                        <div class="person-element couple-dance">${currentGender === 'girl' ? '👰💖🤵' : '🤵💖👰'}</div>
+                    <div class="visual-world-card">
+                        <div class="world-title">Elegant Wedding Venue</div>
+                        <div class="world-subtitle">Soft rose petals, golden rings, and glowing couple aura</div>
                     </div>
-                    <div class="story-caption">✨ Romantic background music playing as they walk and dance together... 🎶</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap below to experience wedding magic! ✨</div>
                 `;
-                container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#00f2fe,#4facfe); color:#000;" onclick="shower3DRedRoses()">🌹 Shower Red Roses</button>`;
+                container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#00f2fe,#4facfe); color:#000;" onclick="playWeddingStory()">${texts.btnWeddingStory}</button>`;
+            } else if (currentCategory === 'Wedding') {
+                stage.innerHTML = `
+                    <div class="visual-world-card">
+                        <div class="world-title">Anniversary Memory Lane</div>
+                        <div class="world-subtitle">Precious photographs floating through golden dust particles</div>
+                    </div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap below to begin anniversary story! ✨</div>
+                `;
+                container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#ffd700,#ffaa00); color:#000;" onclick="playAnniversaryStory()">${texts.btnAnniversaryStory}</button>`;
+            } else if (currentCategory === 'Graduation') {
+                stage.innerHTML = `
+                    <div class="visual-world-card">
+                        <div class="world-title">University Spotlight Stage</div>
+                        <div class="world-subtitle">Prestigious diploma presentation under bright spotlights</div>
+                    </div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap below to walk the graduation stage! ✨</div>
+                `;
+                container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#00ffaa,#00f2fe); color:#000;" onclick="playGraduationStory()">${texts.btnGraduationStory}</button>`;
+            } else if (currentCategory === 'NewBorn') {
+                stage.innerHTML = `
+                    <div class="visual-world-card">
+                        <div class="world-title">Soft Nursery & Starlit Sky</div>
+                        <div class="world-subtitle">Warm soothing light, twinkling stars, and gentle moon glow</div>
+                    </div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap below to welcome the little angel! ✨</div>
+                `;
+                container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#ff9ff3,#feca57); color:#000;" onclick="playBabyStory()">${texts.btnBabyStory}</button>`;
             } else if (currentCategory === 'HouseWarming') {
                 stage.innerHTML = `
                     <div class="lamp-stage">🪔</div>
-                    <div class="story-caption">🏡 Traditional lamp lighting for prosperity and new beginnings! ✨</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap below to light the traditional lamp! ✨</div>
                 `;
-                container.innerHTML = ``;
-            } else if (currentCategory === 'Graduation') {
-                stage.innerHTML = `
-                    <div class="cinematic-viewport">
-                        <div class="person-element couple-dance">${currentGender === 'girl' ? '👩‍🎓✨' : '👨‍🎓✨'}</div>
-                    </div>
-                    <div class="story-caption">🎓 Walking the stage proudly with diploma in hand! 🌟</div>
-                `;
-                container.innerHTML = ``;
-            } else if (currentCategory === 'NewBorn') {
-                stage.innerHTML = `
-                    <div class="cinematic-viewport">
-                        <div class="person-element couple-dance">${currentGender === 'girl' ? '👶🎀✨' : '👶💙✨'}</div>
-                    </div>
-                    <div class="story-caption">👶 Soft nursery lights and starlit sky welcoming the little angel! 🌟</div>
-                `;
-                container.innerHTML = ``;
+                container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#00ffaa,#ffd700); color:#000;" onclick="playHouseWarmingStory()">${texts.btnHouseWarmingStory}</button>`;
             } else {
                 stage.innerHTML = `
                     <div class="birthday-cake-stage">
                         <div class="cake-body">
                             <div class="cake-top"></div>
-                            <div class="candle c1"><div class="flame"></div></div>
-                            <div class="candle c2"><div class="flame"></div></div>
-                            <div class="candle c3"><div class="flame"></div></div>
+                            <div class="candle c1"><div id="candleFlame1" class="flame"></div></div>
+                            <div class="candle c2"><div id="candleFlame2" class="flame"></div></div>
+                            <div class="candle c3"><div id="candleFlame3" class="flame"></div></div>
                         </div>
                     </div>
-                    <div class="story-caption">🎂 Blow candles & cut the delicious cake! 🎈</div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap below to blow candles & cut cake! ✨</div>
                 `;
-                container.innerHTML = ``;
+                container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700); font-size:0.9rem;" onclick="playBirthdayStory()">${texts.btnBirthdayStory}</button>`;
             }
         }
 
@@ -542,8 +636,29 @@
         let surpriseId = urlParams.get('id');
         let targetTimeStr = '';
 
+        function calculateLifeStats(dobOrAge) {
+            let diffDays = 20 * 365, diffHours = 20 * 365 * 24;
+            if (dobOrAge) {
+                let strVal = dobOrAge.toString().trim();
+                if (strVal.includes('-')) {
+                    let birthDate = new Date(strVal);
+                    if (!isNaN(birthDate)) {
+                        let diffTime = Math.abs(new Date() - birthDate);
+                        diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                        diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+                    }
+                } else if (!isNaN(strVal)) {
+                    let age = parseInt(strVal);
+                    diffDays = age * 365;
+                    diffHours = age * 365 * 24;
+                }
+            }
+            document.getElementById('statDays').innerText = diffDays.toLocaleString();
+            document.getElementById('statHours').innerText = diffHours.toLocaleString();
+        }
+
         async function loadSurpriseData() {
-            let name = 'Friend', msg = 'Wishing you an extraordinary day!', photoUrl = '', video = '', song = '', voice = '', extraAudio = '';
+            let name = 'Friend', msg = 'Wishing you an extraordinary day!', photoUrl = '', video = '', song = '', voice = '', extraAudio = '', dobOrAge = '';
 
             if (surpriseId) {
                 try {
@@ -561,6 +676,7 @@
                         voice = data.voice || '';
                         extraAudio = data.extra_audio || '';
                         currentLang = data.lang || 'en';
+                        dobOrAge = data.dob || data.age || '';
                     }
                 } catch (e) {
                     console.error("API Error:", e);
@@ -573,6 +689,11 @@
 
             document.getElementById('recipientName').innerText = name;
             document.getElementById('wishMessage').innerText = msg;
+            if (targetTimeStr) {
+                document.getElementById('displayDate').innerText = targetTimeStr.replace('T', ' ');
+            }
+
+            calculateLifeStats(dobOrAge);
 
             let photoWrapper = document.getElementById('singlePhotoWrapper');
             let photoImg = document.getElementById('singlePhotoImg');
@@ -732,7 +853,7 @@
             }, 300);
         }
 
-        if (window.Telegram && window.Telegram.WebApp) {
+,       if (window.Telegram && window.Telegram.WebApp) {
             window.Telegram.WebApp.ready();
             window.Telegram.WebApp.expand();
         }
