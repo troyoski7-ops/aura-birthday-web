@@ -107,7 +107,6 @@
 
         .fs-btn { background: rgba(255, 215, 0, 0.15); border: 1px solid #ffd700; color: #ffd700; font-size: 0.75rem; padding: 6px 14px; border-radius: 15px; margin-bottom: 8px; cursor: pointer; font-weight: 600; }
 
-        /* --- 🌟 ലൈവ് ആനിമേഷൻ സ്റ്റേജുകൾ (Realistic Walking/Dancing Characters) --- */
         .story-stage {
             width: 100%; min-height: 290px;
             background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(6,4,12,0.98) 85%);
@@ -123,7 +122,6 @@
         }
         .person-element { font-size: 3.8rem; filter: drop-shadow(0 0 15px rgba(255,215,0,0.7)); transition: transform 2s ease-in-out; }
         
-        /* Wedding & Anniversary Dancing / Walking Animation */
         .couple-dance { animation: coupleMove 2s infinite alternate ease-in-out; }
         @keyframes coupleMove {
             0% { transform: translateY(0) rotate(-3deg); }
@@ -263,34 +261,6 @@
             </h1>
         </div>
         
-        <div class="details-box" id="infoBox">
-            <div>📅 <span id="targetTimeText">Target Time</span>: <span id="displayDate">-</span></div>
-        </div>
-
-        <div class="container" style="padding: 12px;" id="statsContainer">
-            <h4 id="statsTitle" style="color: #ffd700; font-size: 0.9rem; margin-bottom: 6px;">⏳ Journey Statistics</h4>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="num" id="statDays">-</div>
-                    <div class="label" id="labelDays">Days</div>
-                </div>
-                <div class="stat-card">
-                    <div class="num" id="statHours">-</div>
-                    <div class="label" id="labelHours">Hours</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container" style="padding: 12px;" id="openWhenContainer">
-            <h4 id="openWhenTitle" style="color: #ffd700; font-size: 0.9rem; margin-bottom: 6px;">💌 Open When...</h4>
-            <div class="open-when-grid">
-                <button class="envelope-btn" onclick="openEnvelope('sad')">💙 You're Sad</button>
-                <button class="envelope-btn" onclick="openEnvelope('laugh')">😂 Need a Laugh</button>
-                <button class="envelope-btn" onclick="openEnvelope('miss')">🥰 You Miss Me</button>
-                <button class="envelope-btn" onclick="openEnvelope('vibe')">✨ Special Vibe</button>
-            </div>
-        </div>
-
         <p id="scratchInstruction" style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 8px;">👇 Scratch the card below to reveal your surprise!</p>
 
         <div class="container">
@@ -447,8 +417,7 @@
                 giftPrompt: "🎁 Tap the Gift Box to Unwrap!", giftSubPrompt: "Tap anywhere to reveal your special surprise...",
                 targetTimeText: "Target Time", scratchInstruction: "👇 Scratch the card below to reveal your surprise!",
                 surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "✨ Celebration Stage",
-                statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
-                openWhenTitle: "💌 Open When...", btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
+                btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
                 btnProposalStory: "💍 Proposal Story", btnWeddingStory: "💒 Wedding Story",
                 btnAnniversaryStory: "💍 Wedding Anniversary Story", btnGraduationStory: "🎓 Graduation Story",
                 btnBabyStory: "👶 Baby Born Story", btnBirthdayStory: "🎂 Birthday Cake Story",
@@ -487,8 +456,7 @@
                 giftPrompt: "🎁 തുറക്കാൻ ഗിഫ്റ്റ് ബോക്സിൽ അമർത്തൂ!", giftSubPrompt: "നിങ്ങളുടെ സർപ്രൈസ് കാണാൻ ടാപ്പ് ചെയ്യൂ...",
                 targetTimeText: "ലഭ്യമാകുന്ന സമയം", scratchInstruction: "👇 സർപ്രൈസ് കാണാൻ താഴെ സ്ക്രാച്ച് ചെയ്യുക!",
                 surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "✨ ആഘോഷ വേദി",
-                statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
-                openWhenTitle: "💌 ഈ സമയങ്ങളിൽ തുറക്കൂ...", btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
+                btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
                 btnProposalStory: "💍 Proposal Story", btnWeddingStory: "💒 Wedding Story",
                 btnAnniversaryStory: "💍 Wedding Anniversary Story", btnGraduationStory: "🎓 Graduation Story",
                 btnBabyStory: "👶 Baby Born Story", btnBirthdayStory: "🎂 Birthday Cake Story",
@@ -527,8 +495,7 @@
                 giftPrompt: "🎁 Нажмите на коробку!", giftSubPrompt: "Нажмите в любом месте...",
                 targetTimeText: "Время", scratchInstruction: "👇 Сотрите карточку ниже!",
                 surpriseHeader: "🎉 ОСОБЫЙ СЮРПРИЗ 🎁", celebrationHeader: "✨ Праздничная сцена",
-                statsTitle: "⏳ Статистика", labelDays: "Дней", labelHours: "Часов",
-                openWhenTitle: "💌 Открыть, когда...", btnPopper: "🎊 Хлопушка", btnLove: "❤️ Любовь", btnFireworks: "🎆 Фейерверк",
+                btnPopper: "🎊 Хлопушка", btnLove: "❤️ Любовь", btnFireworks: "🎆 Фейерверк",
                 btnProposalStory: "💍 Предложение", btnWeddingStory: "💒 Свадьба",
                 btnAnniversaryStory: "💍 Годовщина", btnGraduationStory: "🎓 Выпускной",
                 btnBabyStory: "👶 Новорожденный", btnBirthdayStory: "🎂 День рождения",
@@ -540,8 +507,7 @@
                 giftPrompt: "🎁 جعبه هدیه را لمس کنید!", giftSubPrompt: "ضربه بزنید...",
                 targetTimeText: "زمان", scratchInstruction: "👇 کارت را بکشید!",
                 surpriseHeader: "🎉 سورپرایز ویژه 🎁", celebrationHeader: "✨ صحنه جشن",
-                statsTitle: "⏳ آمار", labelDays: "روز", labelHours: "ساعت",
-                openWhenTitle: "💌 باز کن وقتی...", btnPopper: "🎊 بمب شادی", btnLove: "❤️ عشق", btnFireworks: "🎆 آتش‌بازی",
+                btnPopper: "🎊 بمب شادی", btnLove: "❤️ عشق", btnFireworks: "🎆 آتش‌بازی",
                 btnProposalStory: "💍 خواستگاری", btnWeddingStory: "💒 عروسی",
                 btnAnniversaryStory: "💍 سالگرد", btnGraduationStory: "🎓 فارغ‌التحصیلی",
                 btnBabyStory: "👶 تولد نوزاد", btnBirthdayStory: "🎂 تولد",
@@ -553,8 +519,7 @@
                 giftPrompt: "🎁 Tocca la scatola!", giftSubPrompt: "Tocca ovunque...",
                 targetTimeText: "Tempo", scratchInstruction: "👇 Gratta la carta!",
                 surpriseHeader: "🎉 SPECIALE SORPRESA 🎁", celebrationHeader: "✨ Palco della Festa",
-                statsTitle: "⏳ Statistiche", labelDays: "Giorni", labelHours: "Ore",
-                openWhenTitle: "💌 Apri Quando...", btnPopper: "🎊 Sparacoriandoli", btnLove: "❤️ Amore", btnFireworks: "🎆 Fuochi",
+                btnPopper: "🎊 Sparacoriandoli", btnLove: "❤️ Amore", btnFireworks: "🎆 Fuochi",
                 btnProposalStory: "💍 Proposta", btnWeddingStory: "💒 Matrimonio",
                 btnAnniversaryStory: "💍 Anniversario", btnGraduationStory: "🎓 Laurea",
                 btnBabyStory: "👶 Neonato", btnBirthdayStory: "🎂 Compleanno",
@@ -566,8 +531,7 @@
                 giftPrompt: "🎁 Ketuk Kotak Hadiah!", giftSubPrompt: "Ketuk di mana saja...",
                 targetTimeText: "Waktu", scratchInstruction: "👇 Gores kartu!",
                 surpriseHeader: "🎉 KEJUTAN KHUSUS 🎁", celebrationHeader: "✨ Panggung Perayaan",
-                statsTitle: "⏳ Statistik", labelDays: "Hari", labelHours: "Jam",
-                openWhenTitle: "💌 Buka Saat...", btnPopper: "🎊 Popper", btnLove: "❤️ Cinta", btnFireworks: "🎆 Kembang Api",
+                btnPopper: "🎊 Popper", btnLove: "❤️ Cinta", btnFireworks: "🎆 Kembang Api",
                 btnProposalStory: "💍 Lamaran", btnWeddingStory: "💒 Pernikahan",
                 btnAnniversaryStory: "💍 Ulang Tahun Pernikahan", btnGraduationStory: "🎓 Kelulusan",
                 btnBabyStory: "👶 Bayi Lahir", btnBirthdayStory: "🎂 Ulang Tahun",
@@ -579,8 +543,7 @@
                 giftPrompt: "🎁 Sovg'ani bosing!", giftSubPrompt: "Bosing...",
                 targetTimeText: "Vaqt", scratchInstruction: "👇 Kartani qiring!",
                 surpriseHeader: "🎉 MAXSUS SOVG'A 🎁", celebrationHeader: "✨ Bayram sahnasi",
-                statsTitle: "⏳ Statistika", labelDays: "Kun", labelHours: "Soat",
-                openWhenTitle: "💌 Ochish vaqti...", btnPopper: "🎊 Sahnasi", btnLove: "❤️ Sevgi", btnFireworks: "🎆 Feyerverk",
+                btnPopper: "🎊 Sahnasi", btnLove: "❤️ Sevgi", btnFireworks: "🎆 Feyerverk",
                 btnProposalStory: "💍 Taklif", btnWeddingStory: "💒 To'y",
                 btnAnniversaryStory: "💍 Yubiley", btnGraduationStory: "🎓 Bitiruv",
                 btnBabyStory: "👶 Chaqaloq", btnBirthdayStory: "🎂 Tug'ilgan kun",
@@ -592,8 +555,7 @@
                 giftPrompt: "🎁 Қуттиро пахш кунед!", giftSubPrompt: "Ламс кунед...",
                 targetTimeText: "Вақт", scratchInstruction: "👇 Кортро харошед!",
                 surpriseHeader: "🎉 СЮРПРИЗИ МАХСУС 🎁", celebrationHeader: "✨ Саҳнаи ҷашн",
-                statsTitle: "⏳ Омор", labelDays: "Рӯз", labelHours: "Соат",
-                openWhenTitle: "💌 Кушоед вақте...", btnPopper: "🎊 Хлопушка", btnLove: "❤️ Муҳаббат", btnFireworks: "🎆 Фейерверк",
+                btnPopper: "🎊 Хлопушка", btnLove: "❤️ Муҳаббат", btnFireworks: "🎆 Фейерверк",
                 btnProposalStory: "💍 Пешниҳод", btnWeddingStory: "💒 Тӯй",
                 btnAnniversaryStory: "💍 Солгард", btnGraduationStory: "🎓 Хатм",
                 btnBabyStory: "👶 Кӯдак", btnBirthdayStory: "🎂 Мавлуд",
@@ -605,8 +567,7 @@
                 giftPrompt: "🎁 Hədiyyə qutusuna toxunun!", giftSubPrompt: "Toxunun...",
                 targetTimeText: "Vaxt", scratchInstruction: "👇 Kartı kəşf edin!",
                 surpriseHeader: "🎉 XÜSUSİ SÜRPRİZ 🎁", celebrationHeader: "✨ Bayram Səhnəsi",
-                statsTitle: "⏳ Statistika", labelDays: "Gün", labelHours: "Saat",
-                openWhenTitle: "💌 Açın...", btnPopper: "🎊 Partlayış", btnLove: "❤️ Sevgi", btnFireworks: "🎆 Atəşfəşanlıq",
+                btnPopper: "🎊 Partlayış", btnLove: "❤️ Sevgi", btnFireworks: "🎆 Atəşfəşanlıq",
                 btnProposalStory: "💍 Evlilik təklifi", btnWeddingStory: "💒 Toy hekayəsi",
                 btnAnniversaryStory: "💍 Evlilik ildönümü", btnGraduationStory: "🎓 Məzuniyyət",
                 btnBabyStory: "👶 Körpə doğulması", btnBirthdayStory: "🎂 Ad günü tortu",
@@ -618,8 +579,7 @@
                 giftPrompt: "🎁 လက်ဆောင်သေတ္တာကို နှိပ်ပါ!", giftSubPrompt: "နှိပ်ပါ...",
                 targetTimeText: "အချိန်", scratchInstruction: "👇 ကတ်ကိုခြစ်ပါ!",
                 surpriseHeader: "🎉 အထူးလက်ဆောင် 🎁", celebrationHeader: "✨ အခမ်းအနားစင်မြင့်",
-                statsTitle: "⏳ စာရင်းဇယား", labelDays: "ရက်", labelHours: "နာရီ",
-                openWhenTitle: "💌 ဖွင့်ချိန်...", btnPopper: "🎊 ပေါက်ကွဲမှု", btnLove: "❤️ ချစ်ခြင်း", btnFireworks: "🎆 မီးရှူးမီးပန်း",
+                btnPopper: "🎊 ပေါက်ကွဲမှု", btnLove: "❤️ ချစ်ခြင်း", btnFireworks: "🎆 မီးရှူးမီးပန်း",
                 btnProposalStory: "💍 လက်ထပ်တောင်းခံခြင်း", btnWeddingStory: "💒 မင်္ဂလာပွဲ",
                 btnAnniversaryStory: "💍 နှစ်ပတ်လည်", btnGraduationStory: "🎓 ဘွဲ့ရ",
                 btnBabyStory: "👶 ရင်သွေးငယ်", btnBirthdayStory: "🎂 မွေးနေ့ကိတ်",
@@ -631,8 +591,7 @@
                 giftPrompt: "🎁 点击礼品盒！", giftSubPrompt: "点击任意处...",
                 targetTimeText: "目标时间", scratchInstruction: "👇 刮开卡片！",
                 surpriseHeader: "🎉 特别惊喜 🎁", celebrationHeader: "✨ 庆典舞台",
-                statsTitle: "⏳ 统计", labelDays: "天", labelHours: "小时",
-                openWhenTitle: "💌 打开于...", btnPopper: "🎊 礼炮", btnLove: "❤️ 爱意", btnFireworks: "🎆 焰火",
+                btnPopper: "🎊 礼炮", btnLove: "❤️ 爱意", btnFireworks: "🎆 焰火",
                 btnProposalStory: "💍 求婚", btnWeddingStory: "💒 婚礼",
                 btnAnniversaryStory: "💍 纪念日", btnGraduationStory: "🎓 毕业",
                 btnBabyStory: "👶 迎新宝宝", btnBirthdayStory: "🎂 生日",
@@ -658,16 +617,6 @@
             'vibe': "✨ Turn up the music, close your eyes, and soak in this beautiful day. This celebration is all about you! 🎉"
         };
 
-        function openEnvelope(type) {
-            document.getElementById('modalMsgText').innerText = openWhenMessages[type] || "You are special!";
-            document.getElementById('customModal').style.display = 'flex';
-            confetti({ particleCount: 40, spread: 60, origin: { y: 0.6 } });
-        }
-
-        function closeModal() {
-            document.getElementById('customModal').style.display = 'none';
-        }
-
         function changeLanguage(selectedLang) {
             currentLang = selectedLang;
             applyTranslations(selectedLang);
@@ -675,7 +624,7 @@
         }
 
         function applyTranslations(lang) {
-            ['lockTitle', 'lockSubtitle', 'giftPrompt', 'giftSubPrompt', 'targetTimeText', 'scratchInstruction', 'surpriseHeader', 'celebrationHeader', 'statsTitle', 'labelDays', 'labelHours', 'openWhenTitle', 'btnPopper', 'btnLove', 'btnFireworks'].forEach(id => {
+            ['lockTitle', 'lockSubtitle', 'giftPrompt', 'giftSubPrompt', 'targetTimeText', 'scratchInstruction', 'surpriseHeader', 'celebrationHeader', 'btnPopper', 'btnLove', 'btnFireworks'].forEach(id => {
                 let el = document.getElementById(id);
                 if (el) el.innerText = getTranslation(lang, id);
             });
@@ -692,12 +641,6 @@
             let headerBox = document.getElementById('royalHeaderContainer');
             if (headerBox) headerBox.className = 'header-box-base theme-' + themeKey;
             document.body.className = `theme-${themeKey}-bg`;
-
-            let isSimpleWish = ['Morning', 'Night', 'Congratulations', 'Love', 'MissYou', 'Thanks', 'Sorry', 'Luck', 'AllTheBest', 'GetWell', 'TakeCare', 'Exam', 'NewJob', 'Achievement', 'Journey', 'JustForYou', 'GreatDay', 'Other'].includes(currentCategory);
-            
-            document.getElementById('infoBox').style.display = isSimpleWish ? 'none' : 'block';
-            document.getElementById('statsContainer').style.display = isSimpleWish ? 'none' : 'block';
-            document.getElementById('openWhenContainer').style.display = isSimpleWish ? 'none' : 'block';
         }
 
         let isStoryActive = false;
@@ -799,7 +742,6 @@
 
         function playWeddingStory() {
             const caption = document.getElementById('storyCaptionText');
-            let couple = currentGender === 'girl' ? '👰💖🤵' : '🤵💖👰';
             caption.innerText = `💒 Soft rose petals falling, romantic background music playing as they walk and dance together...`;
             shower3DRedRoses();
             fireExtremeDualPoppers();
@@ -950,29 +892,8 @@
         let surpriseId = urlParams.get('id');
         let targetTimeStr = '';
 
-        function calculateLifeStats(dobOrAge) {
-            let diffDays = 20 * 365, diffHours = 20 * 365 * 24;
-            if (dobOrAge) {
-                let strVal = dobOrAge.toString().trim();
-                if (strVal.includes('-')) {
-                    let birthDate = new Date(strVal);
-                    if (!isNaN(birthDate)) {
-                        let diffTime = Math.abs(new Date() - birthDate);
-                        diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                        diffHours = Math.floor(diffTime / (1000 * 60 * 60));
-                    }
-                } else if (!isNaN(strVal)) {
-                    let age = parseInt(strVal);
-                    diffDays = age * 365;
-                    diffHours = age * 365 * 24;
-                }
-            }
-            document.getElementById('statDays').innerText = diffDays.toLocaleString();
-            document.getElementById('statHours').innerText = diffHours.toLocaleString();
-        }
-
         async function loadSurpriseData() {
-            let name = 'Friend', msg = 'Wishing you an extraordinary day filled with joy and success!', photoUrl = '', video = '', song = '', voice = '', extraAudio = '', dobOrAge = '';
+            let name = 'Friend', msg = 'Wishing you an extraordinary day filled with joy and success!', photoUrl = '', video = '', song = '', voice = '', extraAudio = '';
 
             if (surpriseId) {
                 try {
@@ -990,7 +911,6 @@
                         voice = data.voice || '';
                         extraAudio = data.extra_audio || '';
                         currentLang = data.lang || 'en';
-                        dobOrAge = data.dob || data.age || '';
                     }
                 } catch (e) {
                     console.error("API Error:", e);
@@ -1003,11 +923,6 @@
 
             document.getElementById('recipientName').innerText = name;
             document.getElementById('wishMessage').innerText = msg;
-            if (targetTimeStr) {
-                document.getElementById('displayDate').innerText = targetTimeStr.replace('T', ' ');
-            }
-
-            calculateLifeStats(dobOrAge);
 
             let photoWrapper = document.getElementById('singlePhotoWrapper');
             let photoImg = document.getElementById('singlePhotoImg');
