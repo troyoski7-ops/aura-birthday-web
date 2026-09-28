@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ Aura Luxury Realistic Celebrations ✨</title>
+    <title>✨ Aura Global Luxury Celebrations ✨</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -92,8 +92,11 @@
         .single-photo-box { width: 100%; max-height: 240px; border-radius: 14px; overflow: hidden; margin-bottom: 10px; background: #000; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 215, 0, 0.3); }
         .single-photo-box img { width: 100%; max-height: 230px; object-fit: contain; }
 
+        .media-box video { width: 100%; max-height: 280px; border-radius: 12px; background: #000; margin-bottom: 6px; }
+        .media-box audio { width: 100%; margin-top: 6px; border-radius: 10px; margin-bottom: 8px; height: 36px; }
+
         .story-stage {
-            width: 100%; min-height: 290px;
+            width: 100%; min-height: 280px;
             background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(6,4,12,0.98) 85%);
             border-radius: 20px; border: 1px solid rgba(255,215,0,0.4);
             margin: 12px 0; padding: 20px; position: relative;
@@ -102,10 +105,10 @@
             overflow: hidden;
         }
 
-        .stage-icon { font-size: 4rem; margin-bottom: 8px; animation: floatEffect 2s infinite alternate ease-in-out; }
-        @keyframes floatEffect { 0% { transform: translateY(0); } 100% { transform: translateY(-8px); } }
+        .stage-icon { font-size: 4.5rem; margin-bottom: 8px; animation: floatEffect 2s infinite alternate ease-in-out; }
+        @keyframes floatEffect { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
 
-        .story-caption { font-size: 0.88rem; color: #ffd700; margin-top: 8px; font-weight: 600; min-height: 26px; }
+        .story-caption { font-size: 0.9rem; color: #ffd700; margin-top: 8px; font-weight: 600; min-height: 28px; }
 
         .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
         .btn {
@@ -127,29 +130,29 @@
         <select id="langSwitcher" class="lang-select" onchange="changeLanguage(this.value)">
             <option value="en">English</option>
             <option value="ml">മലയാളം</option>
-            <option value="ru">Русский (Russian)</option>
-            <option value="fa">فارسی (Persian)</option>
-            <option value="it">Italiano (Italian)</option>
+            <option value="ru">Русский</option>
+            <option value="fa">فارسی</option>
+            <option value="it">Italiano</option>
             <option value="id">Bahasa Indonesia</option>
-            <option value="uz">Oʻzbekcha (Uzbek)</option>
-            <option value="tg">Тоҷикӣ (Tajik)</option>
-            <option value="az">Azərbaycan (Azerbaijan)</option>
-            <option value="my">မြန်မာ (Burmese)</option>
-            <option value="zh">中文 (Chinese)</option>
+            <option value="uz">Oʻzbekcha</option>
+            <option value="tg">Тоҷикӣ</option>
+            <option value="az">Azərbaycan</option>
+            <option value="my">မြန်မာ</option>
+            <option value="zh">中文</option>
         </select>
     </div>
 
     <div id="lockSection" class="container locked-screen">
         <h2 id="lockTitle">⏳ Portal Locked!</h2>
-        <p id="lockSubtitle" style="color: #cbd5e1; font-size: 0.85rem; margin-top: 4px;">This exclusive surprise opens on:</p>
+        <p style="color: #cbd5e1; font-size: 0.85rem; margin-top: 4px;">This exclusive surprise opens on:</p>
         <p id="targetTimeDisplay" style="color: #ffd700; font-weight: bold; margin: 6px 0; font-size: 1rem;"></p>
         <div class="timer-digits" id="countdownTimer">Loading countdown...</div>
     </div>
 
     <div id="giftSection" class="container" onclick="openGift()">
-        <h2 id="giftPrompt" style="font-size: 1.2rem;">🎁 Tap the Gift Box to Unwrap!</h2>
+        <h2 style="font-size: 1.2rem;">🎁 Tap the Gift Box to Unwrap!</h2>
         <div class="gift-box">🎁</div>
-        <p id="giftSubPrompt" style="font-size: 0.8rem; color: #cbd5e1; margin-top: 8px;">Tap anywhere to reveal your special surprise...</p>
+        <p style="font-size: 0.8rem; color: #cbd5e1; margin-top: 8px;">Tap anywhere to reveal your special surprise...</p>
     </div>
 
     <div id="mainContent" style="display: none; width: 100%; max-width: 380px;">
@@ -161,37 +164,31 @@
         </div>
         
         <div class="details-box" id="infoBox">
-            <div>📅 <span id="targetTimeText">Target Time</span>: <span id="displayDate">-</span></div>
+            <div>📅 Target Time: <span id="displayDate">-</span></div>
         </div>
 
         <div class="container" style="padding: 12px;" id="statsContainer">
-            <h4 id="statsTitle" style="color: #ffd700; font-size: 0.9rem; margin-bottom: 6px;">⏳ Journey Statistics</h4>
+            <h4 style="color: #ffd700; font-size: 0.9rem; margin-bottom: 6px;">⏳ Journey Statistics</h4>
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="num" id="statDays">-</div>
-                    <div class="label" id="labelDays">Days</div>
-                </div>
-                <div class="stat-card">
-                    <div class="num" id="statHours">-</div>
-                    <div class="label" id="labelHours">Hours</div>
-                </div>
+                <div class="stat-card"><div class="num" id="statDays">-</div><div class="label">Days</div></div>
+                <div class="stat-card"><div class="num" id="statHours">-</div><div class="label">Hours</div></div>
             </div>
         </div>
 
-        <p id="scratchInstruction" style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 8px;">👇 Scratch the card below to reveal your surprise!</p>
+        <p style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 8px;">👇 Scratch the card below to reveal your surprise!</p>
 
         <div class="container">
             <div class="scratch-container">
                 <div class="hidden-content">
-                    <h3 id="surpriseHeader">🎉 SPECIAL SURPRISE 🎁</h3>
-                    <p id="wishMessage">Wishing you an extraordinary day filled with joy and success!</p>
+                    <h3 style="color: #ffd700; margin-bottom: 6px;">🎉 SPECIAL SURPRISE 🎁</h3>
+                    <p id="wishMessage">Wishing you an extraordinary day!</p>
                 </div>
                 <canvas id="scratchCanvas"></canvas>
             </div>
         </div>
 
         <div class="container" id="mediaSection" style="margin-top: 10px;">
-            <h3 id="celebrationHeader" style="font-size: 1.1rem; margin-bottom: 8px;">✨ Celebration Stage</h3>
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">✨ Celebration Stage</h3>
             
             <div id="singlePhotoWrapper" class="single-photo-box" style="display:none;">
                 <img id="singlePhotoImg" src="" alt="Surprise Photo">
@@ -201,14 +198,14 @@
             
             <div class="story-stage" id="storyStageContainer"></div>
             
-            <div class="btn-group" id="primaryActionButtons"></div>
+            <div class="btn-group" id="primaryActionButtons" style="margin-top: 10px;"></div>
             
-            <div class="btn-group">
-                <button class="btn" style="background: linear-gradient(45deg, #ff007f, #ffd700); font-size: 0.88rem;" onclick="fireExtremeDualPoppers()" id="btnPopper">🎊 3D Stage Popper</button>
+            <div class="btn-group" style="margin-top: 8px;">
+                <button class="btn" style="background: linear-gradient(45deg, #ff007f, #ffd700);" onclick="fireExtremeDualPoppers()">🎊 3D Stage Popper</button>
             </div>
             <div class="btn-group">
-                <button class="btn" style="background: linear-gradient(45deg, #ff3366, #ff6b81); color: #fff;" onclick="send3DLoveHearts()" id="btnLove">❤️ Send Love</button>
-                <button class="btn" style="background: linear-gradient(45deg, #00ffcc, #00b894);" onclick="launchGrandFireworks()" id="btnFireworks">🎆 Grand Fireworks</button>
+                <button class="btn" style="background: linear-gradient(45deg, #ff3366, #ff6b81); color: #fff;" onclick="send3DLoveHearts()">❤️ Send Love</button>
+                <button class="btn" style="background: linear-gradient(45deg, #00ffcc, #00b894);" onclick="launchGrandFireworks()">🎆 Grand Fireworks</button>
             </div>
         </div>
     </div>
@@ -218,28 +215,17 @@
 
         const bgCanvas = document.getElementById('liveBgCanvas');
         const bgCtx = bgCanvas.getContext('2d');
-        const fxCanvas = document.getElementById('effectsCanvas');
-        const fxCtx = fxCanvas.getContext('2d');
-        let particles = [], customPetals = [], customBalloons = [], customHearts = [];
-
-        function resizeCanvases() {
-            bgCanvas.width = fxCanvas.width = window.innerWidth;
-            bgCanvas.height = fxCanvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvases);
-        resizeCanvases();
-
+        let particles = [];
         for (let i = 0; i < 40; i++) {
             particles.push({
-                x: Math.random() * bgCanvas.width,
-                y: Math.random() * bgCanvas.height,
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
                 radius: Math.random() * 2 + 0.5,
                 alpha: Math.random() * 0.7 + 0.2,
                 speedY: Math.random() * 0.4 + 0.1,
                 color: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff'][Math.floor(Math.random() * 4)]
             });
         }
-
         function animateCanvas() {
             bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
             particles.forEach(p => {
@@ -253,117 +239,95 @@
             });
             requestAnimationFrame(animateCanvas);
         }
+        window.addEventListener('resize', () => { bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; });
+        bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight;
         animateCanvas();
-
-        const translations = {
-            'en': {
-                lockTitle: "⏳ Portal Locked!", lockSubtitle: "This exclusive surprise opens on:",
-                giftPrompt: "🎁 Tap the Gift Box to Unwrap!", giftSubPrompt: "Tap anywhere to reveal your special surprise...",
-                targetTimeText: "Target Time", scratchInstruction: "👇 Scratch the card below to reveal your surprise!",
-                surpriseHeader: "🎉 SPECIAL SURPRISE 🎁", celebrationHeader: "✨ Celebration Stage",
-                statsTitle: "⏳ Journey Statistics", labelDays: "Days", labelHours: "Hours",
-                btnPopper: "🎊 3D Stage Popper", btnLove: "❤️ Send Love", btnFireworks: "🎆 Grand Fireworks",
-                categories: {
-                    "Birthday": "🎂 Happy Birthday",
-                    "WeddingWish": "💒 Happy Married Life",
-                    "Wedding": "💍 Happy Wedding Anniversary",
-                    "NewBorn": "👶 Welcome Little Angel",
-                    "Graduation": "🎓 Congratulations on Graduation",
-                    "HouseWarming": "🪔 Happy House Warming",
-                    "Festival": "🎆 Happy Festival",
-                    "Morning": "🌅 Good Morning",
-                    "Night": "🌙 Good Night",
-                    "Other": "✨ Special Celebration"
-                }
-            },
-            'ml': {
-                lockTitle: "⏳ പോർട്ടൽ ലോക്ക് ചെയ്തിരിക്കുന്നു!", lockSubtitle: "ഈ പ്രത്യേക സർപ്രൈസ് തുറക്കുന്ന സമയം:",
-                giftPrompt: "🎁 തുറക്കാൻ ഗിഫ്റ്റ് ബോക്സിൽ അമർത്തൂ!", giftSubPrompt: "നിങ്ങളുടെ സർപ്രൈസ് കാണാൻ ടാപ്പ് ചെയ്യൂ...",
-                targetTimeText: "ലഭ്യമാകുന്ന സമയം", scratchInstruction: "👇 സർപ്രൈസ് കാണാൻ താഴെ സ്ക്രാച്ച് ചെയ്യുക!",
-                surpriseHeader: "🎉 പ്രത്യേക സർപ്രൈസ് 🎁", celebrationHeader: "✨ ആഘോഷ വേദി",
-                statsTitle: "⏳ യാത്രയുടെ കണക്കുകൾ", labelDays: "ദിവസങ്ങൾ", labelHours: "മണിക്കൂറുകൾ",
-                btnPopper: "🎊 3D സ്റ്റേജ് പോപ്പർ", btnLove: "❤️ സ്നേഹം അയക്കുക", btnFireworks: "🎆 കരിമരുന്ന് പ്രയോഗം",
-                categories: {
-                    "Birthday": "🎂 ജന്മദിനാശംസകൾ",
-                    "WeddingWish": "💒 മംഗളകരമായ ദാമ്പത്യജീവിതം",
-                    "Wedding": "💍 വിവാഹ വാർഷികാശംസകൾ",
-                    "NewBorn": "👶 കുഞ്ഞുമാലാഖയ്ക്ക് സ്വാഗതം",
-                    "Graduation": "🎓 ബിരുദ ആശംസകൾ",
-                    "HouseWarming": "🪔 ഗൃഹപ്രവേശ ആശംസകൾ",
-                    "Festival": "🎆 ആഘോഷ ആശംസകൾ",
-                    "Morning": "🌅 സുപ്രഭാതം",
-                    "Night": "🌙 ശുഭരാത്രി",
-                    "Other": "✨ പ്രത്യേക ആഘോഷം"
-                }
-            }
-        };
-
-        function getTranslation(lang, key) {
-            if (translations[lang] && translations[lang][key]) return translations[lang][key];
-            if (translations['en'][key]) return translations['en'][key];
-            return '';
-        }
 
         let currentLang = 'en';
         let currentCategory = 'Birthday';
 
-        function changeLanguage(selectedLang) {
-            currentLang = selectedLang;
-            applyTranslations(selectedLang);
-            renderCategoryActions();
+        const categoryTitles = {
+            'Birthday': "🎂 Happy Birthday",
+            'HouseWarming': "🪔 House Warming",
+            'Festival': "🎆 Festival Celebration",
+            'WeddingWish': "💒 Wedding Celebration",
+            'Wedding': "💍 Wedding Anniversary",
+            'Graduation': "🎓 Graduation Success",
+            'NewBorn': "👶 Baby New Born",
+            'Morning': "🌅 Good Morning",
+            'Night': "🌙 Good Night",
+            'Other': "✨ Special Celebration"
+        };
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            applyThemeSettings();
         }
 
-        function applyTranslations(lang) {
-            ['lockTitle', 'lockSubtitle', 'giftPrompt', 'giftSubPrompt', 'targetTimeText', 'scratchInstruction', 'surpriseHeader', 'celebrationHeader', 'statsTitle', 'labelDays', 'labelHours', 'btnPopper', 'btnLove', 'btnFireworks'].forEach(id => {
-                let el = document.getElementById(id);
-                if (el) el.innerText = getTranslation(lang, id);
-            });
-            let catMap = (translations[lang] && translations[lang].categories) ? translations[lang].categories : translations['en'].categories;
-            document.getElementById('mainTitle').innerText = catMap[currentCategory] || catMap["Birthday"] || currentCategory;
-
+        function applyThemeSettings() {
+            let catKey = currentCategory.trim();
             let themeKey = 'Birthday';
-            if (['Birthday', 'WeddingWish', 'Wedding', 'NewBorn', 'Graduation', 'HouseWarming', 'Festival'].includes(currentCategory)) {
-                themeKey = currentCategory;
-            }
+            let titleText = "Celebration";
+            let stageIcon = "🎂";
+            let stageDesc = "Happy Birthday Cake Celebration!";
+            let btnText = "Cut Cake";
 
-            let headerBox = document.getElementById('royalHeaderContainer');
-            if (headerBox) headerBox.className = 'header-box-base theme-' + themeKey;
-            document.body.className = `theme-${themeKey}-bg`;
-        }
-
-        function renderCategoryActions() {
-            let container = document.getElementById('primaryActionButtons');
-            let stage = document.getElementById('storyStageContainer');
-
-            if (currentCategory === 'HouseWarming') {
-                stage.innerHTML = `<div class="stage-icon">🪔</div><div class="story-caption">Traditional Oil Lamp - Prosperity & Warmth</div>`;
-                container.innerHTML = `<button class="btn" onclick="fireExtremeDualPoppers()">🪔 Light Oil Lamp</button>`;
-            } else if (currentCategory === 'Graduation') {
-                stage.innerHTML = `<div class="stage-icon">🎓</div><div class="story-caption">Congratulations on your academic milestone!</div>`;
-                container.innerHTML = `<button class="btn" onclick="fireExtremeDualPoppers()">🎓 Celebrate Success</button>`;
-            } else if (currentCategory.includes('Wedding')) {
-                // വെഡ്ഡിംഗ് ഡ്രസ്സിൽ നിൽക്കുന്ന കപ്പിൾസ് ആനിമേഷൻ
-                stage.innerHTML = `<div class="stage-icon">👰💖🤵</div><div class="story-caption">Wishing a lifetime of love and joy in wedding attire!</div>`;
-                container.innerHTML = `<button class="btn" onclick="fireExtremeDualPoppers()">💖 Celebrate Wedding</button>`;
-            } else if (currentCategory === 'NewBorn') {
-                // കുട്ടി തൊട്ടിലിൽ കിടക്കുന്നത്
-                stage.innerHTML = `<div class="stage-icon">👶🧺🍼</div><div class="story-caption">Welcome little angel sleeping peacefully in the cradle!</div>`;
-                container.innerHTML = `<button class="btn" onclick="fireExtremeDualPoppers()">👶 Welcome Baby</button>`;
-            } else if (currentCategory === 'Festival') {
-                stage.innerHTML = `<div class="stage-icon">🎆</div><div class="story-caption">Vibrant lights and festive celebrations!</div>`;
-                container.innerHTML = `<button class="btn" onclick="fireExtremeDualPoppers()">🎆 Festival Lights</button>`;
+            if (catKey.toLowerCase().includes('house') || catKey.toLowerCase().includes('warming')) {
+                themeKey = 'HouseWarming';
+                titleText = "House Warming";
+                stageIcon = "🪔";
+                stageDesc = "Traditional Oil Lamp - Prosperity & Warmth";
+                btnText = "Light Oil Lamp";
+            } else if (catKey.toLowerCase().includes('festival')) {
+                themeKey = 'Festival';
+                titleText = "Festival Celebration";
+                stageIcon = "🎆";
+                stageDesc = "Vibrant lights and festive celebrations!";
+                btnText = "Festival Lights";
+            } else if (catKey.toLowerCase().includes('wedding') || catKey.toLowerCase().includes('anniversary')) {
+                themeKey = 'WeddingWish';
+                titleText = "Wedding Celebration";
+                stageIcon = "👰💖🤵";
+                stageDesc = "Wishing a lifetime of love and joy in wedding attire!";
+                btnText = "Celebrate Wedding";
+            } else if (catKey.toLowerCase().includes('graduation')) {
+                themeKey = 'Graduation';
+                titleText = "Graduation Success";
+                stageIcon = "🎓";
+                stageDesc = "Congratulations on your academic milestone!";
+                btnText = "Celebrate Success";
+            } else if (catKey.toLowerCase().includes('born') || catKey.toLowerCase().includes('baby')) {
+                themeKey = 'NewBorn';
+                titleText = "Baby New Born";
+                stageIcon = "👶🧺🍼";
+                stageDesc = "Welcome little angel sleeping peacefully in the cradle!";
+                btnText = "Welcome Baby";
             } else {
-                stage.innerHTML = `<div class="stage-icon">🎂</div><div class="story-caption">Happy Birthday Cake Celebration!</div>`;
-                container.innerHTML = `<button class="btn" onclick="fireExtremeDualPoppers()">🎂 Cut Cake</button>`;
+                themeKey = 'Birthday';
+                titleText = categoryTitles[currentCategory] || "Happy Birthday";
+                stageIcon = "🎂";
+                stageDesc = "Happy Birthday Cake Celebration!";
+                btnText = "Cut Cake";
             }
+
+            document.body.className = `theme-${themeKey}-bg`;
+            document.getElementById('royalHeaderContainer').className = `header-box-base theme-${themeKey}`;
+            document.getElementById('mainTitle').innerText = titleText;
+
+            document.getElementById('storyStageContainer').innerHTML = `
+                <div class="stage-icon">${stageIcon}</div>
+                <div class="story-caption">${stageDesc}</div>
+            `;
+            document.getElementById('primaryActionButtons').innerHTML = `
+                <button class="btn" style="background: linear-gradient(45deg, #ffd700, #ffaa00);" onclick="fireExtremeDualPoppers()">${stageIcon} ${btnText}</button>
+            `;
         }
 
         let urlParams = new URLSearchParams(window.location.search);
         let surpriseId = urlParams.get('id');
-        let targetTimeStr = '';
 
         async function loadSurpriseData() {
-            let name = 'Friend', msg = 'Wishing you an extraordinary day filled with joy and success!', photoUrl = '';
+            let name = 'Friend', msg = 'Wishing you an extraordinary day!', photoUrl = '', video = '', song = '', voice = '', extraAudio = '', targetTimeStr = '', dobOrAge = '';
 
             if (surpriseId) {
                 try {
@@ -375,7 +339,12 @@
                         currentCategory = data.category || 'Birthday';
                         targetTimeStr = data.target_time || '';
                         photoUrl = data.photo || '';
+                        video = data.video || '';
+                        song = data.song || '';
+                        voice = data.voice || '';
+                        extraAudio = data.extra_audio || '';
                         currentLang = data.lang || 'en';
+                        dobOrAge = data.dob || data.age || '';
                     }
                 } catch (e) {
                     console.error("API Error:", e);
@@ -383,8 +352,7 @@
             }
 
             document.getElementById('langSwitcher').value = currentLang;
-            applyTranslations(currentLang);
-            renderCategoryActions();
+            applyThemeSettings();
 
             document.getElementById('recipientName').innerText = name;
             document.getElementById('wishMessage').innerText = msg;
@@ -392,11 +360,69 @@
                 document.getElementById('displayDate').innerText = targetTimeStr.replace('T', ' ');
             }
 
-            let photoWrapper = document.getElementById('singlePhotoWrapper');
-            let photoImg = document.getElementById('singlePhotoImg');
+            calculateLifeStats(dobOrAge);
+
             if (photoUrl) {
-                photoWrapper.style.display = 'flex';
-                photoImg.src = photoUrl;
+                let pWrap = document.getElementById('singlePhotoWrapper');
+                pWrap.style.display = 'flex';
+                document.getElementById('singlePhotoImg').src = photoUrl;
+            }
+
+            let mContainer = document.getElementById('mediaContainer');
+            mContainer.innerHTML = '';
+            if (video) mContainer.innerHTML += `<div style="margin-top:10px;"><video controls src="${video}" style="width:100%; border-radius:12px; background:#000;"></video></div>`;
+            if (song) mContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎶 Song / Music</p><audio controls src="${song}" style="width:100%;"></audio></div>`;
+            if (voice) mContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎙️ Voice Greeting</p><audio controls src="${voice}" style="width:100%;"></audio></div>`;
+            if (extraAudio) mContainer.innerHTML += `<div style="margin-top:8px;"><p style="font-size:0.8rem; color:#ffd700;">🎵 Extra Audio</p><audio controls src="${extraAudio}" style="width:100%;"></audio></div>`;
+
+            checkTimeLock(targetTimeStr);
+        }
+
+        function calculateLifeStats(dobOrAge) {
+            let diffDays = 20 * 365, diffHours = 20 * 365 * 24;
+            if (dobOrAge) {
+                let strVal = dobOrAge.toString().trim();
+                if (strVal.includes('-')) {
+                    let birthDate = new Date(strVal);
+                    if (!isNaN(birthDate)) {
+                        let diffTime = Math.abs(new Date() - birthDate);
+                        diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                        diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+                    }
+                } else if (!isNaN(strVal)) {
+                    let age = parseInt(strVal);
+                    diffDays = age * 365;
+                    diffHours = age * 365 * 24;
+                }
+            }
+            document.getElementById('statDays').innerText = diffDays.toLocaleString();
+            document.getElementById('statHours').innerText = diffHours.toLocaleString();
+        }
+
+        function checkTimeLock(targetTimeStr) {
+            let isPreview = urlParams.get('preview') === 'true';
+            if (!targetTimeStr || isPreview) { return; }
+            let targetTime = new Date(targetTimeStr).getTime();
+            let now = new Date().getTime();
+            let distance = targetTime - now;
+
+            if (distance > 0) {
+                document.getElementById('lockSection').style.display = 'block';
+                document.getElementById('giftSection').style.display = 'none';
+                document.getElementById('targetTimeDisplay').innerText = targetTimeStr.replace('T', ' ');
+                let timerInterval = setInterval(() => {
+                    let dist = targetTime - new Date().getTime();
+                    if (dist <= 0) {
+                        clearInterval(timerInterval);
+                        location.reload();
+                    } else {
+                        let d = Math.floor(dist / (1000 * 60 * 60 * 24));
+                        let h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        let m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+                        let s = Math.floor((dist % (1000 * 60)) / 1000);
+                        document.getElementById('countdownTimer').innerText = `${d}d ${h}h ${m}m ${s}s`;
+                    }
+                }, 1000);
             }
         }
 
@@ -407,45 +433,40 @@
             setTimeout(initCanvas, 150);
         }
 
-        let canvas = document.getElementById('scratchCanvas');
-        let ctx = canvas ? canvas.getContext('2d') : null;
-
         function initCanvas() {
+            let canvas = document.getElementById('scratchCanvas');
             if (!canvas) return;
+            let ctx = canvas.getContext('2d');
             canvas.width = canvas.parentElement.clientWidth;
             canvas.height = canvas.parentElement.clientHeight;
-            ctx.globalCompositeOperation = 'source-over';
-            let grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            grad.addColorStop(0, '#bdc3c7'); grad.addColorStop(1, '#2c3e50');
-            ctx.fillStyle = grad; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#ffd700'; ctx.font = 'bold 15px sans-serif';
-            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#bdc3c7';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ffd700';
+            ctx.font = 'bold 15px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
             ctx.fillText('✨ SCRATCH HERE ✨', canvas.width / 2, canvas.height / 2);
-        }
-
-        let isDrawing = false;
-        function scratch(x, y) {
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath(); ctx.arc(x, y, 22, 0, Math.PI * 2); ctx.fill();
-        }
-        function getPos(e) {
-            let rect = canvas.getBoundingClientRect();
-            let cx = e.touches ? e.touches[0].clientX : e.clientX;
-            let cy = e.touches ? e.touches[0].clientY : e.clientY;
-            return { x: cx - rect.left, y: cy - rect.top };
-        }
-        if (canvas) {
-            canvas.addEventListener('mousedown', (e) => { isDrawing = true; let p = getPos(e); scratch(p.x, p.y); });
-            canvas.addEventListener('mousemove', (e) => { if (isDrawing) { let p = getPos(e); scratch(p.x, p.y); } });
+            
+            let isDrawing = false;
+            canvas.addEventListener('mousedown', () => isDrawing = true);
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDrawing) return;
+                let rect = canvas.getBoundingClientRect();
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(e.clientX - rect.left, e.clientY - rect.top, 20, 0, Math.PI * 2);
+                ctx.fill();
+            });
             window.addEventListener('mouseup', () => isDrawing = false);
-            canvas.addEventListener('touchstart', (e) => { isDrawing = true; let p = getPos(e); scratch(p.x, p.y); e.preventDefault(); });
-            canvas.addEventListener('touchmove', (e) => { if (isDrawing) { let p = getPos(e); scratch(p.x, p.y); e.preventDefault(); } });
-            canvas.addEventListener('touchend', () => isDrawing = false);
         }
 
         function fireExtremeDualPoppers() {
             confetti({ particleCount: 90, angle: 60, spread: 80, origin: { x: 0, y: 0.95 }, colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff'] });
             confetti({ particleCount: 90, angle: 120, spread: 80, origin: { x: 1, y: 0.95 }, colors: ['#ffd700', '#ff007f', '#00f2fe', '#ffffff'] });
+        }
+
+        function send3DLoveHearts() {
+            confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 }, colors: ['#ff3366', '#ff6b81', '#ff007f'] });
         }
 
         function launchGrandFireworks() {
