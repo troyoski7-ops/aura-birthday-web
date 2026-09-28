@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ Aura Realistic Luxury Celebrations ✨</title>
+    <title>✨ Aura Luxury Realistic Celebrations ✨</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -50,6 +50,12 @@
         body.theme-Proposal-bg { background: radial-gradient(circle at center, #3a0a24 0%, #050104 100%); }
         .theme-Proposal { background: linear-gradient(135deg, rgba(255,0,127,0.25), rgba(130,0,255,0.25)); border: 1px solid #ff3366; box-shadow: 0 0 30px rgba(255,51,102,0.5); }
 
+        body.theme-HouseWarming-bg { background: radial-gradient(circle at center, #1b382b 0%, #020604 100%); }
+        .theme-HouseWarming { background: linear-gradient(135deg, rgba(0,255,150,0.2), rgba(255,215,0,0.2)); border: 1px solid #00ffaa; box-shadow: 0 0 30px rgba(0,255,150,0.4); }
+
+        body.theme-Morning-bg, body.theme-Night-bg { background: radial-gradient(circle at center, #1a2a6c 0%, #0f0c29 100%); }
+        .theme-Morning, .theme-Night { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(79,172,254,0.2)); border: 1px solid #00f2fe; box-shadow: 0 0 30px rgba(0,242,254,0.4); }
+
         body.theme-WeddingWish-bg, body.theme-Wedding-bg { background: radial-gradient(circle at center, #092032 0%, #010407 100%); }
         .theme-WeddingWish, .theme-Wedding { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(255,215,0,0.15)); border: 1px solid #00f2fe; box-shadow: 0 0 30px rgba(0,242,254,0.4); }
 
@@ -59,7 +65,7 @@
         body.theme-NewBorn-bg { background: radial-gradient(circle at center, #2d1326 0%, #050104 100%); }
         .theme-NewBorn { background: linear-gradient(135deg, rgba(255,182,193,0.25), rgba(173,216,230,0.25)); border: 1px solid #ffb6c1; box-shadow: 0 0 30px rgba(255,182,193,0.5); }
 
-        .category-title-text { font-size: 1.35rem; font-weight: 800; line-height: 1.4; letter-spacing: 0.5px; }
+        .category-title-text { font-size: 1.35rem; font-weight: 800; line-height: 1.4; letter-spacing: 0.5px; color: #ffd700; }
 
         .details-box {
             background: rgba(255, 215, 0, 0.04); border: 1px dashed rgba(255, 215, 0, 0.3); border-radius: 14px;
@@ -101,7 +107,6 @@
 
         .fs-btn { background: rgba(255, 215, 0, 0.15); border: 1px solid #ffd700; color: #ffd700; font-size: 0.75rem; padding: 6px 14px; border-radius: 15px; margin-bottom: 8px; cursor: pointer; font-weight: 600; }
 
-        /* --- 🌟 ആനിമേഷൻ സ്റ്റേജുകൾ --- */
         .story-stage {
             width: 100%; min-height: 290px;
             background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(6,4,12,0.98) 85%);
@@ -123,7 +128,6 @@
         .world-title { font-size: 1.15rem; font-weight: 700; color: #ffd700; margin-bottom: 6px; letter-spacing: 0.5px; }
         .world-subtitle { font-size: 0.82rem; color: #e2e8f0; line-height: 1.4; }
 
-        /* പ്രൊപ്പോസൽ ക്യാരക്ടർ ഫ്ലോ */
         .cinematic-viewport {
             position: relative; width: 100%; height: 130px; display: flex; align-items: flex-end; justify-content: center; gap: 40px; margin-bottom: 6px;
         }
@@ -141,7 +145,6 @@
         }
         .ring-box-element.open { transform: translateX(-50%) scale(1.3); }
 
-        /* ജന്മദിന കേക്ക് സ്റ്റേജ് ആനിമേഷൻ */
         .birthday-cake-stage {
             position: relative; width: 100%; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; margin-bottom: 10px;
         }
@@ -195,6 +198,17 @@
         }
         .btn:active { transform: scale(0.95); }
         .btn-heart { background: linear-gradient(45deg, #ff3366, #ff6b81); color: #fff; }
+
+        .app-links-bar {
+            margin-top: 10px; background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 6px;
+        }
+        .app-links-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .app-link-btn {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,215,0,0.3); color: #ffd700;
+            font-size: 0.75rem; padding: 6px 12px; border-radius: 12px; text-decoration: none; font-weight: 600; transition: background 0.2s;
+        }
+        .app-link-btn:hover { background: rgba(255,215,0,0.2); }
 
         .locked-screen { display: none; padding: 30px 15px; }
         .timer-digits { font-size: 1.4rem; color: #ffd700; font-weight: bold; margin: 12px 0; }
@@ -338,6 +352,15 @@
                 <button class="btn btn-heart" onclick="send3DLoveHearts()" id="btnLove">❤️ Send Love</button>
                 <button class="btn" style="background: linear-gradient(45deg, #00ffcc, #00b894);" onclick="launchGrandFireworks()" id="btnFireworks">🎆 Grand Fireworks</button>
             </div>
+
+            <div class="app-links-bar">
+                <div style="font-size: 0.75rem; color: #ffd700; font-weight: bold;">🌐 Share Across All Apps</div>
+                <div class="app-links-row">
+                    <a id="waShareLink" href="#" target="_blank" class="app-link-btn">🟢 WhatsApp</a>
+                    <a id="tgShareLink" href="#" target="_blank" class="app-link-btn">💬 Telegram</a>
+                    <a id="fbShareLink" href="#" target="_blank" class="app-link-btn">🔵 Facebook</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -467,6 +490,7 @@
                 btnProposalStory: "💍 Proposal Story", btnWeddingStory: "💒 Wedding Story",
                 btnAnniversaryStory: "💍 Wedding Anniversary Story", btnGraduationStory: "🎓 Graduation Story",
                 btnBabyStory: "👶 Baby Born Story", btnBirthdayStory: "🎂 Birthday Cake Story",
+                btnHouseWarmingStory: "🏡 House Warming Story", btnMorningStory: "🌅 Good Morning Vibe", btnNightStory: "🌙 Good Night Vibe",
                 categories: {
                     "Birthday": "🎂 Happy Birthday",
                     "Proposal": "💍 Magical Proposal",
@@ -474,6 +498,24 @@
                     "Wedding": "💍 Happy Wedding Anniversary",
                     "NewBorn": "👶 Welcome Little Angel",
                     "Graduation": "🎓 Congratulations on Graduation",
+                    "HouseWarming": "🏡 Happy House Warming",
+                    "Morning": "🌅 Good Morning",
+                    "Night": "🌙 Good Night",
+                    "Congratulations": "🎉 Congratulations",
+                    "Love": "❤️ I Love You",
+                    "MissYou": "🫂 I Miss You",
+                    "Thanks": "🙏 Thank You",
+                    "Sorry": "🥺 I’m Sorry",
+                    "Luck": "🍀 Good Luck",
+                    "AllTheBest": "💪 All the Best",
+                    "GetWell": "🩷 Get Well Soon",
+                    "TakeCare": "🫶 Take Care",
+                    "Exam": "🎓 Exam Best of Luck",
+                    "NewJob": "💼 New Job",
+                    "Achievement": "🏆 Achievement",
+                    "Journey": "✈️ Safe Journey",
+                    "JustForYou": "🎁 Just For You",
+                    "GreatDay": "😊 Have a Great Day",
                     "Other": "✨ Special Celebration"
                 }
             },
@@ -487,6 +529,7 @@
                 btnProposalStory: "💍 Proposal Story", btnWeddingStory: "💒 Wedding Story",
                 btnAnniversaryStory: "💍 Wedding Anniversary Story", btnGraduationStory: "🎓 Graduation Story",
                 btnBabyStory: "👶 Baby Born Story", btnBirthdayStory: "🎂 Birthday Cake Story",
+                btnHouseWarmingStory: "🏡 House Warming Story", btnMorningStory: "🌅 Good Morning Vibe", btnNightStory: "🌙 Good Night Vibe",
                 categories: {
                     "Birthday": "🎂 ജന്മദിനാശംസകൾ",
                     "Proposal": "💍 മാന്ത്രിക പ്രൊപ്പോസൽ",
@@ -494,116 +537,26 @@
                     "Wedding": "💍 വിവാഹ വാർഷികാശംസകൾ",
                     "NewBorn": "👶 കുഞ്ഞുമാലാഖയ്ക്ക് സ്വാഗതം",
                     "Graduation": "🎓 ബിരുദ ആശംസകൾ",
+                    "HouseWarming": "🏡 ഗൃഹപ്രവേശ ആശംസകൾ",
+                    "Morning": "🌅 സുപ്രഭാതം",
+                    "Night": "🌙 ശുഭരാത്രി",
+                    "Congratulations": "🎉 അഭിനന്ദനങ്ങൾ",
+                    "Love": "❤️ സ്നേഹം",
+                    "MissYou": "🫂 നിങ്ങളെ ഓർക്കുന്നു",
+                    "Thanks": "🙏 നന്ദി",
+                    "Sorry": "🥺 ക്ഷമിക്കൂ",
+                    "Luck": "🍀 നല്ല ഭാഗ്യം",
+                    "AllTheBest": "💪 എല്ലാവിധ ആശംസകളും",
+                    "GetWell": "🩷 പെട്ടെന്ന് സുഖം പ്രാപിക്കട്ടെ",
+                    "TakeCare": "🫶 ശ്രദ്ധിക്കുക",
+                    "Exam": "🎓 പരീക്ഷയ്ക്ക് ആശംസകൾ",
+                    "NewJob": "💼 പുതിയ ജോലിക്ക് ആശംസകൾ",
+                    "Achievement": "🏆 നേട്ടത്തിന് അഭിനന്ദനങ്ങൾ",
+                    "Journey": "✈️ സുരക്ഷിത യാത്ര",
+                    "JustForYou": "🎁 നിങ്ങൾക്കായി മാത്രം",
+                    "GreatDay": "😊 മനോഹരമായ ഒരു ദിവസം ആശംസിക്കുന്നു",
                     "Other": "✨ പ്രത്യേക ആഘോഷം"
                 }
-            },
-            'ru': {
-                lockTitle: "⏳ Портал заблокирован!", lockSubtitle: "Этот сюрприз откроется:",
-                giftPrompt: "🎁 Нажмите на коробку!", giftSubPrompt: "Нажмите в любом месте...",
-                targetTimeText: "Время", scratchInstruction: "👇 Сотрите карточку ниже!",
-                surpriseHeader: "🎉 ОСОБЫЙ СЮРПРИЗ 🎁", celebrationHeader: "✨ Праздничная сцена",
-                statsTitle: "⏳ Статистика", labelDays: "Дней", labelHours: "Часов",
-                openWhenTitle: "💌 Открыть, когда...", btnPopper: "🎊 Хлопушка", btnLove: "❤️ Любовь", btnFireworks: "🎆 Фейерверк",
-                btnProposalStory: "💍 История предложения", btnWeddingStory: "💒 История свадьбы",
-                btnAnniversaryStory: "💍 Годовщина свадьбы", btnGraduationStory: "🎓 Выпускной",
-                btnBabyStory: "👶 Рождение малыша", btnBirthdayStory: "🎂 День рождения",
-                categories: { "Birthday": "🎂 С днем рождения", "Proposal": "💍 Предложение", "WeddingWish": "💒 Счастливой семейной жизни", "Wedding": "💍 Годовщина свадьбы", "NewBorn": "👶 С новорожденным", "Graduation": "🎓 С окончанием учебы", "Other": "✨ Праздник" }
-            },
-            'fa': {
-                lockTitle: "⏳ پورتال قفل است!", lockSubtitle: "این سورپرایز در تاریخ زیر باز می‌شود:",
-                giftPrompt: "🎁 جعبه هدیه را لمس کنید!", giftSubPrompt: "برای دیدن سورپرایز ضربه بزنید...",
-                targetTimeText: "زمان", scratchInstruction: "👇 برای دیدن پیام کارت را بکشید!",
-                surpriseHeader: "🎉 سورپرایز ویژه 🎁", celebrationHeader: "✨ صحنه جشن",
-                statsTitle: "⏳ آمار سفر", labelDays: "روز", labelHours: "ساعت",
-                openWhenTitle: "💌 باز کن وقتی...", btnPopper: "🎊 بمب شادی", btnLove: "❤️ ارسال عشق", btnFireworks: "🎆 آتش‌بازی",
-                btnProposalStory: "💍 داستان خواستگاری", btnWeddingStory: "💒 داستان عروسی",
-                btnAnniversaryStory: "💍 سالگرد ازدواج", btnGraduationStory: "🎓 داستان فارغ‌التحصیلی",
-                btnBabyStory: "👶 داستان تولد نوزاد", btnBirthdayStory: "🎂 داستان کیک تولد",
-                categories: { "Birthday": "🎂 تولدت مبارک", "Proposal": "💍 خواستگاری جادویی", "WeddingWish": "💒 زندگی مشترک شاد", "Wedding": "💍 سالگرد ازدواج", "NewBorn": "👶 خوش آمدی فرشته کوچک", "Graduation": "🎓 تبریک فارغ‌التحصیلی", "Other": "✨ جشن خاص" }
-            },
-            'uz': {
-                lockTitle: "⏳ Portol qulflangan!", lockSubtitle: "Maxsus sovg'a ochilish vaqti:",
-                giftPrompt: "🎁 Sovg'a qutisini bosing!", giftSubPrompt: "Ochish uchun istalgan joyga bosing...",
-                targetTimeText: "Vaqt", scratchInstruction: "👇 Ochish uchun kartani qiring!",
-                surpriseHeader: "🎉 MAXSUS SOVG'A 🎁", celebrationHeader: "✨ Bayram sahnasi",
-                statsTitle: "⏳ Statistika", labelDays: "Kun", labelHours: "Soat",
-                openWhenTitle: "💌 Ochish vaqti...", btnPopper: "🎊 3D Sahnasi", btnLove: "❤️ Sevgi", btnFireworks: "🎆 Feyerverk",
-                btnProposalStory: "💍 Taklif hikoyasi", btnWeddingStory: "💒 To'y hikoyasi",
-                btnAnniversaryStory: "💍 To'y yubileyi", btnGraduationStory: "🎓 Bitiruv hikoyasi",
-                btnBabyStory: "👶 Chaqaloq tug'ilishi", btnBirthdayStory: "🎂 Tug'ilgan kun",
-                categories: { "Birthday": "🎂 Tug'ilgan kun", "Proposal": "💍 Taklif", "WeddingWish": "💒 Baxtli oilaviy hayot", "Wedding": "💍 To'y yubileyi", "NewBorn": "👶 Xush kelibsiz", "Graduation": "🎓 Tabriklaymiz", "Other": "✨ Maxsus bayram" }
-            },
-            'tg': {
-                lockTitle: "⏳ Портал маҳкам است!", lockSubtitle: "Ин туҳфаи махсус кушода мешавад:",
-                giftPrompt: "🎁 Қуттии туҳфаро пахш кунед!", giftSubPrompt: "Барои дидани сюрприз ламс кунед...",
-                targetTimeText: "Вақт", scratchInstruction: "👇 Барои дидан корти зерро харошед!",
-                surpriseHeader: "🎉 СЮРПРИЗИ МАХСУС 🎁", celebrationHeader: "✨ Саҳнаи ҷашн",
-                statsTitle: "⏳ Омор", labelDays: "Рӯз", labelHours: "Соат",
-                openWhenTitle: "💌 Кушоед вақте ки...", btnPopper: "🎊 Хлопушка", btnLove: "❤️ Муҳаббат", btnFireworks: "🎆 Фейерверк",
-                btnProposalStory: "💍 Ҳикояи пешниҳод", btnWeddingStory: "💒 Ҳикояи тӯй",
-                btnAnniversaryStory: "💍 Соллгарди тӯй", btnGraduationStory: "🎓 Хатми таҳсил",
-                btnBabyStory: "👶 Таваллуди кӯдак", btnBirthdayStory: "🎂 Мавлуд",
-                categories: { "Birthday": "🎂 Рӯзи таваллуд", "Proposal": "💍 Пешниҳоди издивоҷ", "WeddingWish": "💒 Ҳаёти хушбахт", "Wedding": "💍 Солгарди тӯй", "NewBorn": "👶 Хуш омадед", "Graduation": "🎓 Табрик", "Other": "✨ Ҷашни махсус" }
-            },
-            'it': {
-                lockTitle: "⏳ Portale Bloccato!", lockSubtitle: "Questa sorpresa esclusiva si apre il:",
-                giftPrompt: "🎁 Tocca la scatola regalo!", giftSubPrompt: "Tocca ovunque per rivelare la sorpresa...",
-                targetTimeText: "Tempo", scratchInstruction: "👇 Gratta la carta per rivelare la sorpresa!",
-                surpriseHeader: "🎉 SPECIALE SORPRESA 🎁", celebrationHeader: "✨ Palco della Festa",
-                statsTitle: "⏳ Statistiche", labelDays: "Giorni", labelHours: "Ore",
-                openWhenTitle: "💌 Apri Quando...", btnPopper: "🎊 Sparacoriandoli", btnLove: "❤️ Invia Amore", btnFireworks: "🎆 Grandi Fuochi",
-                btnProposalStory: "💍 Storia della Proposta", btnWeddingStory: "💒 Storia del Matrimonio",
-                btnAnniversaryStory: "💍 Anniversario di Matrimonio", btnGraduationStory: "🎓 Storia della Laurea",
-                btnBabyStory: "👶 Storia del Neonato", btnBirthdayStory: "🎂 Storia della Torta",
-                categories: { "Birthday": "🎂 Buon Compleanno", "Proposal": "💍 Magica Proposta", "WeddingWish": "💒 Felice Vita Insieme", "Wedding": "💍 Buon Anniversario", "NewBorn": "👶 Benvenuto Piccolo", "Graduation": "🎓 Congratulazioni", "Other": "✨ Speciale Celebrazione" }
-            },
-            'zh': {
-                lockTitle: "⏳ 传送门已锁定！", lockSubtitle: "这个独家惊喜将在以下时间打开：",
-                giftPrompt: "🎁 点击礼品盒打开！", giftSubPrompt: "点击任意地方揭晓惊喜...",
-                targetTimeText: "目标时间", scratchInstruction: "👇 刮开下面的卡片揭晓惊喜！",
-                surpriseHeader: "🎉 特别惊喜 🎁", celebrationHeader: "✨ 庆典舞台",
-                statsTitle: "⏳ 旅程统计", labelDays: "天", labelHours: "小时",
-                openWhenTitle: "💌 打开于...", btnPopper: "🎊 3D舞台礼炮", btnLove: "❤️ 发送爱意", btnFireworks: "🎆 盛大焰火",
-                btnProposalStory: "💍 求婚故事", btnWeddingStory: "💒 婚礼故事",
-                btnAnniversaryStory: "💍 结婚纪念日故事", btnGraduationStory: "🎓 毕业故事",
-                btnBabyStory: "👶 迎新宝宝故事", btnBirthdayStory: "🎂 生日蛋糕故事",
-                categories: { "Birthday": "🎂 生日快乐", "Proposal": "💍 浪漫求婚", "WeddingWish": "💒 婚姻美满", "Wedding": "💍 结婚纪念日快乐", "NewBorn": "👶 欢迎小天使", "Graduation": "🎓 毕业快乐", "Other": "✨ 特别庆典" }
-            },
-            'ja': {
-                lockTitle: "⏳ ポータルロック中！", lockSubtitle: "この特別なサプライズの公開日時：",
-                giftPrompt: "🎁 ギフトボックスをタップ！", giftSubPrompt: "タップしてサプライズを表示...",
-                targetTimeText: "ターゲット時間", scratchInstruction: "👇 カードを削ってサプライズを見る！",
-                surpriseHeader: "🎉 スペシャルサプライズ 🎁", celebrationHeader: "✨ お祝いステージ",
-                statsTitle: "⏳ ジャーニー統計", labelDays: "日", labelHours: "時間",
-                openWhenTitle: "💌 開ける時...", btnPopper: "🎊 3Dステージポッパー", btnLove: "❤️ 愛を送信", btnFireworks: "🎆 盛大な花火",
-                btnProposalStory: "💍 プロポーズストーリー", btnWeddingStory: "💒 ウェディングストーリー",
-                btnAnniversaryStory: "💍 結婚記念日ストーリー", btnGraduationStory: "🎓 卒業ストーリー",
-                btnBabyStory: "👶 誕生ストーリー", btnBirthdayStory: "🎂 バースデーケーキストーリー",
-                categories: { "Birthday": "🎂 お誕生日おめでとう", "Proposal": "💍 魔法のプロポーズ", "WeddingWish": "💒 幸せな結婚生活", "Wedding": "💍 結婚記念日おめでとう", "NewBorn": "👶 ようこそ小さな天使", "Graduation": "🎓 卒業おめでとう", "Other": "✨ 特別なお祝い" }
-            },
-            'ko': {
-                lockTitle: "⏳ 포털 잠김!", lockSubtitle: "이 독점 서프라이즈가 열리는 시간:",
-                giftPrompt: "🎁 선물 상자를 누르세요!", giftSubPrompt: "터치하여 서프라이즈 확인...",
-                targetTimeText: "목표 시간", scratchInstruction: "👇 카드를 긁어서 서프라이즈를 확인하세요!",
-                surpriseHeader: "🎉 특별한 서프라이즈 🎁", celebrationHeader: "✨ 축하 무대",
-                statsTitle: "⏳ 여정 통계", labelDays: "일", labelHours: "시간",
-                openWhenTitle: "💌 열어볼 때...", btnPopper: "🎊 3D 스테이지 포퍼", btnLove: "❤️ 사랑 보내기", btnFireworks: "🎆 웅장한 불꽃놀이",
-                btnProposalStory: "💍 프로포즈 이야기", btnWeddingStory: "💒 결혼식 이야기",
-                btnAnniversaryStory: "💍 결혼 기념일 이야기", btnGraduationStory: "🎓 졸업 이야기",
-                btnBabyStory: "👶 아기 탄생 이야기", btnBirthdayStory: "🎂 생일 케이크 이야기",
-                categories: { "Birthday": "🎂 생일 축하해", "Proposal": "💍 마법 같은 프로포즈", "WeddingWish": "💒 행복한 결혼 생활", "Wedding": "💍 행복한 결혼 기념일", "NewBorn": "👶 환영해요 작은 천사", "Graduation": "🎓 졸업을 축하합니다", "Other": "✨ 특별한 축하" }
-            },
-            'hi': {
-                lockTitle: "⏳ पोर्टल लॉक है!", lockSubtitle: "यह विशेष सरप्राइज खुलेगा:",
-                giftPrompt: "🎁 गिफ्ट बॉक्स पर टैप करें!", giftSubPrompt: "सरप्राइज देखने के लिए कहीं भी टैप करें...",
-                targetTimeText: "लक्ष्य समय", scratchInstruction: "👇 सरप्राइज देखने के लिए नीचे स्क्रैच करें!",
-                surpriseHeader: "🎉 विशेष सरप्राइज 🎁", celebrationHeader: "✨ उत्सव मंच",
-                statsTitle: "⏳ यात्रा के आंकड़े", labelDays: "दिन", labelHours: "घंटे",
-                openWhenTitle: "💌 जब खोलें...", btnPopper: "🎊 3D स्टेज पॉपर", btnLove: "❤️ प्यार भेजें", btnFireworks: "🎆 भव्य आतिशबाजी",
-                btnProposalStory: "💍 प्रपोजल स्टोरी", btnWeddingStory: "💒 वेडिंग स्टोरी",
-                btnAnniversaryStory: "💍 वेडिंग एनिवर्सरी स्टोरी", btnGraduationStory: "🎓 ग्रेजुएशन स्टोरी",
-                btnBabyStory: "👶 बेबी बोर्न स्टोरी", btnBirthdayStory: "🎂 बर्थडे केक स्टोरी",
-                categories: { "Birthday": "🎂 जन्मदिन की शुभकामनाएं", "Proposal": "💍 जादुई प्रपोजल", "WeddingWish": "💒 सुखी वैवाहिक जीवन", "Wedding": "💍 विवाह वर्षगांठ की शुभकामनाएं", "NewBorn": "👶 नन्हे फरिश्ते का स्वागत", "Graduation": "🎓 ग्रेजुएशन की बधाई", "Other": "✨ विशेष उत्सव" }
             }
         };
 
@@ -646,29 +599,37 @@
                 if (el) el.innerText = getTranslation(lang, id);
             });
             let catMap = (translations[lang] && translations[lang].categories) ? translations[lang].categories : translations['en'].categories;
-            document.getElementById('mainTitle').innerText = catMap[currentCategory] || catMap["Birthday"];
+            document.getElementById('mainTitle').innerText = catMap[currentCategory] || catMap["Birthday"] || currentCategory;
+
+            let themeKey = 'Morning';
+            if (['Birthday', 'Proposal', 'WeddingWish', 'Wedding', 'NewBorn', 'Graduation', 'HouseWarming'].includes(currentCategory)) {
+                themeKey = currentCategory;
+            } else if (currentCategory === 'Night') {
+                themeKey = 'Night';
+            }
 
             let headerBox = document.getElementById('royalHeaderContainer');
-            if (headerBox) {
-                headerBox.className = 'header-box-base theme-' + currentCategory;
-            }
-            document.body.className = `theme-${currentCategory}-bg`;
+            if (headerBox) headerBox.className = 'header-box-base theme-' + themeKey;
+            document.body.className = `theme-${themeKey}-bg`;
+
+            let shareUrl = window.location.href;
+            let shareText = `✨ Check out this special celebration! 🎉 ${shareUrl}`;
+            document.getElementById('waShareLink').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+            document.getElementById('tgShareLink').href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent('✨ Special Celebration! 🎉')}`;
+            document.getElementById('fbShareLink').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
         }
 
-        // --- 💍 പ്രൊപ്പോസൽ സ്റ്റോറിലൈൻ ---
         let isStoryActive = false;
 
         function playProposalStory() {
             if (isStoryActive) return;
             isStoryActive = true;
-
             const boy = document.getElementById('storyBoy');
             const ringBox = document.getElementById('storyRingBox');
             const caption = document.getElementById('storyCaptionText');
             const choiceBox = document.getElementById('proposalChoiceBox');
 
             if (boy) boy.classList.add('walk-in');
-
             setTimeout(() => {
                 if (boy) boy.classList.add('kneel');
                 if (ringBox) ringBox.classList.add('open');
@@ -686,11 +647,9 @@
             if (choiceBox) choiceBox.style.display = 'none';
             if (girl) girl.classList.add('happy');
             caption.innerText = "💖 Absolute perfection! She said YES! Celebrations unlocked with pure joy! ✨🎉";
-            
             shower3DRedRoses();
             fireExtremeDualPoppers();
             launchGrandFireworks();
-
             setTimeout(() => {
                 caption.innerText = "✨ Their magnificent forever officially begins! 💍🥂💫";
                 isStoryActive = false;
@@ -704,13 +663,9 @@
             if (choiceBox) choiceBox.style.display = 'none';
             caption.innerText = "⏳ Thinking time granted! But your heart already knows it's a definite YES! 😉💖";
             confetti({ particleCount: 40, spread: 50, origin: { y: 0.6 } });
-
-            setTimeout(() => {
-                acceptProposalYes();
-            }, 2200);
+            setTimeout(() => { acceptProposalYes(); }, 2200);
         }
 
-        // --- 🎂 ജന്മദിന കേക്ക് കട്ടിംഗ് & മെഴുകുതിരി അണയ്ക്കൽ ലൈവ് ആനിമേഷൻ സ്റ്റേജ് ---
         function playBirthdayStory() {
             const flame = document.getElementById('candleFlame1');
             const flame2 = document.getElementById('candleFlame2');
@@ -718,7 +673,6 @@
             const caption = document.getElementById('storyCaptionText');
 
             caption.innerText = "🎂 Glowing candles are lit... Making a heartfelt wish! ✨";
-            
             setTimeout(() => {
                 if (flame) flame.classList.add('extinguished');
                 if (flame2) flame2.classList.add('extinguished');
@@ -726,14 +680,32 @@
                 caption.innerText = "🎉 Candles blown out! Cutting the delicious multi-tier birthday cake! 🍰";
                 fireExtremeDualPoppers();
             }, 1800);
-
             setTimeout(() => {
                 caption.innerText = "✨ Happy Birthday! Wishing you joy, success, and celebrations! 🎈";
                 launchGrandFireworks();
             }, 3500);
         }
 
-        // --- 💒 മറ്റ് വിഷ് സ്റ്റോറികൾ (ഗേൾ/ബോയ് സെലക്ഷൻ സപ്പോർട്ട്) ---
+        function playHouseWarmingStory() {
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "🏡 Lighting the traditional lamp, welcoming prosperity, love, and light into the new home... ✨";
+            fireExtremeDualPoppers();
+            setTimeout(() => {
+                caption.innerText = "✨ May your new house turn into a blessed and happy home! 🌸";
+                launchGrandFireworks();
+            }, 2500);
+        }
+
+        function playMorningStory() {
+            const caption = document.getElementById('storyCaptionText');
+            caption.innerText = "🌅 Fresh morning breeze, warm golden sunshine, and a wonderful day ahead! ☕✨";
+            fireExtremeDualPoppers();
+            setTimeout(() => {
+                caption.innerText = "✨ Have an amazingly productive and joyful day! 🌟";
+                launchGrandFireworks();
+            }, 2500);
+        }
+
         function playWeddingStory() {
             const caption = document.getElementById('storyCaptionText');
             let partner = currentGender === 'girl' ? 'Bride' : 'Groom';
@@ -779,7 +751,6 @@
             }, 2500);
         }
 
-        // --- കാറ്റഗറി അനുസരിച്ച് വിഷ്വൽ വേൾഡ് സ്റ്റേജ് റെൻഡർ ചെയ്യൽ ---
         function renderCategoryActions() {
             let container = document.getElementById('primaryActionButtons');
             let stage = document.getElementById('storyStageContainer');
@@ -804,6 +775,29 @@
                 container.innerHTML = `
                     <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700); font-size:0.9rem;" onclick="playProposalStory()">${getTranslation(currentLang, 'btnProposalStory')}</button>
                     <button class="btn" onclick="shower3DRedRoses()">🌹 Shower Red Roses</button>
+                `;
+            } else if (currentCategory === 'HouseWarming') {
+                stage.innerHTML = `
+                    <div class="visual-world-card">
+                        <div class="world-title">Traditional House Blessing</div>
+                        <div class="world-subtitle">Warm glowing lamp, floral decorations, and prosperity vibes</div>
+                    </div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'House Warming Story' to light the lamp!</div>
+                `;
+                container.innerHTML = `
+                    <button class="btn" style="background:linear-gradient(45deg,#00ffaa,#ffd700); font-size:0.9rem; color:#000;" onclick="playHouseWarmingStory()">${getTranslation(currentLang, 'btnHouseWarmingStory')}</button>
+                `;
+            } else if (['Morning', 'Night', 'Congratulations', 'Love', 'MissYou', 'Thanks', 'Sorry', 'Luck', 'AllTheBest', 'GetWell', 'TakeCare', 'Exam', 'NewJob', 'Achievement', 'Journey', 'JustForYou', 'GreatDay', 'Other'].includes(currentCategory)) {
+                // Simple Daily Wishes Interface (Clean & Elegant Vibe)
+                stage.innerHTML = `
+                    <div class="visual-world-card">
+                        <div class="world-title">✨ Expressive Vibe Stage ✨</div>
+                        <div class="world-subtitle">Warm wishes delivered with style, love, and joy</div>
+                    </div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap below to trigger magical celebration effects! ✨</div>
+                `;
+                container.innerHTML = `
+                    <button class="btn" style="background:linear-gradient(45deg,#00f2fe,#4facfe); font-size:0.9rem; color:#000;" onclick="playMorningStory()">✨ Trigger Magic Vibe</button>
                 `;
             } else if (currentCategory === 'WeddingWish') {
                 stage.innerHTML = `
@@ -852,7 +846,6 @@
                     <button class="btn" style="background:linear-gradient(45deg,#ff9ff3,#feca57); font-size:0.9rem; color:#000;" onclick="playBabyStory()">${getTranslation(currentLang, 'btnBabyStory')}</button>
                 `;
             } else {
-                // Birthday (ലൈവ് കേക്ക് & കട്ടിംഗ് ആനിമേഷൻ സ്റ്റേജ്)
                 stage.innerHTML = `
                     <div class="visual-world-card">
                         <div class="world-title">Luxury Birthday Stage</div>
