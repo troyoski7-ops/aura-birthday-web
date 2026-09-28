@@ -426,7 +426,25 @@
                     "NewBorn": "👶 Welcome Little Angel",
                     "Graduation": "🎓 Congratulations on Graduation",
                     "HouseWarming": "🏡 Happy House Warming",
-                    "Festival": "🏮 Happy Festival"
+                    "Festival": "🏮 Happy Festival",
+                    "Morning": "🌅 Good Morning",
+                    "Night": "🌙 Good Night",
+                    "Congratulations": "🎉 Congratulations",
+                    "Love": "❤️ I Love You",
+                    "MissYou": "🫂 I Miss You",
+                    "Thanks": "🙏 Thank You",
+                    "Sorry": "🥺 I’m Sorry",
+                    "Luck": "🍀 Good Luck",
+                    "AllTheBest": "💪 All the Best",
+                    "GetWell": "🩷 Get Well Soon",
+                    "TakeCare": "🫶 Take Care",
+                    "Exam": "🎓 Exam Best of Luck",
+                    "NewJob": "💼 New Job",
+                    "Achievement": "🏆 Achievement",
+                    "Journey": "✈️ Safe Journey",
+                    "JustForYou": "🎁 Just For You",
+                    "GreatDay": "😊 Have a Great Day",
+                    "Other": "✨ Special Celebration"
                 }
             },
             'ml': {
@@ -447,7 +465,25 @@
                     "NewBorn": "👶 കുഞ്ഞുമാലാഖയ്ക്ക് സ്വാഗതം",
                     "Graduation": "🎓 ബിരുദ ആശംസകൾ",
                     "HouseWarming": "🏡 ഗൃഹപ്രവേശ ആശംസകൾ",
-                    "Festival": "🏮 ആഘോഷ ആശംസകൾ"
+                    "Festival": "🏮 ആഘോഷ ആശംസകൾ",
+                    "Morning": "🌅 സുപ്രഭാതം",
+                    "Night": "🌙 ശുഭരാത്രി",
+                    "Congratulations": "🎉 അഭിനന്ദനങ്ങൾ",
+                    "Love": "❤️ സ്നേഹം",
+                    "MissYou": "🫂 നിങ്ങളെ ഓർക്കുന്നു",
+                    "Thanks": "🙏 നന്ദി",
+                    "Sorry": "🥺 ക്ഷമിക്കൂ",
+                    "Luck": "🍀 നല്ല ഭാഗ്യം",
+                    "AllTheBest": "💪 എല്ലാവിധ ആശംസകളും",
+                    "GetWell": "🩷 പെട്ടെന്ന് സുഖം പ്രാപിക്കട്ടെ",
+                    "TakeCare": "🫶 ശ്രദ്ധിക്കുക",
+                    "Exam": "🎓 പരീക്ഷയ്ക്ക് ആശംസകൾ",
+                    "NewJob": "💼 പുതിയ ജോലിക്ക് ആശംസകൾ",
+                    "Achievement": "🏆 നേട്ടത്തിന് അഭിനന്ദനങ്ങൾ",
+                    "Journey": "✈️ സുരക്ഷിത യാത്ര",
+                    "JustForYou": "🎁 നിങ്ങൾക്കായി മാത്രം",
+                    "GreatDay": "😊 മനോഹരമായ ഒരു ദിവസം ആശംസിക്കുന്നു",
+                    "Other": "✨ പ്രത്യേക ആഘോഷം"
                 }
             }
         };
@@ -633,6 +669,12 @@
                 `;
                 container.innerHTML = `<button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700); font-size:0.9rem;" onclick="playBirthdayStory()">${texts.btnBirthdayStory}</button>`;
             }
+
+            // Simple wishes check: hide stats/open when if it's a simple daily wish
+            let isSimpleWish = ['Morning', 'Night', 'Congratulations', 'Love', 'MissYou', 'Thanks', 'Sorry', 'Luck', 'AllTheBest', 'GetWell', 'TakeCare', 'Exam', 'NewJob', 'Achievement', 'Journey', 'JustForYou', 'GreatDay', 'Other'].includes(currentCategory);
+            document.getElementById('infoBox').style.display = isSimpleWish ? 'none' : 'block';
+            document.getElementById('statsContainer').style.display = isSimpleWish ? 'none' : 'block';
+            document.getElementById('openWhenContainer').style.display = isSimpleWish ? 'none' : 'block';
         }
 
         let urlParams = new URLSearchParams(window.location.search);
