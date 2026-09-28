@@ -101,7 +101,7 @@
 
         .fs-btn { background: rgba(255, 215, 0, 0.15); border: 1px solid #ffd700; color: #ffd700; font-size: 0.75rem; padding: 6px 14px; border-radius: 15px; margin-bottom: 8px; cursor: pointer; font-weight: 600; }
 
-        /* --- 🌟 റിയലിസ്റ്റിക് വിഷ്വൽ വേൾഡ് സ്റ്റേജ് (ലക്വറി ഗ്ലാസ് കാർഡ് ഡിസൈൻ) --- */
+        /* --- 🌟 ആനിമേഷൻ സ്റ്റേജുകൾ --- */
         .story-stage {
             width: 100%; min-height: 290px;
             background: radial-gradient(circle at bottom, rgba(255,215,0,0.15) 0%, rgba(6,4,12,0.98) 85%);
@@ -112,7 +112,6 @@
             overflow: hidden;
         }
 
-        /* ഓരോ ഒക്കേഷനും അനുയോജ്യമായ പ്രൊഫഷണൽ വിഷ്വൽ കാർഡ് വേൾഡ് */
         .visual-world-card {
             width: 100%; padding: 22px 15px; border-radius: 16px;
             background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
@@ -124,7 +123,7 @@
         .world-title { font-size: 1.15rem; font-weight: 700; color: #ffd700; margin-bottom: 6px; letter-spacing: 0.5px; }
         .world-subtitle { font-size: 0.82rem; color: #e2e8f0; line-height: 1.4; }
 
-        /* പ്രൊപ്പോസൽ സ്റ്റോറിക്കായുള്ള സ്പെഷ്യൽ ക്യാരക്ടർ ഫ്ലോ */
+        /* പ്രൊപ്പോസൽ ക്യാരക്ടർ ഫ്ലോ */
         .cinematic-viewport {
             position: relative; width: 100%; height: 130px; display: flex; align-items: flex-end; justify-content: center; gap: 40px; margin-bottom: 6px;
         }
@@ -141,6 +140,32 @@
             transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 0 20px #ffd700); z-index: 10;
         }
         .ring-box-element.open { transform: translateX(-50%) scale(1.3); }
+
+        /* ജന്മദിന കേക്ക് സ്റ്റേജ് ആനിമേഷൻ */
+        .birthday-cake-stage {
+            position: relative; width: 100%; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; margin-bottom: 10px;
+        }
+        .cake-body {
+            width: 110px; height: 45px; background: linear-gradient(135deg, #ff007f, #ff758c); border-radius: 10px 10px 0 0; position: relative; box-shadow: 0 0 20px rgba(255,0,127,0.5);
+        }
+        .cake-top {
+            width: 120px; height: 18px; background: #fff; border-radius: 10px; position: absolute; top: -9px; left: -5px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .candle {
+            width: 7px; height: 28px; background: linear-gradient(to top, #00f2fe, #4facfe); position: absolute; top: -30px; border-radius: 4px;
+        }
+        .candle.c1 { left: 30px; }
+        .candle.c2 { left: 52px; }
+        .candle.c3 { left: 74px; }
+        .flame {
+            width: 10px; height: 14px; background: #ffd700; border-radius: 50% 50% 20% 20%; position: absolute; top: -13px; left: -1px;
+            box-shadow: 0 0 15px #ffaa00; animation: flameFlicker 0.6s infinite alternate;
+        }
+        .flame.extinguished { display: none; }
+        @keyframes flameFlicker {
+            0% { transform: scale(1) rotate(-3deg); background: #ffd700; }
+            100% { transform: scale(1.15) rotate(3deg); background: #ff4500; }
+        }
 
         .interactive-choice-box {
             display: none; gap: 12px; margin-top: 12px; animation: popIn 0.5s ease-out; z-index: 99;
@@ -518,7 +543,7 @@
             document.body.className = `theme-${currentCategory}-bg`;
         }
 
-        // --- 💍 PROPOSAL STORYLINE ---
+        // --- 💍 പ്രൊപ്പോസൽ സ്റ്റോറിലൈൻ ---
         let isStoryActive = false;
 
         function playProposalStory() {
@@ -573,7 +598,30 @@
             }, 2200);
         }
 
-        // --- 🌟 ഓരോ ഒക്കേഷനും അനുയോജ്യമായ റിയലിസ്റ്റിക് വിഷ്വൽ വേൾഡ് സ്റ്റോറികൾ ---
+        // --- 🎂 ജന്മദിന കേക്ക് കട്ടിംഗ് & മെഴുകുതിരി അണയ്ക്കൽ ലൈവ് ആനിമേഷൻ സ്റ്റേജ് ---
+        function playBirthdayStory() {
+            const flame = document.getElementById('candleFlame1');
+            const flame2 = document.getElementById('candleFlame2');
+            const flame3 = document.getElementById('candleFlame3');
+            const caption = document.getElementById('storyCaptionText');
+
+            caption.innerText = "🎂 Glowing candles are lit... Making a heartfelt wish! ✨";
+            
+            setTimeout(() => {
+                if (flame) flame.classList.add('extinguished');
+                if (flame2) flame2.classList.add('extinguished');
+                if (flame3) flame3.classList.add('extinguished');
+                caption.innerText = "🎉 Candles blown out! Cutting the delicious multi-tier birthday cake! 🍰";
+                fireExtremeDualPoppers();
+            }, 1800);
+
+            setTimeout(() => {
+                caption.innerText = "✨ Happy Birthday! Wishing you joy, success, and celebrations! 🎈";
+                launchGrandFireworks();
+            }, 3500);
+        }
+
+        // --- 💒 മറ്റ് വിഷ് സ്റ്റോറികൾ ---
         function playWeddingStory() {
             const caption = document.getElementById('storyCaptionText');
             caption.innerText = "💒 Elegant venue view, soft petals falling, and eternal vows exchanged...";
@@ -616,17 +664,7 @@
             }, 2500);
         }
 
-        function playBirthdayStory() {
-            const caption = document.getElementById('storyCaptionText');
-            caption.innerText = "🎂 Luxury birthday stage reveal with glowing candles and grand confetti...";
-            fireExtremeDualPoppers();
-            setTimeout(() => {
-                caption.innerText = "🎉 Wishing you the most magnificent and joyful birthday ever! ✨";
-                launchGrandFireworks();
-            }, 2500);
-        }
-
-        // --- കാറ്റഗറി അനുസരിച്ച് വിഷ്വൽ വേൾഡ് റെൻഡർ ചെയ്യൽ ---
+        // --- കാറ്റഗറി അനുസരിച്ച് വിഷ്വൽ വേൾഡ് സ്റ്റേജ് റെൻഡർ ചെയ്യൽ ---
         function renderCategoryActions() {
             let container = document.getElementById('primaryActionButtons');
             let stage = document.getElementById('storyStageContainer');
@@ -699,13 +737,21 @@
                     <button class="btn" style="background:linear-gradient(45deg,#ff9ff3,#feca57); font-size:0.9rem; color:#000;" onclick="playBabyStory()">${getTranslation(currentLang, 'btnBabyStory')}</button>
                 `;
             } else {
-                // Birthday
+                // Birthday (ലൈവ് കേക്ക് & കട്ടിംഗ് ആനിമേഷൻ സ്റ്റേജ്)
                 stage.innerHTML = `
                     <div class="visual-world-card">
                         <div class="world-title">Luxury Birthday Stage</div>
-                        <div class="world-subtitle">Gלowing candles, multi-tier cake reveal, and dazzling confetti</div>
+                        <div class="world-subtitle">Glowing candles, multi-tier cake reveal, and dazzling confetti</div>
                     </div>
-                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Birthday Cake Story' to begin!</div>
+                    <div class="birthday-cake-stage">
+                        <div class="cake-body">
+                            <div class="cake-top"></div>
+                            <div class="candle c1"><div id="candleFlame1" class="flame"></div></div>
+                            <div class="candle c2"><div id="candleFlame2" class="flame"></div></div>
+                            <div class="candle c3"><div id="candleFlame3" class="flame"></div></div>
+                        </div>
+                    </div>
+                    <div class="story-caption" id="storyCaptionText">✨ Tap 'Birthday Cake Story' to blow candles & cut cake! ✨</div>
                 `;
                 container.innerHTML = `
                     <button class="btn" style="background:linear-gradient(45deg,#ff007f,#ffd700); font-size:0.9rem;" onclick="playBirthdayStory()">${getTranslation(currentLang, 'btnBirthdayStory')}</button>
